@@ -1,11 +1,103 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkBlue"
+    tools:context=".MainActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="100"
+        android:orientation="vertical">
+
+        <RelativeLayout
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_weight="50">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/sleep_training"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start a sleep adjustment plan."
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingBottom="40dp"
+                    />
+            </LinearLayout>
+
+            <Button
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:background="?android:selectableItemBackground">
+            </Button>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_weight="50"
+            android:background="@color/darkPurple">
+
+            <ImageView
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingTop="45dp"
+                android:src="@drawable/history"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+
+                android:text="Examine past plans."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                android:paddingTop="45dp"
+                />
+
+            <Button
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:background="?android:selectableItemBackground">
+            </Button>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="CYCLE SHIFT"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:textSize="50dp"-->
+        <!--android:textColor="#66FFFFFF"-->
+        <!--/>-->
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="125dp"
+        android:layout_height="126dp"
+        android:src="@drawable/logo_big"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

@@ -1,8 +1,14 @@
 <resources>
+    <!-- Application colors-->
+    <color name = "darkPurple">#261C2B</color>
+    <color name = "darkBlue">#292B39</color>
+    <color name = "darkTeal">#226468</color>
+    <color name = "teal">#608D80</color>
+    <color name = "lightTeal">#829D8F</color>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="android:Theme.Material.NoActionBar">
     </style>
+
 
 </resources>
