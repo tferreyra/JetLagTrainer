@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application colors-->
     <color name = "darkPurple">#261C2B</color>
@@ -8,7 +9,26 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Material.NoActionBar">
+        <!-- Main theme colors -->
+        <item name="android:colorPrimary">@color/darkPurple</item>
+        <item name="android:colorPrimaryDark">@color/darkBlue</item>
+        <item name="android:colorAccent">@color/lightTeal</item>
+        <item name="android:windowBackground">@color/darkBlue</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+        <!-- enable window content transitions -->
+        <item name="android:windowContentTransitions">true</item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/image_move</item>
+        <item name="android:windowSharedElementExitTransition">@transition/image_move</item>
     </style>
 
-
+    <style name="bodyText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

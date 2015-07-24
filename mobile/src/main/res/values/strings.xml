@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">JetLagTrainer</string>
 
-    <string name="hello_world">Hello world!</string>
+    <!-- Main Screen-->
+    <string name="main_sleep">Start a sleep shift.</string>
+    <string name="main_history">My history.</string>
+
+    <!-- Transition Strings -->
+    <string name="transition_main_input">transition from main to input</string>
+
+    <!-- Activity Names -->
+    <string name="title_activity_input_selection">InputSelectionActivity</string>
+
+    <!-- defaults-->
     <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
 </resources>

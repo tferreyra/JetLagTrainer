@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="android:Theme.Material.Light">
-    </style>
+    <!--<style name="AppTheme" parent="android:Theme.Material.NoActionBar">-->
+        <!--&lt;!&ndash; Main theme colors &ndash;&gt;-->
+        <!--<item name="android:colorPrimary">@color/darkPurple</item>-->
+        <!--<item name="android:colorPrimaryDark">@color/darkBlue</item>-->
+        <!--<item name="android:colorAccent">@color/lightTeal</item>-->
+        <!--<item name="android:windowBackground">@color/darkBlue</item>-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+
+        <!--&lt;!&ndash; enable window content transitions &ndash;&gt;-->
+        <!--<item name="android:windowContentTransitions">true</item>-->
+
+        <!--&lt;!&ndash; specify enter and exit transitions &ndash;&gt;-->
+        <!--<item name="android:windowEnterTransition">@transition/slide</item>-->
+        <!--<item name="android:windowExitTransition">@transition/slide</item>-->
+        <!--<item name="android:windowAllowEnterTransitionOverlap">true</item>-->
+        <!--<item name="android:windowAllowReturnTransitionOverlap">true</item>-->
+
+
+        <!--&lt;!&ndash; specify shared element transitions &ndash;&gt;-->
+        <!--<item name="android:windowSharedElementEnterTransition">-->
+            <!--@transition/slide</item>-->
+        <!--<item name="android:windowSharedElementExitTransition">-->
+            <!--@transition/slide</item>-->
+    <!--</style>-->
 </resources>

@@ -11,10 +11,12 @@
         android:weightSum="100"
         android:orientation="vertical">
 
+        <!-- New Sleep Shift Section-->
         <RelativeLayout
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
         android:layout_weight="50">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -23,32 +25,34 @@
                 >
 
                 <ImageView
-                    android:layout_width="fill_parent"
+                    android:id="@+id/sleep_training_graphic"
+                    android:transitionName="@string/transition_main_input"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/sleep_training"/>
 
                 <TextView
+                    style="@style/bodyText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Start a sleep adjustment plan."
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:text="@string/main_sleep"
                     android:paddingTop="20dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
                     android:paddingBottom="40dp"
                     />
+
             </LinearLayout>
 
             <Button
                 android:layout_height="fill_parent"
                 android:layout_width="fill_parent"
-                android:background="?android:selectableItemBackground">
+                android:background="?android:selectableItemBackground"
+                android:onClick="launchNewSleepShiftInput">
             </Button>
 
         </RelativeLayout>
 
+        <!-- Visit History Section -->
         <RelativeLayout
             android:layout_height="fill_parent"
             android:layout_width="fill_parent"
@@ -63,13 +67,11 @@
                 android:src="@drawable/history"/>
 
             <TextView
+                style="@style/bodyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-
-                android:text="Examine past plans."
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
+                android:text="@string/main_history"
                 android:textAlignment="center"
                 android:paddingTop="45dp"
                 />
@@ -98,6 +100,7 @@
         android:layout_width="125dp"
         android:layout_height="126dp"
         android:src="@drawable/logo_big"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        />
 
 </RelativeLayout>
