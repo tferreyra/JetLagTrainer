@@ -1,40 +1,64 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
+import android.app.ListActivity;
 import android.content.Context;
-import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.transition.Explode;
 import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.CursorAdapter;
+import android.widget.ListView;
 
 
-public class MainActivity extends Activity {
+public class HistoryActivity extends Activity {
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_history);
+        setTranstions();
+        
+        initializeDatabase();
+        insertTestEntry();
+        setHistoryListAdapter();
+    }
+
+    private void initializeDatabase() {
+        db = openOrCreateDatabase("HistoryDB", Context.MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS shifts(_id INT, origin VARCHAR(255), destination VARCHAR(255));");
+    }
+
+    private void insertTestEntry() {
+        db.execSQL("INSERT INTO shifts (origin, destination) VALUES ('SFO', 'JFK');");
+    }
+
+    private void setHistoryListAdapter() {
+        Cursor c=db.rawQuery("SELECT * FROM shifts", null);
+        HistoryCursorAdapter adapter = new HistoryCursorAdapter(this, c, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        ListView historyList = (ListView) findViewById(R.id.history_list);
+        historyList.setAdapter(adapter);
+    }
+
+    private void setTranstions() {
         Slide slide = new Slide();
         slide.excludeTarget(android.R.id.statusBarBackground, true);
         slide.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setEnterTransition(slide);
         getWindow().setExitTransition(slide);
-        getWindow().setSharedElementEnterTransition(slide);
-        getWindow().setSharedElementExitTransition(slide);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_history, menu);
         return true;
     }
 
@@ -52,25 +76,4 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void launchNewSleepShiftInput(View view) {
-        Intent intent = new Intent(this, InputSelectionActivity.class);
-        String transitionName = getString(R.string.transition_main_input);
-
-        View graphic = findViewById(R.id.sleep_training_graphic);
-
-        ActivityOptionsCompat options =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-                        graphic,   // The view which starts the transition
-                        transitionName    // The transitionName of the view we’re transitioning to
-                );
-
-        ActivityCompat.startActivity(this, intent, options.toBundle());
-    }
-
-    public void launchHistory(View view) {
-        Intent intent = new Intent(this, HistoryActivity.class);
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-    }
-
 }
