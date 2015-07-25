@@ -1,12 +1,15 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.transition.Explode;
 import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 
 
 public class InputSelectionActivity extends Activity {
@@ -43,5 +46,21 @@ public class InputSelectionActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onStart() {
+        super.onStart();
+        EditText txtDate = (EditText) findViewById(R.id.txtdate);
+        txtDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    DateDialog dialog = new DateDialog(v);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    dialog.show(ft, "DatePicker");
+
+                }
+            }
+        });
     }
 }
