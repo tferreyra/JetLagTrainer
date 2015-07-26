@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,8 +21,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 
 public class InputSelectionActivity extends Activity {
@@ -84,11 +83,9 @@ public class InputSelectionActivity extends Activity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 retrieveFlightData(s.toString());
@@ -110,12 +107,7 @@ public class InputSelectionActivity extends Activity {
         String departureDate = null;
         String arrivalDate = null;
 
-/*
-        Document doc = null;
-*/
-
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(new Runnable() {
+        Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -126,14 +118,18 @@ public class InputSelectionActivity extends Activity {
                 }
             }
         });
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         if (doc != null) {
             Elements tables = doc.select("table");
             for (Element table : tables) {
                 for (Element row : table.select("tr")) {
                     String text = row.text();
-                    // System.out.println(text);
-
                     if (text.matches(".*\\bDeparts\\b.*") || text.matches(".*\\bArrives\\b.*")) {
                         String[] phrases = text.split(",");
                         for (int i = 0; i < phrases.length; i++) {
@@ -156,14 +152,11 @@ public class InputSelectionActivity extends Activity {
             departureTxt.setText("");
             arrivalTxt.setText("");
         }
-
-        /*System.out.println("Departure Date: " + departureDate);
-        System.out.println("Arrival Date: " + arrivalDate);*/
-
     }
 
     public String extractDate (String str) {
         String[] words = str.trim().split("\\s+");
         return words[0] + " " + words[1];
     }
+
 }
