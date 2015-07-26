@@ -5,6 +5,8 @@ import android.app.FragmentTransaction;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,26 +51,20 @@ public class InputSelectionActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void launchFlight(View view) {
+        Intent intent = new Intent(this, FlightInput.class);
+        String transitionName = getString(R.string.transition_input_flight);
 
-    public void onStart() {
-        super.onStart();
-        EditText txtDate = (EditText) findViewById(R.id.txtdate);
-        txtDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    DateDialog dialog = new DateDialog(v);
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    dialog.show(ft, "DatePicker");
+        View button = findViewById(R.id.next);
 
-                }
-            }
-        });
+        ActivityOptionsCompat options =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                        button,   // The view which starts the transition
+                        transitionName    // The transitionName of the view we’re transitioning to
+                );
+
+        ActivityCompat.startActivity(this, intent, options.toBundle());
     }
 
-    public void generateSchedule(View view) {
-        Intent intent = new Intent(this, ScheduleActivity.class);
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
-    }
 }
