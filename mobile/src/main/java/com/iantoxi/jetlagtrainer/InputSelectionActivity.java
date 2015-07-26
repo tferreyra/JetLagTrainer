@@ -14,8 +14,20 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 public class InputSelectionActivity extends Activity {
+
+    private Document doc;
+    private String searchQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,17 +83,15 @@ public class InputSelectionActivity extends Activity {
         txtNum.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                retrieveFlightData(s.toString());
             }
         });
     }
@@ -90,5 +100,70 @@ public class InputSelectionActivity extends Activity {
         Intent intent = new Intent(this, ScheduleActivity.class);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
+    }
+
+    private void retrieveFlightData(String flightNumber) {
+        String searchURLFront = "http://www.google.com/search?q=";
+        String searchURLBack = "&gws_rd=ssl";
+        searchQuery = searchURLFront + flightNumber + searchURLBack;
+
+        String departureDate = null;
+        String arrivalDate = null;
+
+/*
+        Document doc = null;
+*/
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    doc = Jsoup.connect(searchQuery).userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36")
+                            .timeout(12000).get();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        if (doc != null) {
+            Elements tables = doc.select("table");
+            for (Element table : tables) {
+                for (Element row : table.select("tr")) {
+                    String text = row.text();
+                    // System.out.println(text);
+
+                    if (text.matches(".*\\bDeparts\\b.*") || text.matches(".*\\bArrives\\b.*")) {
+                        String[] phrases = text.split(",");
+                        for (int i = 0; i < phrases.length; i++) {
+                            if (phrases[i].matches(".*\\bDeparts\\b.*"))
+                                departureDate = extractDate(phrases[i + 2]);
+                            if (phrases[i].matches(".*\\bArrives\\b.*"))
+                                arrivalDate = extractDate(phrases[i + 2]);
+                        }
+                    }
+                }
+            }
+        }
+
+        EditText departureTxt = (EditText) findViewById(R.id.txtdeparturedate);
+        EditText arrivalTxt = (EditText) findViewById(R.id.txtarrivaldate);
+        if (departureDate != null && arrivalDate != null) {
+            departureTxt.setText(departureDate);
+            arrivalTxt.setText(arrivalDate);
+        } else {
+            departureTxt.setText("");
+            arrivalTxt.setText("");
+        }
+
+        /*System.out.println("Departure Date: " + departureDate);
+        System.out.println("Arrival Date: " + arrivalDate);*/
+
+    }
+
+    public String extractDate (String str) {
+        String[] words = str.trim().split("\\s+");
+        return words[0] + " " + words[1];
     }
 }

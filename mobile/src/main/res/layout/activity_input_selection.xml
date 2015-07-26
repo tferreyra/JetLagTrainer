@@ -24,6 +24,7 @@
         android:layout_marginTop="60dp"
         android:textAlignment="center"
         android:ellipsize="start"
+        android:singleLine="true"
         android:layout_below="@+id/imageView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
@@ -36,6 +37,7 @@
         android:textSize="20sp"
         android:gravity="center_horizontal"
         android:textAlignment="center"
+        android:singleLine="true"
         android:layout_marginTop="30dp"
         android:layout_below="@+id/txtnum"
         android:layout_centerVertical="true"
@@ -49,6 +51,7 @@
         android:textSize="20sp"
         android:gravity="center_horizontal"
         android:textAlignment="center"
+        android:singleLine="true"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/txtdeparturedate"
         android:layout_centerVertical="true"

@@ -135,5 +135,6 @@
     <orderEntry type="library" exported="" name="play-services-games-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-identity-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-maps-7.5.0" level="project" />
+    <orderEntry type="module" module-name="jsoup-1.8.2" exported="" />
   </component>
 </module>
