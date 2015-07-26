@@ -5,6 +5,8 @@ import android.app.FragmentTransaction;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,7 +54,7 @@ public class InputSelectionActivity extends Activity {
 
     public void onStart() {
         super.onStart();
-        EditText txtDate = (EditText) findViewById(R.id.txtdate);
+        EditText txtDate = (EditText) findViewById(R.id.txtdeparturedate);
         txtDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -62,6 +64,24 @@ public class InputSelectionActivity extends Activity {
                     dialog.show(ft, "DatePicker");
 
                 }
+            }
+        });
+
+        EditText txtNum = (EditText) findViewById(R.id.txtnum);
+        txtNum.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
