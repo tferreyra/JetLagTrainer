@@ -27,28 +27,11 @@ public class HistoryActivity extends Activity {
         setContentView(R.layout.activity_history);
         setTransitions();
 
-        initializeDatabase();
-        insertTestEntry();
         setHistoryListAdapter();
     }
 
-    private void initializeDatabase() {
-        db = openOrCreateDatabase("HistoryDB", Context.MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS shifts('_id' INTEGER PRIMARY KEY AUTOINCREMENT, origin VARCHAR(255), destination VARCHAR(255));");
-    }
-
-    private void insertTestEntry() {
-        ContentValues values = new ContentValues();
-
-        values.put("origin", "SFO");
-        values.put("destination", "JFK");
-
-        db.insert("shifts", null, values);
-    }
-
     private void setHistoryListAdapter() {
-        Cursor c=db.rawQuery("SELECT * FROM shifts", null);
-        HistoryCursorAdapter adapter = new HistoryCursorAdapter(this, c, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        HistoryAdapter adapter = new HistoryAdapter(this);
         ListView historyList = (ListView) findViewById(R.id.history_list);
         historyList.setAdapter(adapter);
     }

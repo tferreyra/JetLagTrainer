@@ -19,6 +19,10 @@ public class Night extends SugarRecord<Night> {
 
     private boolean advancing;
 
+    public Night() {
+        //necessary for Sugar ORM
+    }
+
     public Night(Schedule parent,
                  Calendar sleepStartDate,
                  int sleepTime,                 // time of sleep in minutes from 12:00AM on sleepStartDate

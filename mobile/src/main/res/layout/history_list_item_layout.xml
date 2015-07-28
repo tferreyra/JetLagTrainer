@@ -28,7 +28,7 @@ android:orientation="horizontal"
             android:layout_height="0dp"
             android:layout_weight="60">
             <TextView
-                android:id="@+id/history_travel"
+                android:id="@+id/origin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -42,6 +42,7 @@ android:orientation="horizontal"
             android:layout_height="0dp"
             android:layout_weight="40">
             <TextView
+                android:id="@+id/destination"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

@@ -1,5 +1,7 @@
 package com.iantoxi.jetlagtrainer;
 
+import android.util.Log;
+
 import com.orm.SugarRecord;
 
 import java.util.ArrayList;
@@ -29,6 +31,10 @@ public class Schedule extends SugarRecord<Schedule> {
 
     //signifies if this schedule is currently in use.
     private boolean active;
+
+    public Schedule() {
+        //necessary for Sugar ORM
+    }
 
     public Schedule(String originTimezone,
                     String destinationTimezone,
@@ -80,8 +86,9 @@ public class Schedule extends SugarRecord<Schedule> {
     //Calculates the number of hours in difference between two timezones on the date of travel.
     private int calculateZoneGap() {
         long travelDateInMillis = travelDate.getTimeInMillis();
-        return(TimeZone.getTimeZone(destinationTimezone).getOffset(travelDateInMillis)
-                - TimeZone.getTimeZone(originTimezone).getOffset(travelDateInMillis));
+        long offset = TimeZone.getTimeZone(destinationTimezone).getOffset(travelDateInMillis)
+                - TimeZone.getTimeZone(originTimezone).getOffset(travelDateInMillis);
+        return( (int) offset / (3600000));
     }
 
     //Recursively creates nights. Creates number of nights matching number of adjustment hours.

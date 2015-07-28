@@ -23,6 +23,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Random;
+import java.util.TimeZone;
 
 
 public class InputSelectionActivity extends Activity {
@@ -78,6 +81,32 @@ public class InputSelectionActivity extends Activity {
         ActivityCompat.startActivity(this, intent, options.toBundle());
     }
 
+    public void generateExampleSchedule(View view) {
+        String[] zones = TimeZone.getAvailableIDs();
+        Random rand = new Random();
+
+        Calendar start = Calendar.getInstance();
+        start.add(Calendar.DATE, rand.nextInt(10));
+        Calendar end = Calendar.getInstance();
+        end.add(Calendar.DATE, 10 + rand.nextInt(10));
+
+        Schedule example = new Schedule(zones[rand.nextInt(zones.length)],
+                                        zones[rand.nextInt(zones.length)],
+                                        start,
+                                        end,
+                                        12,
+                                        20,
+                                        true,
+                                        true);
+        example.save();
+    }
+
+    public void launchSchedule(View view) {
+        Intent intent = new Intent(this, ScheduleActivity.class);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+    }
+
+
     public void onStart() {
         super.onStart();
         EditText txtDate = (EditText) findViewById(R.id.txtdeparturedate);
@@ -107,8 +136,6 @@ public class InputSelectionActivity extends Activity {
             }
         });
     }
-
-
 
 
     private void retrieveFlightData(String flightNumber) {
