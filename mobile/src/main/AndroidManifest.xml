@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.iantoxi.jetlagtrainer">
+    package="com.iantoxi.jetlagtrainer" >
 
     <application
+        android:name="com.orm.SugarApp"
         android:allowBackup="true"
         android:icon="@drawable/logo_small"
-        tools:replace="android:icon"
-        android:name="com.orm.SugarApp"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -32,10 +32,27 @@
             android:label="@string/title_activity_schedule" >
         </activity>
 
-        <meta-data android:name="DATABASE" android:value="sleep_shifts.db" />
-        <meta-data android:name="VERSION" android:value="3" />
-        <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.iantoxi" />
-    </application>
+        <meta-data
+            android:name="DATABASE"
+            android:value="sleep_shifts.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="3" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.iantoxi" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_geo_api_key"/>
+
+        <activity
+            android:name=".InputLocationActivity"
+            android:label="@string/title_activity_input_location" >
+        </activity>
+    </application>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
 </manifest>

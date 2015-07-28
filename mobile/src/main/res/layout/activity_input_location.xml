@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.iantoxi.jetlagtrainer.InputLocationActivity">
+
+
+    <ImageView
+        android:transitionName="@string/transition_main_input"
+        android:layout_width="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sleep_training"
+        android:id="@+id/imageView" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:paddingTop="50dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/origin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Origin"
+            android:background="?android:selectableItemBackground"
+            android:textSize="30sp"
+            android:padding="10dp"
+            android:onClick="setOrigin"
+            />
+        <Button
+            android:id="@+id/destination"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackground"
+            android:text="Destination"
+            android:textSize="30sp"
+            android:padding="10dp"
+            android:layout_marginTop="30dp"
+            android:onClick="setDestination"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>
