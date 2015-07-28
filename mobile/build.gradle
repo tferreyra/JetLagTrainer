@@ -23,5 +23,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     wearApp project(':wear')
     compile 'com.google.android.gms:play-services:+'
+    compile 'com.github.satyan:sugar:1.3'
     compile project(':jsoup-1.8.2')
 }

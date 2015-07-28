@@ -2,6 +2,7 @@ package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -24,7 +25,7 @@ public class HistoryActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_history);
-        setTranstions();
+        setTransitions();
 
         initializeDatabase();
         insertTestEntry();
@@ -33,11 +34,16 @@ public class HistoryActivity extends Activity {
 
     private void initializeDatabase() {
         db = openOrCreateDatabase("HistoryDB", Context.MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS shifts(_id INT, origin VARCHAR(255), destination VARCHAR(255));");
+        db.execSQL("CREATE TABLE IF NOT EXISTS shifts('_id' INTEGER PRIMARY KEY AUTOINCREMENT, origin VARCHAR(255), destination VARCHAR(255));");
     }
 
     private void insertTestEntry() {
-        db.execSQL("INSERT INTO shifts (origin, destination) VALUES ('SFO', 'JFK');");
+        ContentValues values = new ContentValues();
+
+        values.put("origin", "SFO");
+        values.put("destination", "JFK");
+
+        db.insert("shifts", null, values);
     }
 
     private void setHistoryListAdapter() {
@@ -47,7 +53,7 @@ public class HistoryActivity extends Activity {
         historyList.setAdapter(adapter);
     }
 
-    private void setTranstions() {
+    private void setTransitions() {
         Slide slide = new Slide();
         slide.excludeTarget(android.R.id.statusBarBackground, true);
         slide.excludeTarget(android.R.id.navigationBarBackground, true);
