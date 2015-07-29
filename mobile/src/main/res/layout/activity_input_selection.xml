@@ -36,7 +36,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="7dp"
-        android:text="Input Parameters Here"
+        android:text="Launch Location Input"
+        android:onClick="launchLocationInput"
         android:layout_centerInParent="true"/>
 
     <Button

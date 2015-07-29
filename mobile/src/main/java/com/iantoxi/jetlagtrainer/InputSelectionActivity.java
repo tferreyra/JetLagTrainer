@@ -100,11 +100,10 @@ public class InputSelectionActivity extends Activity {
         example.save();
     }
 
-    public void launchSchedule(View view) {
-        Intent intent = new Intent(this, ScheduleActivity.class);
+    public void launchLocationInput(View view) {
+        Intent intent = new Intent(this, InputLocationActivity.class);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
-
 
     public void onStart() {
         super.onStart();

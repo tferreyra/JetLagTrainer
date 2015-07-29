@@ -2,7 +2,9 @@
 <resources>
     <!-- Application colors-->
     <color name = "darkPurple">#261C2B</color>
+    <color name = "primary_dark">#261C2B</color>
     <color name = "darkBlue">#292B39</color>
+    <color name = "primary">#292B39</color>
     <color name = "darkTeal">#226468</color>
     <color name = "teal">#608D80</color>
     <color name = "lightTeal">#829D8F</color>
