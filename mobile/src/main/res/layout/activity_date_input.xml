@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.iantoxi.jetlagtrainer.InputSelectionActivity">
+
+    <ImageView
+        android:transitionName="@string/transition_main_input"
+        android:layout_width="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sleep_training"
+        android:id="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/txtdeparturedate"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="Flight Departure Date"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:singleLine="true"
+        android:layout_marginTop="30dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
