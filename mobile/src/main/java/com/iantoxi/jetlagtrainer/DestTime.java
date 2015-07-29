@@ -1,9 +1,7 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.transition.Slide;
 import android.view.Menu;
@@ -13,15 +11,14 @@ import android.view.Window;
 import android.widget.EditText;
 
 /**
- * Created by tatianaferreyra on 7/25/15.
+ * Created by tatianaferreyra on 7/29/15.
  */
-public class FlightInput extends Activity{
-
+public class DestTime extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_flight_input);
+        setContentView(R.layout.activity_destination_time);
         Slide slide = new Slide();
         slide.excludeTarget(android.R.id.statusBarBackground, true);
         slide.excludeTarget(android.R.id.navigationBarBackground, true);
@@ -54,24 +51,19 @@ public class FlightInput extends Activity{
 
     public void onStart() {
         super.onStart();
-        EditText txtDate = (EditText) findViewById(R.id.txtdate);
+        EditText txtDate = (EditText) findViewById(R.id.editDestTime);
         txtDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     DateDialog dialog = new DateDialog(v);
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    dialog.show(ft, "DatePicker");
+                    dialog.show(ft, "TimePicker");
 
                 }
             }
         });
-    }
 
-//    public void generateSchedule(View view) {
-//        Intent intent = new Intent(this, ScheduleActivity.class);
-//        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-//
-//    }
+    }
 
 }

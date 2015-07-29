@@ -29,34 +29,6 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:id="@+id/txtdeparturedate"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:hint="Flight Departure Date"
-        android:textSize="20sp"
-        android:gravity="center_horizontal"
-        android:textAlignment="center"
-        android:singleLine="true"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/txtnum"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:id="@+id/txtarrivaldate"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:hint="Flight Arrival Date"
-        android:textSize="20sp"
-        android:gravity="center_horizontal"
-        android:textAlignment="center"
-        android:singleLine="true"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/txtdeparturedate"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
