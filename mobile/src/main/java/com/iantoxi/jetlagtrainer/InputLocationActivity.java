@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -27,6 +28,7 @@ import java.util.TimeZone;
 public class InputLocationActivity extends Activity {
     private static int ORIGIN_PLACE_PICKER_REQUEST = 1;
     private static int DESTINATION_PLACE_PICKER_REQUEST = 2;
+    private ProgressBar loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,9 @@ public class InputLocationActivity extends Activity {
         slide.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setEnterTransition(slide);
         getWindow().setExitTransition(slide);
+
+        loading = (ProgressBar) findViewById(R.id.loading);
+        hideLoading();
     }
 
     @Override
@@ -87,28 +92,19 @@ public class InputLocationActivity extends Activity {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ORIGIN_PLACE_PICKER_REQUEST) {
-            if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
+            showLoading();
+            if (requestCode == ORIGIN_PLACE_PICKER_REQUEST) {
                 Place place = PlacePicker.getPlace(data, this);
-                String id = placeToTimeZoneId(place);
-
-                Button origin = (Button) findViewById(R.id.origin);
-                origin.setText(id);
-            }
-        } else if (requestCode == DESTINATION_PLACE_PICKER_REQUEST) {
-            if (resultCode == RESULT_OK) {
+                placeToTimeZoneId(place, R.id.origin);
+            } else if (requestCode == DESTINATION_PLACE_PICKER_REQUEST) {
                 Place place = PlacePicker.getPlace(data, this);
-                String id = placeToTimeZoneId(place);
-
-                Button destination = (Button) findViewById(R.id.destination);
-                destination.setText(id);
+                placeToTimeZoneId(place, R.id.destination);
             }
         }
-
     }
 
-    private String placeToTimeZoneId(Place place) {
+    private void placeToTimeZoneId(Place place, final int field) {
         GeoApiContext context = new GeoApiContext().setApiKey(getString(R.string.google_geo_api_key));
 
         com.google.maps.model.LatLng origin =
@@ -117,15 +113,36 @@ public class InputLocationActivity extends Activity {
 
         PendingResult<TimeZone> pendingTimeZone = TimeZoneApi.getTimeZone(context, origin);
 
-        TimeZone queriedTimeZone = null;
+        pendingTimeZone.setCallback(new PendingResult.Callback<TimeZone>() {
+            @Override
+            public void onResult(TimeZone result) {
+                final TimeZone finalResult = result;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideLoading();
+                        changeButtonText(field, finalResult.getID());
+                    }
+                });
+            }
+            @Override
+            public void onFailure(Throwable e) {
+                e.printStackTrace();
+            }
+        });
 
-        try {
-            queriedTimeZone = pendingTimeZone.await();
-            String id = queriedTimeZone.getID();
-            return id;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    }
+
+    private void changeButtonText(int field, String string) {
+        Button button = (Button) findViewById(field);
+        button.setText(string);
+    }
+
+    private void hideLoading() {
+        loading.setVisibility(View.GONE);
+    }
+
+    private void showLoading() {
+        loading.setVisibility(View.VISIBLE);
     }
 }
