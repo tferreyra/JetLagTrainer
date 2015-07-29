@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -68,7 +67,7 @@ public class InputSelectionActivity extends Activity {
     }
 
     public void launchFlight(View view) {
-        Intent intent = new Intent(this, FlightInput.class);
+        Intent intent = new Intent(this, DateInput.class);
         String transitionName = getString(R.string.transition_input_flight);
         View button = findViewById(R.id.next);
 
@@ -109,19 +108,19 @@ public class InputSelectionActivity extends Activity {
 
     public void onStart() {
         super.onStart();
-        EditText txtDate = (EditText) findViewById(R.id.txtdeparturedate);
-        txtDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    DateDialog dialog = new DateDialog(v);
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    dialog.show(ft, "DatePicker");
-
-                }
-            }
-        });
-
+//        EditText txtDate = (EditText) findViewById(R.id.txtdeparturedate);
+//        txtDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    DateDialog dialog = new DateDialog(v);
+//                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                    dialog.show(ft, "DatePicker");
+//
+//                }
+//            }
+//        });
+//
         EditText txtNum = (EditText) findViewById(R.id.txtnum);
         txtNum.addTextChangedListener(new TextWatcher() {
             @Override
@@ -183,13 +182,13 @@ public class InputSelectionActivity extends Activity {
         }
 
         EditText departureTxt = (EditText) findViewById(R.id.txtdeparturedate);
-        EditText arrivalTxt = (EditText) findViewById(R.id.txtarrivaldate);
+        //EditText arrivalTxt = (EditText) findViewById(R.id.txtarrivaldate);
         if (departureDate != null && arrivalDate != null) {
             departureTxt.setText(departureDate);
-            arrivalTxt.setText(arrivalDate);
+           // arrivalTxt.setText(arrivalDate);
         } else {
             departureTxt.setText("");
-            arrivalTxt.setText("");
+           // arrivalTxt.setText("");
         }
     }
 
