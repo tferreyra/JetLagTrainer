@@ -51,22 +51,6 @@ public class InputLocationActivity extends Activity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        EditText txtDate = (EditText) findViewById(R.id.date);
-        txtDate.setInputType(InputType.TYPE_NULL);
-        txtDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DateDialog dialog = new DateDialog(v);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                dialog.show(ft, "DatePicker");
-            }
-        });
-
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_input_location, menu);
@@ -111,6 +95,12 @@ public class InputLocationActivity extends Activity {
         } catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void setDate(View view) {
+        DateDialog dialog = new DateDialog(view);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        dialog.show(ft, "DatePicker");
     }
 
     @Override

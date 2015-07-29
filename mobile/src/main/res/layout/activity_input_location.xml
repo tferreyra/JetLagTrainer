@@ -64,7 +64,7 @@
             android:layout_marginLeft="20dp"
             android:text="@string/on_date"/>
 
-        <EditText
+        <Button
             android:id="@+id/date"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -72,9 +72,7 @@
             android:text="@string/date"
             android:textSize="25sp"
             android:padding="10dp"
-            android:fontFamily="sans-serif-medium"
-            android:textAllCaps="true"
-            android:gravity="center"
+            android:onClick="setDate"
             />
 
     </LinearLayout>

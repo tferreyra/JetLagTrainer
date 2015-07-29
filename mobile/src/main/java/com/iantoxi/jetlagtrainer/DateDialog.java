@@ -6,7 +6,7 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -18,9 +18,9 @@ import java.util.Locale;
  */
 public class DateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
-    EditText txtDate;
+    TextView txtDate;
     public DateDialog(View view) {
-        txtDate = (EditText) view;
+        txtDate = (TextView) view;
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
 
         String dateString = monthString + " " + day + ", " + year;
         //String date = (month+1)+"-"+day+"-"+year;
-        txtDate.setTag(1, date);
+        txtDate.setTag(R.id.date_tags, date);
         txtDate.setText(dateString);
     }
 }

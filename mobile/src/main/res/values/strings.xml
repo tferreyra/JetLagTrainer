@@ -26,4 +26,6 @@
     <string name="title_activity_history">HistoryActivity</string>
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="title_activity_input_location">InputLocationActivity</string>
+
+
 </resources>
