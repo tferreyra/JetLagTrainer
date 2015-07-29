@@ -9,6 +9,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Created by tatianaferreyra on 7/24/15.
@@ -30,8 +32,12 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        String date = (month+1)+"-"+day+"-"+year;
-        txtDate.setText(date);
+        GregorianCalendar date = new GregorianCalendar(year, month, day);
+        String monthString = date.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+
+        String dateString = monthString + " " + day + ", " + year;
+        //String date = (month+1)+"-"+day+"-"+year;
+        txtDate.setText(dateString);
     }
 
 }

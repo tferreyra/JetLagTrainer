@@ -21,26 +21,60 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:text="@string/leaving_from"/>
         <Button
             android:id="@+id/origin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Origin"
+            android:text="@string/origin"
+            android:textColorHint="#33FFFFFF"
             android:background="?android:selectableItemBackground"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:padding="10dp"
+            android:layout_marginBottom="20dp"
             android:onClick="setOrigin"
             />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:text="@string/traveling_to"/>
         <Button
             android:id="@+id/destination"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="#33FFFFFF"
             android:background="?android:selectableItemBackground"
-            android:text="Destination"
-            android:textSize="30sp"
+            android:text="@string/destination"
+            android:textSize="25sp"
             android:padding="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
             android:onClick="setDestination"
+            />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:text="@string/on_date"/>
+
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackground"
+            android:text="@string/date"
+            android:textSize="25sp"
+            android:padding="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="true"
+            android:gravity="center"
             />
 
     </LinearLayout>

@@ -62,7 +62,6 @@ public class DateInput extends Activity{
                     DateDialog dialog = new DateDialog(v);
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     dialog.show(ft, "DatePicker");
-
                 }
             }
         });

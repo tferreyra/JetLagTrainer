@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
     }
 
     public void launchNewSleepShiftInput(View view) {
-        Intent intent = new Intent(this, InputSelectionActivity.class);
+        Intent intent = new Intent(this, InputLocationActivity.class);
         String transitionName = getString(R.string.transition_main_input);
 
         View graphic = findViewById(R.id.sleep_training_graphic);

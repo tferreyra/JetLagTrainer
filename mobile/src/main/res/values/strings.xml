@@ -12,6 +12,14 @@
     <!-- Activity Names -->
     <string name="title_activity_input_selection">InputSelectionActivity</string>
 
+    <!--Destination and Date input screen -->
+    <string name="leaving_from">I will be leaving from: </string>
+    <string name="origin">Origin Time Zone</string>
+    <string name="traveling_to">and traveling to: </string>
+    <string name="destination">Destination Time Zone</string>
+    <string name="on_date">on this date: </string>
+    <string name="date">Date</string>
+
     <!-- defaults-->
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
