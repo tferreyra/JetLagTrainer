@@ -1,6 +1,7 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -177,12 +178,13 @@ public class InputLocationActivity extends Activity {
             TypedValue outValue = new TypedValue();
             this.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
             submit.setBackgroundResource(outValue.resourceId);
-            
+
             submit.setTextColor(getResources().getColor(R.color.white));
 
             submit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    // Perform action on click
+                    Intent intent = new Intent(InputLocationActivity.this, ScheduleActivity.class);
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(InputLocationActivity.this).toBundle());
                 }
             });
         }

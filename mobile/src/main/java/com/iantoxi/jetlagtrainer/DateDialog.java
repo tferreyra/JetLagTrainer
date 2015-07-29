@@ -1,5 +1,6 @@
 package com.iantoxi.jetlagtrainer;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -19,8 +20,10 @@ import java.util.Locale;
 public class DateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     TextView txtDate;
+    Activity main;
     public DateDialog(View view) {
         txtDate = (TextView) view;
+        main = getActivity();
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -28,7 +31,10 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, year, month, day);
+        DatePicker picker = dialog.getDatePicker();
+        picker.setMinDate(c.getTimeInMillis());
+        return dialog;
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
