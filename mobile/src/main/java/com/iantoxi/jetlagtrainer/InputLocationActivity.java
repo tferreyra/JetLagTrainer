@@ -5,9 +5,12 @@ import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.transition.Slide;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +38,10 @@ public class InputLocationActivity extends Activity {
     public String originTimeZone;
     public String destinationTimeZone;
     private ProgressBar loading;
+
+    private boolean originSet = false;
+    private boolean destinationSet = false;
+    private boolean dateSet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +108,8 @@ public class InputLocationActivity extends Activity {
         DateDialog dialog = new DateDialog(view);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         dialog.show(ft, "DatePicker");
+        dateSet = true;
+        evaluateSubmitPotential();
     }
 
     @Override
@@ -108,9 +117,11 @@ public class InputLocationActivity extends Activity {
         if (resultCode == RESULT_OK) {
             showLoading();
             if (requestCode == ORIGIN_PLACE_PICKER_REQUEST) {
+                originSet = true;
                 Place place = PlacePicker.getPlace(data, this);
                 placeToTimeZoneId(place, R.id.origin);
             } else if (requestCode == DESTINATION_PLACE_PICKER_REQUEST) {
+                destinationSet = true;
                 Place place = PlacePicker.getPlace(data, this);
                 placeToTimeZoneId(place, R.id.destination);
             }
@@ -152,13 +163,29 @@ public class InputLocationActivity extends Activity {
         button.setText(timezone);
         if (field == R.id.origin) {
             originTimeZone = timezone;
+            evaluateSubmitPotential();
         } else if (field == R.id.destination) {
             destinationTimeZone = timezone;
+            evaluateSubmitPotential();
         }
     }
 
-    private void changeDate(Calendar date) {
+    private void evaluateSubmitPotential() {
+        if (originSet && destinationSet && dateSet) {
+            Button submit = (Button) findViewById(R.id.submit);
 
+            TypedValue outValue = new TypedValue();
+            this.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+            submit.setBackgroundResource(outValue.resourceId);
+            
+            submit.setTextColor(getResources().getColor(R.color.white));
+
+            submit.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // Perform action on click
+                }
+            });
+        }
     }
 
     private void hideLoading() {

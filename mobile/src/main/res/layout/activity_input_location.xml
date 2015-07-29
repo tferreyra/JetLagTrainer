@@ -77,6 +77,23 @@
 
     </LinearLayout>
 
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/teal">
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/darkPurple"
+            android:textColor="#44FFFFFF"
+            android:textSize="25sp"
+            android:padding="15dp"
+            android:text="Submit"/>
+    </FrameLayout>
+
+
     <ProgressBar
         android:id="@+id/loading"
         style="?android:attr/progressBarStyleLargeInverse"
