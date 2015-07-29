@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -38,7 +39,18 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        GregorianCalendar date = new GregorianCalendar(year, month, day);
+        Calendar date = new GregorianCalendar(year, month, day);
+
+
+        if(date.compareTo(Calendar.getInstance()) < 0) {
+            date = Calendar.getInstance();
+            year = date.get(Calendar.YEAR);
+            month = date.get(Calendar.MONTH);
+            day = date.get(Calendar.DATE);
+
+            Toast.makeText(getActivity(), "Sleep Shift is designed to be used before you travel to your destination.", Toast.LENGTH_LONG).show();
+        }
+
         String monthString = date.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 
         String dateString = monthString + " " + day + ", " + year;
