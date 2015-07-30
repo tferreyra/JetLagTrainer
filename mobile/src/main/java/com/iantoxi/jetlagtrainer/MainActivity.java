@@ -2,12 +2,10 @@ package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.transition.Explode;
 import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;

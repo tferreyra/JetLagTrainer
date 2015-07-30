@@ -120,7 +120,7 @@ public class InputSelectionActivity extends Activity {
 //            }
 //        });
 //
-        EditText txtNum = (EditText) findViewById(R.id.txtnum);
+/*        EditText txtNum = (EditText) findViewById(R.id.txtnum);
         txtNum.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -132,11 +132,11 @@ public class InputSelectionActivity extends Activity {
             public void afterTextChanged(Editable s) {
                 retrieveFlightData(s.toString());
             }
-        });
+        });*/
     }
 
-
-    private void retrieveFlightData(String flightNumber) {
+// Scrapped airline number feature :(
+/*    private void retrieveFlightData(String flightNumber) {
         String searchURLFront = "http://www.google.com/search?q=";
         String searchURLBack = "&gws_rd=ssl";
         searchQuery = searchURLFront + flightNumber + searchURLBack;
@@ -194,5 +194,5 @@ public class InputSelectionActivity extends Activity {
     public String extractDate (String str) {
         String[] words = str.trim().split("\\s+");
         return words[0] + " " + words[1];
-    }
+    }*/
 }

@@ -63,7 +63,7 @@ public class Night extends SugarRecord<Night> {
         if(advancing) {
             return time - 60; // sleep earlier by one hour
         } else {
-            return time += 60;
+            return time + 60;
         }
     }
 
