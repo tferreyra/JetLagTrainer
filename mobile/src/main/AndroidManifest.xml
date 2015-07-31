@@ -30,7 +30,13 @@
             android:name=".ScheduleActivity"
             android:label="@string/title_activity_schedule" >
         </activity>
-
+        <activity
+            android:name=".InputLocationActivity"
+            android:label="@string/title_activity_input_location" >
+        </activity>
+        <activity android:name=".OriginTime"
+            android:label="@string/title_activity_origin_time">
+        </activity>
         <meta-data
             android:name="DATABASE"
             android:value="sleep_shifts.db" />
@@ -48,10 +54,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_geo_api_key"/>
 
-        <activity
-            android:name=".InputLocationActivity"
-            android:label="@string/title_activity_input_location" >
-        </activity>
+
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
 </manifest>

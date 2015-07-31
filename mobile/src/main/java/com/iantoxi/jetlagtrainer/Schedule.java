@@ -35,7 +35,7 @@ public class Schedule extends SugarRecord<Schedule> {
     private int adjustment;
 
     //signifies if this schedule is currently in use.
-    private boolean active;
+    public boolean active;
 
     public Schedule() {
         //necessary for Sugar ORM

@@ -50,6 +50,11 @@ public class HistoryAdapter extends BaseAdapter {
         TextView destination = (TextView) view.findViewById(R.id.destination);
 
         historyId.setText(Integer.toString(position));
+        Schedule scheduleAtPosition = schedules.get(position);
+        if (!scheduleAtPosition.calculated || scheduleAtPosition.active) {
+            return null;
+        }
+
         origin.setText(schedules.get(position).originTimezone);
         destination.setText(schedules.get(position).destinationTimezone);
 

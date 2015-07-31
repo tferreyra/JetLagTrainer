@@ -22,6 +22,7 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
 
     TextView txtDate;
     Activity main;
+
     public DateDialog(View view) {
         txtDate = (TextView) view;
         main = getActivity();
@@ -40,7 +41,6 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         Calendar date = new GregorianCalendar(year, month, day);
-
 
         if(date.compareTo(Calendar.getInstance()) < 0) {
             date = Calendar.getInstance();

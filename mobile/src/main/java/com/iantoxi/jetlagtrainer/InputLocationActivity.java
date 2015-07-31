@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.text.InputType;
 import android.transition.Slide;
 import android.util.TypedValue;
@@ -183,11 +185,40 @@ public class InputLocationActivity extends Activity {
 
             submit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Intent intent = new Intent(InputLocationActivity.this, ScheduleActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(InputLocationActivity.this).toBundle());
+                    long scheduleId = buildSchedule();
+
+                    Intent intent = new Intent(InputLocationActivity.this, OriginTime.class);
+                    intent.putExtra("scheduleId", scheduleId);
+
+                    String transitionName = getString(R.string.transition_main_input);
+
+                    View graphic = findViewById(R.id.imageView);
+
+                    ActivityOptionsCompat options =
+                            ActivityOptionsCompat.makeSceneTransitionAnimation(InputLocationActivity.this,
+                                    graphic,   // The view which starts the transition
+                                    transitionName    // The transitionName of the view we’re transitioning to
+                            );
+
+                    ActivityCompat.startActivity(InputLocationActivity.this, intent, options.toBundle());
                 }
             });
         }
+    }
+
+    private Calendar getTravelDate() {
+        Button dateButton = (Button) findViewById(R.id.date);
+        return (Calendar) dateButton.getTag(R.id.date_tags);
+    }
+
+    private long buildSchedule() {
+        Schedule schedule = new Schedule();
+        schedule.originTimezone = originTimeZone;
+        schedule.destinationTimezone = destinationTimeZone;
+        schedule.startDate = Calendar.getInstance();
+        schedule.travelDate = getTravelDate();
+        schedule.save();
+        return schedule.getId();
     }
 
     private void hideLoading() {

@@ -2,18 +2,30 @@ package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.transition.Slide;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 
 /**
  * Created by tatianaferreyra on 7/29/15.
  */
 public class OriginTime extends Activity {
+    private Schedule schedule;
+    private long scheduleId;
+    private boolean sleepTimeSet = false;
+    private boolean wakeTimeSet = false;
+    private int sleepTime;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +36,10 @@ public class OriginTime extends Activity {
         slide.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setEnterTransition(slide);
         getWindow().setExitTransition(slide);
+
+        Intent intent = getIntent();
+        scheduleId = (long) intent.getExtras().get("scheduleId");
+        schedule = Schedule.findById(Schedule.class, scheduleId);
     }
 
     @Override
@@ -48,22 +64,67 @@ public class OriginTime extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void onStart() {
-        super.onStart();
-        EditText txtDate = (EditText) findViewById(R.id.editOrgTime);
-        txtDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    DateDialog dialog = new DateDialog(v);
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    dialog.show(ft, "TimePicker");
-
-                }
-            }
-        });
-
+    public void setSleepTime(View view) {
+        TimeDialog dialog = new TimeDialog(view);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        dialog.show(ft, "DatePicker");
+        sleepTimeSet = true;
+        evaluateSubmitPotential();
     }
 
+    public void setWakeTime(View view) {
+        TimeDialog dialog = new TimeDialog(view);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        dialog.show(ft, "DatePicker");
+        wakeTimeSet = true;
+        evaluateSubmitPotential();
+    }
+
+    private void evaluateSubmitPotential() {
+        if (sleepTimeSet && wakeTimeSet) {
+            Button submit = (Button) findViewById(R.id.submit);
+
+            TypedValue outValue = new TypedValue();
+            this.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+            submit.setBackgroundResource(outValue.resourceId);
+
+            submit.setTextColor(getResources().getColor(R.color.white));
+
+            submit.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    //TODO: set originSleepTime and originWakeTime in schedule and save schedule.
+                    schedule.originSleepTime = getSleepTime();
+                    schedule.originWakeTime = getWakeTime();
+
+                    schedule.save();
+                    //TODO: set to selection strategy activity
+                    Intent intent = new Intent(OriginTime.this, OriginTime.class);
+                    intent.putExtra("scheduleId", scheduleId);
+
+                    String transitionName = getString(R.string.transition_main_input);
+
+                    View graphic = findViewById(R.id.imageView);
+
+                    ActivityOptionsCompat options =
+                            ActivityOptionsCompat.makeSceneTransitionAnimation(OriginTime.this,
+                                    graphic,   // The view which starts the transition
+                                    transitionName    // The transitionName of the view we’re transitioning to
+                            );
+
+                    ActivityCompat.startActivity(OriginTime.this, intent, options.toBundle());
+                }
+            });
+        }
+    }
+
+    private int getSleepTime() {
+        Button sleepButton = (Button) findViewById(R.id.sleep_time);
+        return (int) sleepButton.getTag(R.id.time_tags);
+    }
+
+    private int getWakeTime() {
+        Button wakeButton = (Button) findViewById(R.id.wake_time);
+        return (int) wakeButton.getTag(R.id.time_tags);
+    }
 }

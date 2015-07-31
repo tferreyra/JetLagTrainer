@@ -14,20 +14,77 @@
         android:src="@drawable/sleep_training"
         android:id="@+id/imageView" />
 
-    <TimePicker
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
-        android:id="@+id/originTimePicker"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@id/imageView"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:text="@string/origin_sleep_time_title"/>
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="#15000000">
+            <Button
+                android:id="@+id/sleep_time"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sleep_time"
+                android:textColorHint="#33FFFFFF"
+                android:background="?android:selectableItemBackground"
+                android:textSize="25sp"
+                android:padding="10dp"
+                android:onClick="setSleepTime"
+                />
+        </FrameLayout>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:text="@string/origin_wake_time_title"/>
 
-    <EditText
-        android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="#15000000">
+            <Button
+                android:id="@+id/wake_time"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#33FFFFFF"
+                android:background="?android:selectableItemBackground"
+                android:hint="@string/wake_time"
+                android:textSize="25sp"
+                android:padding="10dp"
+                android:onClick="setWakeTime"
+                />
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/editOrgTime"
-        android:layout_below="@+id/originTimePicker"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        android:background="@color/teal">
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/darkPurple"
+            android:textColor="#44FFFFFF"
+            android:textSize="25sp"
+            android:padding="15dp"
+            android:text="Next"/>
+    </FrameLayout>
 
 </RelativeLayout>
