@@ -149,7 +149,6 @@ public class InputLocationActivity extends Activity {
                 e.printStackTrace();
             }
         });
-
     }
 
     private void changeButtonTimezone(int field, String timezone) {

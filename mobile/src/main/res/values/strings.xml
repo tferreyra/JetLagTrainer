@@ -37,13 +37,12 @@
     <string name="title_activity_sleep_strategy">SleepStrategySelection</string>
 
     <!-- Sleep Strategy Selection screen -->
-    <string name="title_sleep_strategy">Sleep Strategy Selection</string>
-    <string name="melatonin">Taking Melatonin</string>
-    <string name="melatonin_exp">Taking melatonin will help you fall asleep if you have
-        trouble doing so.</string>
+    <string name="title_sleep_strategy">Select optional strategies that would you like to include in your sleep plan: </string>
+    <string name="melatonin">Scheduled Melatonin</string>
+    <string name="melatonin_exp">Receive reminder notifications to take melatonin at the most effective time for sleep cycle adjustment.</string>
     <string name="light_exposure">Light Exposure Control</string>
-    <string name="light_exposure_exp">Controlling your light exposure will help you better your
-        body\'s internal circadian rhythm to match your destination\'s time zone.</string>
+    <string name="light_exposure_exp">[Smartwatch required] Monitor your environmental light intensity and control your light exposure to adjust your
+        body\'s internal circadian rhythm.</string>
 
 
 

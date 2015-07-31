@@ -24,13 +24,11 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
             android:text="@string/title_sleep_strategy"
-            android:gravity="center_horizontal"
-            android:layout_gravity="center_horizontal"
-            android:textSize="30sp"
-            android:textColorHint="#33FFFFFF"
-            android:layout_marginBottom="10dp"/>
+            style="@style/bodyText"/>
 
         <FrameLayout
             android:id="@+id/melatonin_button"
@@ -67,15 +65,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/melatonin"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:gravity="center_vertical"
                         />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/bodyText"
                         android:text="@string/melatonin_exp"
-                        android:textSize="17sp"
                         android:layout_marginTop="10dp" />
                 </LinearLayout>
             </LinearLayout>
@@ -115,14 +113,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/light_exposure"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:gravity="center_vertical"
                         />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/light_exposure_exp"
-                        android:textSize="17sp"
+                        style="@style/bodyText"
                         android:layout_marginTop="10dp" />
                 </LinearLayout>
             </LinearLayout>

@@ -23,8 +23,7 @@ public class HistoryAdapter extends BaseAdapter {
         super();
         context = activity;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        schedules = Schedule.listAll(Schedule.class);
+        schedules = Schedule.find(Schedule.class, "active = ? AND calculated = ?", new String[]{"FALSE", "TRUE"});
     }
 
     @Override
@@ -49,12 +48,8 @@ public class HistoryAdapter extends BaseAdapter {
         TextView origin = (TextView) view.findViewById(R.id.origin);
         TextView destination = (TextView) view.findViewById(R.id.destination);
 
-        historyId.setText(Integer.toString(position));
-        Schedule scheduleAtPosition = schedules.get(position);
-        if (!scheduleAtPosition.calculated || scheduleAtPosition.active) {
-            return null;
-        }
-
+//        historyId.setText(Integer.toString(position));
+        historyId.setText(Integer.toString(schedules.size()));
         origin.setText(schedules.get(position).originTimezone);
         destination.setText(schedules.get(position).destinationTimezone);
 

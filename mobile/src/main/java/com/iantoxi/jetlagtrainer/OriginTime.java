@@ -99,7 +99,7 @@ public class OriginTime extends Activity {
 
                     schedule.save();
                     //TODO: set to selection strategy activity
-                    Intent intent = new Intent(OriginTime.this, OriginTime.class);
+                    Intent intent = new Intent(OriginTime.this, SleepStrategySelection.class);
                     intent.putExtra("scheduleId", scheduleId);
 
                     String transitionName = getString(R.string.transition_main_input);
