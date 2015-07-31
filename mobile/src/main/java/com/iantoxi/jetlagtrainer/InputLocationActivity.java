@@ -175,10 +175,8 @@ public class InputLocationActivity extends Activity {
 
             submit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    /*Intent intent = new Intent(InputLocationActivity.this, ScheduleActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(InputLocationActivity.this).toBundle());*/
-                    Intent intent = new Intent(InputLocationActivity.this, SleepStrategySelection.class);
-                    startActivity(intent);
+                    Intent intent = new Intent(InputLocationActivity.this, ScheduleActivity.class);
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(InputLocationActivity.this).toBundle());
                 }
             });
         }

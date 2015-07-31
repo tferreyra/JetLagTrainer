@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.Slide;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -16,6 +16,7 @@ public class SleepStrategySelection extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_sleep_strategy_selection);
 
         final ImageView melatoninCheck = (ImageView) findViewById(R.id.melatonin_check);
@@ -27,7 +28,7 @@ public class SleepStrategySelection extends Activity {
         melatoninView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggle(melatoninView);
+                toggle(melatoninCheck);
             }
         });
 
@@ -35,7 +36,7 @@ public class SleepStrategySelection extends Activity {
         lightView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggle(lightView);
+                toggle(lightCheck);
             }
         });
 
@@ -55,7 +56,7 @@ public class SleepStrategySelection extends Activity {
         return true;
     }
 
-    public void toggle (FrameLayout view) {
+    public void toggle (ImageView view) {
         if (view.getVisibility() == View.VISIBLE)
             view.setVisibility(View.INVISIBLE);
         else

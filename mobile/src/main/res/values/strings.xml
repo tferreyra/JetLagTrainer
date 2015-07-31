@@ -26,6 +26,7 @@
     <string name="title_activity_history">HistoryActivity</string>
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="title_activity_input_location">InputLocationActivity</string>
+    <string name="title_activity_sleep_strategy">SleepStrategySelection</string>
 
     <!-- Sleep Strategy Selection screen -->
     <string name="title_sleep_strategy">Sleep Strategy Selection</string>
@@ -35,7 +36,6 @@
     <string name="light_exposure">Light Exposure Control</string>
     <string name="light_exposure_exp">Controlling your light exposure will help you better your
         body\'s internal circadian rhythm to match your destination\'s time zone.</string>
-
 
 
 
