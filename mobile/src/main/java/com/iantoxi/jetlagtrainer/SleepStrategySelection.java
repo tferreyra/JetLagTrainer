@@ -1,17 +1,23 @@
 package com.iantoxi.jetlagtrainer;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.Toast;
 
 public class SleepStrategySelection extends Activity {
     private long scheduleId;
@@ -47,6 +53,56 @@ public class SleepStrategySelection extends Activity {
             @Override
             public void onClick(View v) {
                 toggle(lightCheck);
+            }
+        });
+
+        melatoninView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popUpView = layoutInflater.inflate(R.layout.melatonin_explanation, null);
+                final PopupWindow popupWindow = new PopupWindow(popUpView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+                popupWindow.setOutsideTouchable(true);
+                popupWindow.setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
+                popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+
+                Button exp_done = (Button) popUpView.findViewById(R.id.gotEm);
+                exp_done.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
+                    }
+                });
+
+                View parent = findViewById(R.id.sleep_strategy_selection);
+                popupWindow.showAtLocation(parent, Gravity.CENTER, 0, 0);
+
+                return true;
+            }
+        });
+
+        lightView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popUpView = layoutInflater.inflate(R.layout.light_control_explanation, null);
+                final PopupWindow popupWindow = new PopupWindow(popUpView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+                popupWindow.setOutsideTouchable(true);
+                popupWindow.setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
+                popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+
+                Button exp_done = (Button) popUpView.findViewById(R.id.gotEm);
+                exp_done.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
+                    }
+                });
+
+                View parent = findViewById(R.id.sleep_strategy_selection);
+                popupWindow.showAtLocation(parent, Gravity.CENTER, 0, 0);
+
+                return true;
             }
         });
     }
