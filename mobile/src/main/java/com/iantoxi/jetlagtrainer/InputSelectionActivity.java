@@ -89,14 +89,7 @@ public class InputSelectionActivity extends Activity {
         Calendar end = Calendar.getInstance();
         end.add(Calendar.DATE, 10 + rand.nextInt(10));
 
-        Schedule example = new Schedule(zones[rand.nextInt(zones.length)],
-                                        zones[rand.nextInt(zones.length)],
-                                        start,
-                                        end,
-                                        12,
-                                        20,
-                                        true,
-                                        true);
+        Schedule example = new Schedule();
         example.save();
     }
 
