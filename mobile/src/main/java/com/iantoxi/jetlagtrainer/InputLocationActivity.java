@@ -99,6 +99,10 @@ public class InputLocationActivity extends Activity {
         }
     }
 
+    //TODO: Fix bug here! Currently, when entering dateDialog, we assume that users will enter in a date before allowing them to submit this page.
+    ////BUG: Currently, when entering dateDialog, we assume that users will enter in a date. If they
+    // cancel out of the dialog box, no date will be entered, but users will still be allowed to
+    // submit this page. If users submit page without entering in date, a nullpointerexception is raised.
     public void setDate(View view) {
         DateDialog dialog = new DateDialog(view);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
