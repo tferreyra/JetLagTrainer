@@ -1,28 +1,21 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
-import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.text.InputType;
 import android.transition.Slide;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
+
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
@@ -33,7 +26,6 @@ import com.google.maps.TimeZoneApi;
 
 import java.util.Calendar;
 import java.util.TimeZone;
-
 
 public class InputLocationActivity extends Activity {
     private static int ORIGIN_PLACE_PICKER_REQUEST = 1;
