@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.iantoxi.jetlagtrainer" >
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name="com.orm.SugarApp"
         android:allowBackup="true"
@@ -15,6 +17,7 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,9 +41,11 @@
             android:name=".InputLocationActivity"
             android:label="@string/title_activity_input_location" >
         </activity>
-        <activity android:name=".OriginTime"
-            android:label="@string/title_activity_origin_time">
+        <activity
+            android:name=".OriginTime"
+            android:label="@string/title_activity_origin_time" >
         </activity>
+
         <meta-data
             android:name="DATABASE"
             android:value="sleep_shifts.db" />
@@ -53,11 +58,14 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.iantoxi" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_geo_api_key"/>
+            android:value="@string/google_geo_api_key" />
 
+        <activity
+            android:name=".InputSummaryActivity"
+            android:label="@string/title_activity_input_summary" >
+        </activity>
     </application>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+
 </manifest>

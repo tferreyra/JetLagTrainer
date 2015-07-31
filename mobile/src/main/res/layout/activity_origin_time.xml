@@ -24,6 +24,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            style="@style/bodyText"
             android:layout_marginLeft="20dp"
             android:text="@string/origin_sleep_time_title"/>
         <FrameLayout
@@ -47,6 +48,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            style="@style/bodyText"
             android:layout_marginLeft="20dp"
             android:text="@string/origin_wake_time_title"/>
 

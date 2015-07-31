@@ -25,6 +25,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            style="@style/bodyText"
             android:layout_marginLeft="20dp"
             android:text="@string/leaving_from"/>
         <FrameLayout
@@ -48,6 +49,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            style="@style/bodyText"
             android:layout_marginLeft="20dp"
             android:text="@string/traveling_to"/>
 
@@ -72,6 +74,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            style="@style/bodyText"
             android:layout_marginLeft="20dp"
             android:text="@string/on_date"/>
 

@@ -93,12 +93,10 @@ public class OriginTime extends Activity {
             submit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 
-                    //TODO: set originSleepTime and originWakeTime in schedule and save schedule.
                     schedule.originSleepTime = getSleepTime();
                     schedule.originWakeTime = getWakeTime();
-
                     schedule.save();
-                    //TODO: set to selection strategy activity
+
                     Intent intent = new Intent(OriginTime.this, SleepStrategySelection.class);
                     intent.putExtra("scheduleId", scheduleId);
 

@@ -16,16 +16,18 @@ public class Schedule extends SugarRecord<Schedule> {
     //Origin and Destination TimeZones in Olsen ID format.
     public String originTimezone;
     public String destinationTimezone;
-    public boolean calculated = false;
 
     public Calendar startDate;
     public Calendar travelDate;
-    public boolean melatoninStrategy;
-    public boolean lightStrategy;
+
     public int originSleepTime;
     public int originWakeTime;
     public int destinationSleepTime;
     public int destinationWakeTime;
+
+    public boolean melatoninStrategy;
+    public boolean lightStrategy;
+
 
     private Night firstNight;
     public Night currentNight;
@@ -35,10 +37,19 @@ public class Schedule extends SugarRecord<Schedule> {
     private int adjustment;
 
     //signifies if this schedule is currently in use.
-    public boolean active;
+    private boolean active;
+    private boolean calculated = false;
 
     public Schedule() {
         //necessary for Sugar ORM
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public boolean isCalculated() {
+        return calculated;
     }
 
     public void calculateSchedule() {

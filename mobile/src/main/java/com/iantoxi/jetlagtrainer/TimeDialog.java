@@ -24,8 +24,16 @@ public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTim
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        //Default time to 10PM
-        TimePickerDialog dialog = new TimePickerDialog(getActivity(), this, 22, 0, false);
+        //Default time to 12PM
+        TimePickerDialog dialog = new TimePickerDialog(getActivity(), this, 12, 0, false);
+        if (textView.getId() == R.id.sleep_time) {
+            //Default time to 10PM
+            dialog = new TimePickerDialog(getActivity(), this, 22, 0, false);
+        } else if (textView.getId() == R.id.wake_time) {
+            //Default time to 8AM
+            dialog = new TimePickerDialog(getActivity(), this, 8, 0, false);
+        }
+
         return dialog;
     }
     @Override

@@ -43,8 +43,10 @@
     <string name="light_exposure">Light Exposure Control</string>
     <string name="light_exposure_exp">[Smartwatch required] Monitor your environmental light intensity and control your light exposure to adjust your
         body\'s internal circadian rhythm.</string>
+    <string name="title_activity_input_summary">InputSummaryActivity</string>
 
-
+    <!--Input Summary screen -->
+    <string name="summary_title">Summary</string>
 
 
 </resources>

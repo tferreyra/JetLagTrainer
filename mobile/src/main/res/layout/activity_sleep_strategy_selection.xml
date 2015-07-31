@@ -65,6 +65,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/melatonin"
+                        android:textColor="@color/lightTeal"
                         android:textSize="20sp"
                         android:gravity="center_vertical"
                         />
@@ -92,8 +93,7 @@
                 android:orientation="horizontal"
                 android:weightSum="100"
                 android:background="#15000000"
-                android:padding="15dp"
-                >
+                android:padding="15dp">
 
                 <ImageView
                     android:id="@+id/light_check"
@@ -114,6 +114,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/light_exposure"
                         android:textSize="20sp"
+                        android:textColor="@color/lightTeal"
                         android:gravity="center_vertical"
                         />
                     <TextView
@@ -142,7 +143,8 @@
             android:background="?android:attr/selectableItemBackground"
             android:textSize="25sp"
             android:padding="15dp"
-            android:text="Next"/>
+            android:text="Next"
+            android:onClick="submitSelection"/>
     </FrameLayout>
 
 
