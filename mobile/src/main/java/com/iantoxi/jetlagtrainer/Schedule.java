@@ -16,11 +16,16 @@ public class Schedule extends SugarRecord<Schedule> {
     //Origin and Destination TimeZones in Olsen ID format.
     public String originTimezone;
     public String destinationTimezone;
+    public boolean calculated = false;
 
-    private Calendar startDate;
-    private Calendar travelDate;
+    public Calendar startDate;
+    public Calendar travelDate;
     public boolean melatoninStrategy;
     public boolean lightStrategy;
+    public int originSleepTime;
+    public int originWakeTime;
+    public int destinationSleepTime;
+    public int destinationWakeTime;
 
     private Night firstNight;
     public Night currentNight;
@@ -36,23 +41,9 @@ public class Schedule extends SugarRecord<Schedule> {
         //necessary for Sugar ORM
     }
 
-    public Schedule(String originTimezone,
-                    String destinationTimezone,
-                    Calendar startDate,
-                    Calendar travelDate,
-                    int sleepTime,
-                    int wakeTime,
-                    boolean melatoninStrategy,
-                    boolean lightStrategy) {
-
-        this.originTimezone = originTimezone;
-        this.destinationTimezone = destinationTimezone;
-        this.startDate = startDate;
-        this.travelDate = travelDate;
-        this.melatoninStrategy = melatoninStrategy;
-        this.lightStrategy = lightStrategy;
-
+    public void calculateSchedule() {
         active = true;
+        calculated = true;
 
         zoneGap = calculateZoneGap();
 
@@ -65,7 +56,7 @@ public class Schedule extends SugarRecord<Schedule> {
 
         shiftStartDate();
 
-        createNights(sleepTime, wakeTime);
+        createNights(originSleepTime, originWakeTime);
     }
 
     //Assuming that users will shift one hour a day, delays start of sleep schedule adjustment

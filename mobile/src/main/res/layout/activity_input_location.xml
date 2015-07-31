@@ -27,36 +27,47 @@
             android:padding="10dp"
             android:layout_marginLeft="20dp"
             android:text="@string/leaving_from"/>
-        <Button
-            android:id="@+id/origin"
+        <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/origin"
-            android:textColorHint="#33FFFFFF"
-            android:background="?android:selectableItemBackground"
-            android:textSize="25sp"
-            android:padding="10dp"
             android:layout_marginBottom="20dp"
-            android:onClick="setOrigin"
-            />
+            android:background="#15000000">
+            <Button
+                android:id="@+id/origin"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/origin"
+                android:textColorHint="#33FFFFFF"
+                android:background="?android:selectableItemBackground"
+                android:textSize="25sp"
+                android:padding="10dp"
+                android:onClick="setOrigin"
+                />
+        </FrameLayout>
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:layout_marginLeft="20dp"
             android:text="@string/traveling_to"/>
-        <Button
-            android:id="@+id/destination"
+
+        <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#33FFFFFF"
-            android:background="?android:selectableItemBackground"
-            android:text="@string/destination"
-            android:textSize="25sp"
-            android:padding="10dp"
             android:layout_marginBottom="20dp"
-            android:onClick="setDestination"
-            />
+            android:background="#15000000">
+            <Button
+                android:id="@+id/destination"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#33FFFFFF"
+                android:background="?android:selectableItemBackground"
+                android:text="@string/destination"
+                android:textSize="25sp"
+                android:padding="10dp"
+                android:onClick="setDestination"
+                />
+        </FrameLayout>
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -64,6 +75,11 @@
             android:layout_marginLeft="20dp"
             android:text="@string/on_date"/>
 
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="#15000000">
         <Button
             android:id="@+id/date"
             android:layout_width="fill_parent"
@@ -74,6 +90,7 @@
             android:padding="10dp"
             android:onClick="setDate"
             />
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -90,7 +107,7 @@
             android:textColor="#44FFFFFF"
             android:textSize="25sp"
             android:padding="15dp"
-            android:text="Submit"/>
+            android:text="Next"/>
     </FrameLayout>
 
 
