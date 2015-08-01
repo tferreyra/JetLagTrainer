@@ -208,12 +208,14 @@ public class SleepScheduleGraphView extends View {
         setPaintAttributes(black, Color.BLACK, Paint.Style.STROKE, STROKE_WIDTH);
         Paint white = new Paint();
         setPaintAttributes(white, Color.WHITE, Paint.Style.STROKE, STROKE_WIDTH);
-        float delta = graphWidth/((TERMINAL_TIME - INITIAL_TIME)*10);
+        float delta = (float) graphWidth/ (float) ((TERMINAL_TIME - INITIAL_TIME)*10);
+        float delta2 = (float) (TERMINAL_TIME - INITIAL_TIME) / (float) ((TERMINAL_TIME - INITIAL_TIME)*10);
         float x0 = LEFT;
         float y0 = daylightCycle(bedTime);
         // Graphs from Noon to Noon.
         float eps = (float) Math.pow(10.0, -3.0);
-        for (float x1 = INITIAL_TIME; x0 < RIGHT+1; x1+=0.10) {
+        Log.d("delta2:", String.valueOf(delta2));
+        for (float x1 = INITIAL_TIME; x1 <= TERMINAL_TIME; x1+=delta2) {
             float y1 = daylightCycle((float) x1);
             if (y1 > verticalShift) {
                 mCanvas.drawLine(x0, y0, x0+delta, y1, white);
