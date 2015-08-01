@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.transition.Slide;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -50,6 +52,26 @@ public class InputLocationActivity extends Activity {
 
         loading = (ProgressBar) findViewById(R.id.loading);
         hideLoading();
+
+        Button dateButton = (Button) findViewById(R.id.date);
+        dateButton.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!s.toString().isEmpty()) {
+                    dateSet = true;
+                    evaluateSubmitPotential();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -99,16 +121,13 @@ public class InputLocationActivity extends Activity {
         }
     }
 
-    //TODO: Fix bug here! Currently, when entering dateDialog, we assume that users will enter in a date before allowing them to submit this page.
-    ////BUG: Currently, when entering dateDialog, we assume that users will enter in a date. If they
-    // cancel out of the dialog box, no date will be entered, but users will still be allowed to
-    // submit this page. If users submit page without entering in date, a nullpointerexception is raised.
     public void setDate(View view) {
-        DateDialog dialog = new DateDialog(view);
+        DateDialog dialog = new DateDialog();
+        dialog.init(view);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         dialog.show(ft, "DatePicker");
-        dateSet = true;
-        evaluateSubmitPotential();
+        /*dateSet = true;
+        evaluateSubmitPotential();*/
     }
 
     @Override
