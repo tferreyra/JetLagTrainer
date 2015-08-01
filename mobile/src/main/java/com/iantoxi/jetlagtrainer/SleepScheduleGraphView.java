@@ -16,7 +16,6 @@ import android.view.View;
  * View that draws Sleep Schedule.
  */
 public class SleepScheduleGraphView extends View {
-
     // Stroke Width for Paint Object. Determines width of sine curve line.
     private final float STROKE_WIDTH = 6f;
     // Initial hour on graph.
@@ -176,6 +175,14 @@ public class SleepScheduleGraphView extends View {
         c.drawRect(left, top, right, bottom, p);
     }
 
+    /**
+     * Pass in sleep schedule information to be plotted.
+     * @param bedTime            current bedTime in seconds from midnight
+     * @param wakeTime           current wakeTime in seconds from midnight
+     * @param targetBedTime      target bedTime in seconds from midnight
+     * @param targetWakeTime     target wakeTime in seconds from midnight
+     * @param timeDiff           (target - current) time difference in hours
+     */
     public void setSleepSchedule(float bedTime, float wakeTime, float targetBedTime,
                                  float targetWakeTime, float timeDiff) {
         this.bedTime = bedTime;
@@ -189,6 +196,11 @@ public class SleepScheduleGraphView extends View {
     /**
      * Draw daylight cycle and sleep schedule. Assumes bedTime and wakeTime
      * given in seconds from midnight.
+     * @param bedTime            current bedTime in seconds from midnight
+     * @param wakeTime           current wakeTime in seconds from midnight
+     * @param targetBedTime      target bedTime in seconds from midnight
+     * @param targetWakeTime     target wakeTime in seconds from midnight
+     * @param timeDiff           (target - current) time difference in hours
      */
     private void drawSleepSchedule(float bedTime, float wakeTime, float targetBedTime,
                                    float targetWakeTime, float timeDiff) {
@@ -201,7 +213,7 @@ public class SleepScheduleGraphView extends View {
         float y0 = daylightCycle(bedTime);
         // Graphs from Noon to Noon.
         float eps = (float) Math.pow(10.0, -3.0);
-        for (float x1 = INITIAL_TIME; x1 < TERMINAL_TIME+1; x1+=0.10) {
+        for (float x1 = INITIAL_TIME; x0 < RIGHT+1; x1+=0.10) {
             float y1 = daylightCycle((float) x1);
             if (y1 > verticalShift) {
                 mCanvas.drawLine(x0, y0, x0+delta, y1, white);
@@ -214,21 +226,21 @@ public class SleepScheduleGraphView extends View {
             x0 += delta;
             y0 = y1;
         }
-
         // Draw shaded region for sleep times.
         drawSleepRegion(bedTime, wakeTime, Color.CYAN);
         drawSleepRegion(targetBedTime, targetWakeTime, Color.YELLOW);
     }
 
     /**
-     * Draw axis label, current and target time.
-     * @param x        x-coordinate to begin text
-     * @param time     military time entry to add to axis, added to axis mod 12
+     * Draw axis label, current and target hour.
+     * @param x          x-coordinate to begin text
+     * @param hour       current hour in 24-hour convention
+     * @param timeDiff   (target - current) time difference in hours
      */
-    private void drawAxisLabel(float x, float time, float timeDiff) {
+    private void drawAxisLabel(float x, float hour, float timeDiff) {
         setPaintAttributes(paint, Color.BLACK, 20, Paint.Align.LEFT, Typeface.MONOSPACE);
-        int currentHour = Math.round(time);
-        int targetHour = Math.round(time + timeDiff);
+        int currentHour = Math.round(hour);
+        int targetHour = Math.round(hour + timeDiff);
         String currentLabel = null;
         String targetLabel = null;
         if (currentHour <= 12) {
@@ -303,7 +315,6 @@ public class SleepScheduleGraphView extends View {
                 // Cut line off at top of graph.
                 float x1 = left + (y0-top)/slope;
                 if (x1 <= right) {
-                    Log.d("y1:", String.valueOf(y1));
                     mCanvas.drawLine(left, y0, x1, top, paint);
                 }
             } else if (y0 > bottom) {
@@ -323,6 +334,8 @@ public class SleepScheduleGraphView extends View {
      * sunrise at 7am (7:00), and sunset at 7pm (19:00).
      *
      * (x,y) coordinates reflected across the x-axis based on Android screen coordinates.
+     *
+     * @param hour    hour in current time
      */
     private float daylightCycle(float hour) {
         return (float) -1*amplitude * (float) Math.sin((Math.PI / (float) 12)*(hour - 7)) + verticalShift;

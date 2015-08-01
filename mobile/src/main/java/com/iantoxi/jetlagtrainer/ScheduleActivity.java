@@ -21,6 +21,13 @@ public class ScheduleActivity extends Activity {
         slide.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setEnterTransition(slide);
         getWindow().setExitTransition(slide);
+
+        drawSleepScheduleGraph();
+    }
+
+    private void drawSleepScheduleGraph() {
+        SleepScheduleGraphView graph = (SleepScheduleGraphView) findViewById(R.id.sleepScheduleGraph);
+        graph.setSleepSchedule(20*3600, 8*3600, 22*3600, 10*3600, 4);
     }
 
     @Override
