@@ -16,7 +16,10 @@ public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTim
     private TextView textView;
     Activity main;
 
-    public TimeDialog(View view) {
+    public TimeDialog() {
+    }
+
+    public void init(View view) {
         textView = (TextView) view;
         main = getActivity();
     }
