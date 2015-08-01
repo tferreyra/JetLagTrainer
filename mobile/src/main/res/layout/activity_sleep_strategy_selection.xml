@@ -29,6 +29,7 @@
             android:padding="10dp"
             android:layout_marginLeft="20dp"
             android:text="@string/title_sleep_strategy"
+            android:textSize="13sp"
             style="@style/bodyText"/>
 
         <FrameLayout
