@@ -42,7 +42,7 @@
                 android:background="?android:selectableItemBackground"
                 android:textSize="25sp"
                 android:padding="10dp"
-                android:onClick="DEVchangeTimeZone"
+                android:onClick="setOrigin"
                 />
             <!--android:onClick="setOrigin"-->
         </FrameLayout>
@@ -68,7 +68,7 @@
                 android:hint="@string/destination"
                 android:textSize="25sp"
                 android:padding="10dp"
-                android:onClick="DEVchangeTimeZone"
+                android:onClick="setDestination"
                 />
             <!--android:onClick="setDestination"-->
         </FrameLayout>

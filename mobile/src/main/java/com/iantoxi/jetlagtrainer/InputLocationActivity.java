@@ -149,7 +149,7 @@ public class InputLocationActivity extends Activity {
     }
 
     //For faster testing. change back to originDestination when done
-    public void DEVchangeTimeZone(View view) {
+    public void DEVchangeOriginTimeZone(View view) {
         originSet = true;
         destinationSet = true;
         changeButtonTimezone(view.getId(), "America/Los Angeles");
