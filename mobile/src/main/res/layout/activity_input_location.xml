@@ -42,8 +42,9 @@
                 android:background="?android:selectableItemBackground"
                 android:textSize="25sp"
                 android:padding="10dp"
-                android:onClick="setOrigin"
+                android:onClick="DEVchangeTimeZone"
                 />
+            <!--android:onClick="setOrigin"-->
         </FrameLayout>
         <TextView
             android:layout_width="fill_parent"
@@ -67,8 +68,9 @@
                 android:hint="@string/destination"
                 android:textSize="25sp"
                 android:padding="10dp"
-                android:onClick="setDestination"
+                android:onClick="DEVchangeTimeZone"
                 />
+            <!--android:onClick="setDestination"-->
         </FrameLayout>
         <TextView
             android:layout_width="fill_parent"

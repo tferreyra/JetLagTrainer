@@ -146,6 +146,13 @@ public class InputLocationActivity extends Activity {
         }
     }
 
+    //For faster testing. change back to originDestination when done
+    public void DEVchangeTimeZone(View view) {
+        originSet = true;
+        destinationSet = true;
+        changeButtonTimezone(view.getId(), "America/Los Angeles");
+    }
+
     private void placeToTimeZoneId(Place place, final int field) {
         GeoApiContext context = new GeoApiContext().setApiKey(getString(R.string.google_geo_api_key));
 
