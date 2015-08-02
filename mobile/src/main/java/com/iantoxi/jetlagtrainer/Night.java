@@ -68,4 +68,24 @@ public class Night extends SugarRecord<Night> {
         }
     }
 
+    public int melatoninTime() {
+        if(advancing) {
+            return sleepTime - 5*60;
+        }
+        return wakeTime + 1 * 60;
+    }
+
+    public int[] lightRange() {
+        if(advancing) {
+            return new int[] {wakeTime , wakeTime + 2*60};
+        }
+        return new int[] {sleepTime - 2*60, sleepTime};
+    }
+
+    public int[] noLightRange() {
+        if(advancing) {
+            return new int[] {sleepTime - 2*60, sleepTime};
+        }
+        return new int[] {wakeTime , wakeTime + 2*60};
+    }
 }

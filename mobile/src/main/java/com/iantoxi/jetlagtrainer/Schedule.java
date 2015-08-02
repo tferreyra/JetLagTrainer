@@ -22,6 +22,8 @@ public class Schedule extends SugarRecord<Schedule> {
 
     public int originSleepTime;
     public int originWakeTime;
+    //TODO: Implement logic to calculate schedules based on a destination sleep time.
+    //TODO: Implement activity to query user for Destination sleep times.
     public int destinationSleepTime;
     public int destinationWakeTime;
 
@@ -75,6 +77,8 @@ public class Schedule extends SugarRecord<Schedule> {
     // For example, if flying from West Coast to East Coast in 5 days, only need 3 hours of
     // adjustment, so will delay startDate by 2 days.
     public void shiftStartDate() {
+        toBeginningOfTheDay(startDate);
+
         int daysToTravel = (int) ((travelDate.getTimeInMillis() -
                                    startDate.getTimeInMillis())/
                                    (24 * 60 * 60 * 1000));
@@ -86,7 +90,7 @@ public class Schedule extends SugarRecord<Schedule> {
     }
 
     //Calculates the number of hours in difference between two timezones on the date of travel.
-    private int calculateZoneGap() {
+    public int calculateZoneGap() {
         long travelDateInMillis = travelDate.getTimeInMillis();
         long offset = TimeZone.getTimeZone(destinationTimezone).getOffset(travelDateInMillis)
                 - TimeZone.getTimeZone(originTimezone).getOffset(travelDateInMillis);
@@ -107,6 +111,24 @@ public class Schedule extends SugarRecord<Schedule> {
             toAdjust -= 1;
         }
         currentNight = firstNight;
+    }
+
+    public void updateCurrentNight() {
+        Calendar today = Calendar.getInstance();
+        while(today.compareTo(currentNight.sleepStartDate) > 0 && currentNight.next != null) {
+            currentNight = currentNight.next;
+        }
+    }
+
+    public void newSleepTime(int sleepTime, int wakeTime) {
+        //TODO: Implement logic to shift sleep times when users deviate from sleep schedule.
+    }
+
+    public static void toBeginningOfTheDay(Calendar calendar) {
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
     }
 
 }

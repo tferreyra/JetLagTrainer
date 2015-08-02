@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 
 import com.google.android.gms.location.places.Place;
@@ -39,6 +40,7 @@ public class InputLocationActivity extends Activity {
     private boolean originSet = false;
     private boolean destinationSet = false;
     private boolean dateSet = false;
+    private Schedule schedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,34 +198,43 @@ public class InputLocationActivity extends Activity {
 
     private void evaluateSubmitPotential() {
         if (originSet && destinationSet && dateSet) {
-            Button submit = (Button) findViewById(R.id.submit);
+            final long scheduleId = buildSchedule();
 
-            TypedValue outValue = new TypedValue();
-            this.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
-            submit.setBackgroundResource(outValue.resourceId);
+            //check to make sure timezones are different
+            if (schedule.calculateZoneGap() == 0) {
+                Toast.makeText(this, "Seems there is a 0 hour difference between your current and destination time zone.", Toast.LENGTH_LONG).show();
+                destinationSet = false;
+                Button button = (Button) findViewById(R.id.destination);
+                button.setText(null);
+            } else {
+                Button submit = (Button) findViewById(R.id.submit);
 
-            submit.setTextColor(getResources().getColor(R.color.white));
+                TypedValue outValue = new TypedValue();
+                this.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+                submit.setBackgroundResource(outValue.resourceId);
 
-            submit.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    long scheduleId = buildSchedule();
+                submit.setTextColor(getResources().getColor(R.color.white));
 
-                    Intent intent = new Intent(InputLocationActivity.this, OriginTime.class);
-                    intent.putExtra("scheduleId", scheduleId);
+                submit.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
 
-                    String transitionName = getString(R.string.transition_main_input);
+                        Intent intent = new Intent(InputLocationActivity.this, OriginTime.class);
+                        intent.putExtra("scheduleId", scheduleId);
 
-                    View graphic = findViewById(R.id.imageView);
+                        String transitionName = getString(R.string.transition_main_input);
 
-                    ActivityOptionsCompat options =
-                            ActivityOptionsCompat.makeSceneTransitionAnimation(InputLocationActivity.this,
-                                    graphic,   // The view which starts the transition
-                                    transitionName    // The transitionName of the view we’re transitioning to
-                            );
+                        View graphic = findViewById(R.id.imageView);
 
-                    ActivityCompat.startActivity(InputLocationActivity.this, intent, options.toBundle());
-                }
-            });
+                        ActivityOptionsCompat options =
+                                ActivityOptionsCompat.makeSceneTransitionAnimation(InputLocationActivity.this,
+                                        graphic,   // The view which starts the transition
+                                        transitionName    // The transitionName of the view we’re transitioning to
+                                );
+
+                        ActivityCompat.startActivity(InputLocationActivity.this, intent, options.toBundle());
+                    }
+                });
+            }
         }
     }
 
@@ -233,7 +244,10 @@ public class InputLocationActivity extends Activity {
     }
 
     private long buildSchedule() {
-        Schedule schedule = new Schedule();
+        if (schedule != null) {
+            schedule.delete();
+        }
+        schedule = new Schedule();
         schedule.originTimezone = originTimeZone;
         schedule.destinationTimezone = destinationTimeZone;
         schedule.startDate = Calendar.getInstance();
