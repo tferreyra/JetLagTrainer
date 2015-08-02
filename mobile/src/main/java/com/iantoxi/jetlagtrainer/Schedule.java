@@ -32,7 +32,7 @@ public class Schedule extends SugarRecord<Schedule> {
     private Night firstNight;
     public Night currentNight;
 
-    private int zoneGap;
+    public int zoneGap;
     private boolean advancing;
     private int adjustment;
 

@@ -1,6 +1,7 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.transition.Slide;
@@ -10,6 +11,8 @@ import android.view.Window;
 
 
 public class ScheduleActivity extends Activity {
+    private long scheduleId;
+    private Schedule schedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +25,29 @@ public class ScheduleActivity extends Activity {
         getWindow().setEnterTransition(slide);
         getWindow().setExitTransition(slide);
 
+        Intent intent = getIntent();
+        scheduleId = (long) intent.getExtras().get("scheduleId");
+        schedule = Schedule.findById(Schedule.class, scheduleId);
+
         drawSleepScheduleGraph();
     }
 
+    /**
+     * Currently has issue with Night object not being created fast enough
+     * from previous activity, leaving the currentNight object null.
+     */
     private void drawSleepScheduleGraph() {
+        Night currentNight = schedule.currentNight;
+        int sleepTime = 22*3600;
+        int wakeTime = 8*3600;
+        if (currentNight != null) {
+            sleepTime = currentNight.sleepTime;
+            wakeTime = currentNight.wakeTime;
+        }
         SleepScheduleGraphView graph = (SleepScheduleGraphView) findViewById(R.id.sleepScheduleGraph);
-        graph.setSleepSchedule(20*3600, 8*3600, 22*3600, 10*3600, 4);
+        graph.setSleepSchedule(sleepTime, wakeTime,
+                schedule.destinationWakeTime, schedule.destinationSleepTime,
+                schedule.zoneGap);
     }
 
     @Override
