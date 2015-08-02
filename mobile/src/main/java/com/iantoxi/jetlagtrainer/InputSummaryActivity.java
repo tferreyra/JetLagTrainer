@@ -37,9 +37,10 @@ public class InputSummaryActivity extends Activity {
         updateTextView(R.id.origin, schedule.originTimezone);
         updateTextView(R.id.destination, schedule.destinationTimezone);
         updateTextView(R.id.travel_date, formatDate(schedule.travelDate));
-        //TODO: format times into human readable times.
-        updateTextView(R.id.sleep_time, Integer.toString(schedule.originSleepTime));
-        updateTextView(R.id.wake_time, Integer.toString(schedule.originWakeTime));
+
+        updateTextView(R.id.sleep_time, timeConversion(schedule.originSleepTime));
+        updateTextView(R.id.wake_time, timeConversion(schedule.originWakeTime));
+
         updateTextView(R.id.melatonin, boolToYesNo(schedule.melatoninStrategy));
         updateTextView(R.id.light, boolToYesNo(schedule.lightStrategy));
     }
@@ -91,5 +92,24 @@ public class InputSummaryActivity extends Activity {
         Intent intent = new Intent(this, ScheduleActivity.class);
         intent.putExtra("scheduleId", scheduleId);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+    }
+
+    private String timeConversion(Integer i) {
+        int hours = i / 3600;
+        int minutes = (i % 3600) / 60;
+
+        String AMPM = " AM";
+        if (hours == 0) {
+            hours = 12; // since 12 AM is represented as 0
+        } else if (hours >= 12) {
+            AMPM = " PM";
+            if (hours > 12)
+                hours -= 12;
+        }
+
+        if (minutes < 10) {
+            return Integer.toString(hours) + ":0" + Integer.toString(minutes) + AMPM;
+        } else
+            return Integer.toString(hours) + ":" + Integer.toString(minutes) + AMPM;
     }
 }

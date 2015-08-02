@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.transition.Slide;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -25,7 +27,6 @@ public class OriginTime extends Activity {
     private boolean wakeTimeSet = false;
     private int sleepTime;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,41 @@ public class OriginTime extends Activity {
         Intent intent = getIntent();
         scheduleId = (long) intent.getExtras().get("scheduleId");
         schedule = Schedule.findById(Schedule.class, scheduleId);
+
+        Button sleepButton = (Button) findViewById(R.id.sleep_time);
+        sleepButton.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!s.toString().isEmpty()) {
+                    sleepTimeSet = true;
+                    evaluateSubmitPotential();
+                }
+            }
+        });
+
+        Button wakeButton = (Button) findViewById(R.id.wake_time);
+        wakeButton.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!s.toString().isEmpty()) {
+                    wakeTimeSet = true;
+                    evaluateSubmitPotential();
+                }
+            }
+        });
     }
 
     @Override
@@ -64,29 +100,22 @@ public class OriginTime extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    //TODO: Fix bug here! Currently, when entering timeDialog, we assume that users will enter in a time before allowing them to submit this page.
-    ////BUG: Currently, when entering timeDialog, we assume that users will enter in a time. If they
-    // cancel out of the dialog box, no time will be entered, but users will still be allowed to
-    // submit this page. If users submit page without entering in time, a nullpointerexception is raised.
     public void setSleepTime(View view) {
-        TimeDialog dialog = new TimeDialog(view);
+        TimeDialog dialog = new TimeDialog();
+        dialog.init(view);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         dialog.show(ft, "DatePicker");
-        sleepTimeSet = true;
-        evaluateSubmitPotential();
+        /*sleepTimeSet = true;
+        evaluateSubmitPotential();*/
     }
 
-
-    //TODO: Fix bug here! Currently, when entering timeDialog, we assume that users will enter in a time before allowing them to submit this page.
-    ////BUG: Currently, when entering timeDialog, we assume that users will enter in a time. If they
-    // cancel out of the dialog box, no time will be entered, but users will still be allowed to
-    // submit this page. If users submit page without entering in time, a nullpointerexception is raised. 
     public void setWakeTime(View view) {
-        TimeDialog dialog = new TimeDialog(view);
+        TimeDialog dialog = new TimeDialog();
+        dialog.init(view);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         dialog.show(ft, "DatePicker");
-        wakeTimeSet = true;
-        evaluateSubmitPotential();
+        /*wakeTimeSet = true;
+        evaluateSubmitPotential();*/
     }
 
     private void evaluateSubmitPotential() {
