@@ -212,8 +212,8 @@ public class SleepScheduleGraphView extends View {
         setPaintAttributes(black, Color.BLACK, Paint.Style.STROKE, STROKE_WIDTH);
         Paint white = new Paint();
         setPaintAttributes(white, Color.WHITE, Paint.Style.STROKE, STROKE_WIDTH);
-        float delta = (float) graphWidth/ (float) ((TERMINAL_TIME - INITIAL_TIME)*10);
-        float delta2 = (float) (TERMINAL_TIME - INITIAL_TIME) / (float) ((TERMINAL_TIME - INITIAL_TIME)*10);
+        float delta = (float) graphWidth/ (float) ((TERMINAL_TIME - INITIAL_TIME)*300);
+        float delta2 = (float) (TERMINAL_TIME - INITIAL_TIME) / (float) ((TERMINAL_TIME - INITIAL_TIME)*300);
         float x0 = LEFT;
         float y0 = daylightCycle(bedTime);
         // Graphs from Noon to Noon.
@@ -244,7 +244,7 @@ public class SleepScheduleGraphView extends View {
      * @param timeDiff   (target - current) time difference in hours
      */
     private void drawAxisLabel(float x, float time, float timeDiff) {
-        setPaintAttributes(paint, Color.BLACK, 40, Paint.Align.LEFT, Typeface.MONOSPACE);
+        setPaintAttributes(paint, Color.BLACK, axesTextSize, Paint.Align.LEFT, Typeface.MONOSPACE);
         paint.setStrokeWidth(0f);
         int currentHour = Math.round(time) % 24;
         int targetHour = Math.round(time + timeDiff) % 24;
@@ -267,8 +267,8 @@ public class SleepScheduleGraphView extends View {
                 targetHour = (targetHour % 12) + 1;
                 targetLabel = String.valueOf(targetHour) + "pm"; // + "pm"
             }
-            mCanvas.drawText(currentLabel, x+10, yCurrentTimeAxis - 40, paint);
-            mCanvas.drawText(targetLabel, x+10, yTargetTimeAxis - 40, paint);
+            mCanvas.drawText(currentLabel, x+10, yCurrentTimeAxis - axesTextSize, paint);
+            mCanvas.drawText(targetLabel, x+10, yTargetTimeAxis - axesTextSize, paint);
         }
     }
 
