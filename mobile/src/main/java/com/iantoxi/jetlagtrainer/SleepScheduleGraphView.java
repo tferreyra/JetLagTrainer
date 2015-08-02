@@ -72,19 +72,23 @@ public class SleepScheduleGraphView extends View {
         super.onDraw(canvas);
         mCanvas = canvas;
 
-        LEFT = getLeft();
-        RIGHT = getRight();
+        LEFT = getPaddingLeft();
+        RIGHT = getWidth() - getPaddingRight();
         WIDTH = RIGHT - LEFT;
+
+        int TOP = getPaddingTop();
+        int BOTTOM = getHeight() - getPaddingBottom();
+        int HEIGHT = (BOTTOM - TOP)/2;
 
         // Set heights of different graph sections:
         // 1) Title bar heights.
         // 2) Font size of titles and axes labels.
         // 3) Graph size (sine function section of View).
-        int timeLabelsHeight = 120;
+        int timeLabelsHeight = HEIGHT/10;
         int timeLabelsFontSize = timeLabelsHeight/2;
-        int timeAxesHeight = 90;
+        int timeAxesHeight = HEIGHT/10;
         axesTextSize = timeAxesHeight/2;
-        int graphHeight = 400;
+        int graphHeight = (HEIGHT/5)*3;
 
         // Draw Current Time title bar.
         int topcurrentTimeTitle = 0;
