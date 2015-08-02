@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:orientation="vertical"
-                >
+                android:id="@+id/linearLayout">
 
                 <ImageView
                     android:id="@+id/sleep_training_graphic"
@@ -38,7 +38,18 @@
                     android:text="@string/main_sleep"
                     android:paddingTop="20dp"
                     android:paddingBottom="40dp"
-                    />
+                    android:id="@+id/startButton" />
+
+                <!--<TextView-->
+                <!--style="@style/bodyText"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:text="@string/existing_sleep"-->
+                <!--android:paddingTop="20dp"-->
+                <!--android:paddingBottom="40dp"-->
+                <!--android:id="@+id/startButton2"-->
+                <!--android:visibility="gone"/>-->
 
             </LinearLayout>
 
@@ -46,10 +57,20 @@
                 android:layout_height="fill_parent"
                 android:layout_width="fill_parent"
                 android:background="?android:selectableItemBackground"
-                android:onClick="launchNewSleepShiftInput">
+                android:id="@+id/button">
             </Button>
 
+            <!--<Button-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:background="?android:selectableItemBackground"-->
+            <!--android:onClick="launchExistingSchedule"-->
+            <!--android:id="@+id/button2"-->
+            <!--android:visibility="gone">-->
+            <!--</Button>-->
+
         </RelativeLayout>
+
 
         <!-- Visit History Section -->
         <RelativeLayout
