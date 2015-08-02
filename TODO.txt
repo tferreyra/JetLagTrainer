@@ -4,6 +4,7 @@
     + Fully featured schedule pages
     + On-boarding/explanation pages
     + Help and settings pages (changing schedule) 
+
 - Watch notification services
 - Watch sensor services
 - Populating history pages

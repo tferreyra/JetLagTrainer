@@ -25,14 +25,6 @@ public class ScheduleActivity extends Activity {
         getWindow().setEnterTransition(slide);
         getWindow().setExitTransition(slide);
 
-<<<<<<< HEAD
-        drawSleepScheduleGraph();
-    }
-
-    private void drawSleepScheduleGraph() {
-        SleepScheduleGraphView graph = (SleepScheduleGraphView) findViewById(R.id.sleepScheduleGraph);
-        graph.setSleepSchedule(20*3600, 8*3600, 22*3600, 10*3600, 4);
-=======
         Intent intent = getIntent();
         scheduleId = (long) intent.getExtras().get("scheduleId");
         schedule = Schedule.findById(Schedule.class, scheduleId);
@@ -56,7 +48,6 @@ public class ScheduleActivity extends Activity {
         graph.setSleepSchedule(sleepTime, wakeTime,
                 schedule.destinationWakeTime, schedule.destinationSleepTime,
                 schedule.zoneGap);
->>>>>>> me
     }
 
     @Override
