@@ -45,6 +45,18 @@
             android:name=".OriginTime"
             android:label="@string/title_activity_origin_time" >
         </activity>
+        <activity
+            android:name=".InputSummaryActivity"
+            android:label="@string/title_activity_input_summary" >
+        </activity>
+
+        <service
+            android:name=".ListenerServiceFromWear"
+            android:label="ListenerServiceFromWear" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="DATABASE"
@@ -62,10 +74,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_geo_api_key" />
 
-        <activity
-            android:name=".InputSummaryActivity"
-            android:label="@string/title_activity_input_summary" >
-        </activity>
     </application>
 
 </manifest>

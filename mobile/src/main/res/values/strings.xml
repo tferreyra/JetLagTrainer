@@ -37,16 +37,25 @@
     <string name="title_activity_sleep_strategy">SleepStrategySelection</string>
 
     <!-- Sleep Strategy Selection screen -->
-    <string name="title_sleep_strategy">Select optional strategies that would you like to include in your sleep plan: </string>
+    <string name="title_sleep_strategy">Select optional strategies that would you like to include in your sleep plan (hold selection for more info): </string>
     <string name="melatonin">Scheduled Melatonin</string>
     <string name="melatonin_exp">Receive reminder notifications to take melatonin at the most effective time for sleep cycle adjustment.</string>
     <string name="light_exposure">Light Exposure Control</string>
     <string name="light_exposure_exp">[Smartwatch required] Monitor your environmental light intensity and control your light exposure to adjust your
         body\'s internal circadian rhythm.</string>
     <string name="title_activity_input_summary">InputSummaryActivity</string>
+    <string name="melatonin_explanation">Melatonin is a natural hormone that the body produces to induce sleep. Melatonin
+        is produced when it is dark, and melatonin production is directly inhibited by light. Thus, users who need to sleep
+        earlier than they are used to may find taking melatonin to be helpful in helping them fall asleep when they need to. As a
+        result, studies have shown that melatonin has been especially effective in helping prevent jet lag in this way.</string>
+    <string name="light_control_explanation">Whether our bodies\' natural circadian rhythms align with the
+        environment are determined by several factors, with one of the most important ones being light. Bright light exposure
+        can cause a \'phase shift\', an advance or delay in circadian rhythms. Thus, by carefully controlling our exposure to light,
+        we can use phase shifting to match our circadian rhythms to our destination\'s time zone, preventing jet lag.</string>
 
     <!--Input Summary screen -->
     <string name="summary_title">Summary</string>
+
 
 
 </resources>

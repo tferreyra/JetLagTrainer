@@ -59,7 +59,8 @@ public class DateInput extends Activity{
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    DateDialog dialog = new DateDialog(v);
+                    DateDialog dialog = new DateDialog();
+                    dialog.init(v);
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     dialog.show(ft, "DatePicker");
                 }

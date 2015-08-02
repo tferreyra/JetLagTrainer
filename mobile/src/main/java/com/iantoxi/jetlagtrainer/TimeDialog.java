@@ -16,7 +16,10 @@ public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTim
     private TextView textView;
     Activity main;
 
-    public TimeDialog(View view) {
+    public TimeDialog() {
+    }
+
+    public void init(View view) {
         textView = (TextView) view;
         main = getActivity();
     }
@@ -40,7 +43,20 @@ public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTim
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         int total = hourOfDay * 3600 + minute * 60;
         textView.setTag(R.id.time_tags, total);
-        //TODO: format time with AM/PM
-        textView.setText(hourOfDay + ":" + minute);
+
+        String AMPM = " AM";
+        if (hourOfDay == 0) {
+            hourOfDay = 12; // since 12 AM is represented as 0
+        } else if (hourOfDay >= 12) {
+            AMPM = " PM";
+            if (hourOfDay > 12)
+                hourOfDay -= 12;
+        }
+
+        if (minute < 10) {
+            String minuteString = "0" + Integer.toString(minute);
+            textView.setText(hourOfDay + ":" + minuteString + AMPM);
+        } else
+            textView.setText(hourOfDay + ":" + minute + AMPM);
     }
 }

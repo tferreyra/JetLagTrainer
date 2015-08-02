@@ -69,6 +69,8 @@ public class MainActivity extends Activity {
     public void launchHistory(View view) {
         Intent intent = new Intent(this, HistoryActivity.class);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        /*Intent intent = new Intent(this, SleepStrategySelection.class);
+        startActivity(intent);*/
     }
 
 }
