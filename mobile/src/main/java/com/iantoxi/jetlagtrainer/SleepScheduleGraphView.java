@@ -236,29 +236,36 @@ public class SleepScheduleGraphView extends View {
     /**
      * Draw axis label, current and target hour.
      * @param x          x-coordinate to begin text
-     * @param hour       current hour in 24-hour convention
+     * @param time       current time in hours (may be greater than 24)
      * @param timeDiff   (target - current) time difference in hours
      */
-    private void drawAxisLabel(float x, float hour, float timeDiff) {
-        setPaintAttributes(paint, Color.BLACK, 20, Paint.Align.LEFT, Typeface.MONOSPACE);
-        int currentHour = Math.round(hour);
-        int targetHour = Math.round(hour + timeDiff);
+    private void drawAxisLabel(float x, float time, float timeDiff) {
+        setPaintAttributes(paint, Color.BLACK, 40, Paint.Align.LEFT, Typeface.MONOSPACE);
+        paint.setStrokeWidth(0f);
+        int currentHour = Math.round(time) % 24;
+        int targetHour = Math.round(time + timeDiff) % 24;
         String currentLabel = null;
         String targetLabel = null;
-        if (currentHour <= 12) {
-            currentLabel = String.valueOf(currentHour); // + "am"
-        } else {
-            currentHour = (currentHour % 12) + 1;
-            currentLabel = String.valueOf(currentHour); // + "pm"
+        if (currentHour % 4 == 0) {
+            if (currentHour == 0) {
+                currentLabel = "12am";
+            } else if (currentHour < 12) {
+                currentLabel = String.valueOf(currentHour) + "am"; // + "am"
+            } else {
+                currentHour = (currentHour % 12) + 1;
+                currentLabel = String.valueOf(currentHour) + "pm"; // + "pm"
+            }
+            if (targetHour == 0) {
+                targetLabel = "12am";
+            } else if (targetHour < 12) {
+                targetLabel = String.valueOf(targetHour) + "am"; // + "am"
+            } else {
+                targetHour = (targetHour % 12) + 1;
+                targetLabel = String.valueOf(targetHour) + "pm"; // + "pm"
+            }
+            mCanvas.drawText(currentLabel, x+10, yCurrentTimeAxis - 40, paint);
+            mCanvas.drawText(targetLabel, x+10, yTargetTimeAxis - 40, paint);
         }
-        if (targetHour <= 12) {
-            targetLabel = String.valueOf(targetHour); // + "am"
-        } else {
-            targetHour = (targetHour % 12) + 1; // + "pm"
-            targetLabel = String.valueOf(targetHour); // + "pm"
-        }
-        mCanvas.drawText(currentLabel, x, yCurrentTimeAxis-40, paint);
-        mCanvas.drawText(targetLabel, x, yTargetTimeAxis - 40, paint);
     }
 
     /**
