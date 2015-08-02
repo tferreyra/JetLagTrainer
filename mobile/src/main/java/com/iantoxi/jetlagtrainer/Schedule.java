@@ -28,8 +28,7 @@ public class Schedule extends SugarRecord<Schedule> {
     public boolean melatoninStrategy;
     public boolean lightStrategy;
 
-
-    private Night firstNight;
+    public Night firstNight;
     public Night currentNight;
 
     public int zoneGap;
@@ -68,6 +67,7 @@ public class Schedule extends SugarRecord<Schedule> {
         shiftStartDate();
 
         createNights(originSleepTime, originWakeTime);
+        this.save();
     }
 
     //Assuming that users will shift one hour a day, delays start of sleep schedule adjustment
@@ -96,16 +96,14 @@ public class Schedule extends SugarRecord<Schedule> {
     //Recursively creates nights. Creates number of nights matching number of adjustment hours.
     private void createNights(int sleepTime, int wakeTime) {
 
-        firstNight = new Night(this, startDate, sleepTime, wakeTime,
+        firstNight = new Night(this.getId(), startDate, sleepTime, wakeTime,
                                melatoninStrategy, lightStrategy,
-                               null, null, advancing);
-        firstNight.save();
+                               0, null, advancing);
 
         currentNight = firstNight;
         int toAdjust = adjustment - 1;
         while(toAdjust > 0) {
             currentNight = currentNight.nextNight();
-            currentNight.save();
             toAdjust -= 1;
         }
         currentNight = firstNight;
