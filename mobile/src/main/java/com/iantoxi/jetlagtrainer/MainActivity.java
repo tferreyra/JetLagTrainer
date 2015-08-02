@@ -91,6 +91,7 @@ public class MainActivity extends Activity {
                 );
 
         ActivityCompat.startActivity(this, intent, options.toBundle());
+        finish();
     }
 
     public void launchHistory(View view) {

@@ -1,6 +1,7 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -30,6 +31,13 @@ public class ScheduleActivity extends Activity {
         schedule = Schedule.findById(Schedule.class, scheduleId);
 
         drawSleepScheduleGraph();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     /**
