@@ -80,7 +80,7 @@ public class OriginTime extends Activity {
     //TODO: Fix bug here! Currently, when entering timeDialog, we assume that users will enter in a time before allowing them to submit this page.
     ////BUG: Currently, when entering timeDialog, we assume that users will enter in a time. If they
     // cancel out of the dialog box, no time will be entered, but users will still be allowed to
-    // submit this page. If users submit page without entering in time, a nullpointerexception is raised. 
+    // submit this page. If users submit page without entering in time, a nullpointerexception is raised.
     public void setWakeTime(View view) {
         TimeDialog dialog = new TimeDialog(view);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
