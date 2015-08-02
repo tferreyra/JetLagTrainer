@@ -8,13 +8,13 @@ import java.util.Calendar;
  * Created by linxi on 7/28/15.
  */
 public class Night extends SugarRecord<Night> {
-    public Schedule parent;
+    public long parent; //SugarORM id
     public Calendar sleepStartDate;
     public int sleepTime;
     public int wakeTime;
     public boolean melatoninStrategy;
     public  boolean lightStrategy;
-    public Night previous;
+    public long previous; //SugarORM id
     public Night next;
 
     private boolean advancing;
@@ -23,13 +23,13 @@ public class Night extends SugarRecord<Night> {
         //necessary for Sugar ORM
     }
 
-    public Night(Schedule parent,
+    public Night(long parent,
                  Calendar sleepStartDate,
                  int sleepTime,                 // time of sleep in minutes from 12:00AM on sleepStartDate
                  int wakeTime,                  // time of wake in minutes from 12:00AM
                  boolean melatoninStrategy,
                  boolean lightStrategy,
-                 Night previous,
+                 long previous,
                  Night next,
                  boolean advancing) {
 
@@ -42,6 +42,7 @@ public class Night extends SugarRecord<Night> {
         this.previous = previous;
         this.next = next;
         this.advancing = advancing;
+        this.save();
     }
 
     public Night nextNight() {
@@ -53,9 +54,9 @@ public class Night extends SugarRecord<Night> {
         Night nextNight = new Night(parent, sleepStartDate,
                                     newSleepTime, newWakeTime,
                                     melatoninStrategy, lightStrategy,
-                                    this, null, advancing);
+                                    this.getId(), null, advancing);
         this.next = nextNight;
-
+        this.save();
         return nextNight;
     }
 

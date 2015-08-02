@@ -89,6 +89,7 @@ public class InputSummaryActivity extends Activity {
 
     public void calculateSchedule(View view) {
         schedule.calculateSchedule();
+        schedule.save();
         Intent intent = new Intent(this, ScheduleActivity.class);
         intent.putExtra("scheduleId", scheduleId);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());

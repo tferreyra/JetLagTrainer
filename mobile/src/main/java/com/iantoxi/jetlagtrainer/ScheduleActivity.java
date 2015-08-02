@@ -38,14 +38,8 @@ public class ScheduleActivity extends Activity {
      */
     private void drawSleepScheduleGraph() {
         Night currentNight = schedule.currentNight;
-        int sleepTime = 22*3600;
-        int wakeTime = 8*3600;
-        if (currentNight != null) {
-            sleepTime = currentNight.sleepTime;
-            wakeTime = currentNight.wakeTime;
-        }
         SleepScheduleGraphView graph = (SleepScheduleGraphView) findViewById(R.id.sleepScheduleGraph);
-        graph.setSleepSchedule(sleepTime, wakeTime,
+        graph.setSleepSchedule(currentNight.sleepTime, currentNight.wakeTime,
                 schedule.destinationWakeTime, schedule.destinationSleepTime,
                 schedule.zoneGap);
     }
