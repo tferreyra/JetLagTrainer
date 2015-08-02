@@ -16,7 +16,6 @@ import android.view.View;
  * View that draws Sleep Schedule.
  */
 public class SleepScheduleGraphView extends View {
-
     // Stroke Width for Paint Object. Determines width of sine curve line.
     private final float STROKE_WIDTH = 6f;
     // Initial hour on graph.
@@ -176,6 +175,14 @@ public class SleepScheduleGraphView extends View {
         c.drawRect(left, top, right, bottom, p);
     }
 
+    /**
+     * Pass in sleep schedule information to be plotted.
+     * @param bedTime            current bedTime in seconds from midnight
+     * @param wakeTime           current wakeTime in seconds from midnight
+     * @param targetBedTime      target bedTime in seconds from midnight
+     * @param targetWakeTime     target wakeTime in seconds from midnight
+     * @param timeDiff           (target - current) time difference in hours
+     */
     public void setSleepSchedule(float bedTime, float wakeTime, float targetBedTime,
                                  float targetWakeTime, float timeDiff) {
         this.bedTime = bedTime;
@@ -189,6 +196,11 @@ public class SleepScheduleGraphView extends View {
     /**
      * Draw daylight cycle and sleep schedule. Assumes bedTime and wakeTime
      * given in seconds from midnight.
+     * @param bedTime            current bedTime in seconds from midnight
+     * @param wakeTime           current wakeTime in seconds from midnight
+     * @param targetBedTime      target bedTime in seconds from midnight
+     * @param targetWakeTime     target wakeTime in seconds from midnight
+     * @param timeDiff           (target - current) time difference in hours
      */
     private void drawSleepSchedule(float bedTime, float wakeTime, float targetBedTime,
                                    float targetWakeTime, float timeDiff) {
@@ -196,12 +208,14 @@ public class SleepScheduleGraphView extends View {
         setPaintAttributes(black, Color.BLACK, Paint.Style.STROKE, STROKE_WIDTH);
         Paint white = new Paint();
         setPaintAttributes(white, Color.WHITE, Paint.Style.STROKE, STROKE_WIDTH);
-        float delta = graphWidth/((TERMINAL_TIME - INITIAL_TIME)*10);
+        float delta = (float) graphWidth/ (float) ((TERMINAL_TIME - INITIAL_TIME)*10);
+        float delta2 = (float) (TERMINAL_TIME - INITIAL_TIME) / (float) ((TERMINAL_TIME - INITIAL_TIME)*10);
         float x0 = LEFT;
         float y0 = daylightCycle(bedTime);
         // Graphs from Noon to Noon.
         float eps = (float) Math.pow(10.0, -3.0);
-        for (float x1 = INITIAL_TIME; x1 < TERMINAL_TIME+1; x1+=0.10) {
+        Log.d("delta2:", String.valueOf(delta2));
+        for (float x1 = INITIAL_TIME; x1 <= TERMINAL_TIME; x1+=delta2) {
             float y1 = daylightCycle((float) x1);
             if (y1 > verticalShift) {
                 mCanvas.drawLine(x0, y0, x0+delta, y1, white);
@@ -214,37 +228,44 @@ public class SleepScheduleGraphView extends View {
             x0 += delta;
             y0 = y1;
         }
-
         // Draw shaded region for sleep times.
         drawSleepRegion(bedTime, wakeTime, Color.CYAN);
         drawSleepRegion(targetBedTime, targetWakeTime, Color.YELLOW);
     }
 
     /**
-     * Draw axis label, current and target time.
-     * @param x        x-coordinate to begin text
-     * @param time     military time entry to add to axis, added to axis mod 12
+     * Draw axis label, current and target hour.
+     * @param x          x-coordinate to begin text
+     * @param time       current time in hours (may be greater than 24)
+     * @param timeDiff   (target - current) time difference in hours
      */
     private void drawAxisLabel(float x, float time, float timeDiff) {
-        setPaintAttributes(paint, Color.BLACK, 20, Paint.Align.LEFT, Typeface.MONOSPACE);
-        int currentHour = Math.round(time);
-        int targetHour = Math.round(time + timeDiff);
+        setPaintAttributes(paint, Color.BLACK, 40, Paint.Align.LEFT, Typeface.MONOSPACE);
+        paint.setStrokeWidth(0f);
+        int currentHour = Math.round(time) % 24;
+        int targetHour = Math.round(time + timeDiff) % 24;
         String currentLabel = null;
         String targetLabel = null;
-        if (currentHour <= 12) {
-            currentLabel = String.valueOf(currentHour); // + "am"
-        } else {
-            currentHour = (currentHour % 12) + 1;
-            currentLabel = String.valueOf(currentHour); // + "pm"
+        if (currentHour % 4 == 0) {
+            if (currentHour == 0) {
+                currentLabel = "12am";
+            } else if (currentHour < 12) {
+                currentLabel = String.valueOf(currentHour) + "am"; // + "am"
+            } else {
+                currentHour = (currentHour % 12) + 1;
+                currentLabel = String.valueOf(currentHour) + "pm"; // + "pm"
+            }
+            if (targetHour == 0) {
+                targetLabel = "12am";
+            } else if (targetHour < 12) {
+                targetLabel = String.valueOf(targetHour) + "am"; // + "am"
+            } else {
+                targetHour = (targetHour % 12) + 1;
+                targetLabel = String.valueOf(targetHour) + "pm"; // + "pm"
+            }
+            mCanvas.drawText(currentLabel, x+10, yCurrentTimeAxis - 40, paint);
+            mCanvas.drawText(targetLabel, x+10, yTargetTimeAxis - 40, paint);
         }
-        if (targetHour <= 12) {
-            targetLabel = String.valueOf(targetHour); // + "am"
-        } else {
-            targetHour = (targetHour % 12) + 1; // + "pm"
-            targetLabel = String.valueOf(targetHour); // + "pm"
-        }
-        mCanvas.drawText(currentLabel, x, yCurrentTimeAxis-40, paint);
-        mCanvas.drawText(targetLabel, x, yTargetTimeAxis - 40, paint);
     }
 
     /**
@@ -303,7 +324,6 @@ public class SleepScheduleGraphView extends View {
                 // Cut line off at top of graph.
                 float x1 = left + (y0-top)/slope;
                 if (x1 <= right) {
-                    Log.d("y1:", String.valueOf(y1));
                     mCanvas.drawLine(left, y0, x1, top, paint);
                 }
             } else if (y0 > bottom) {
@@ -323,6 +343,8 @@ public class SleepScheduleGraphView extends View {
      * sunrise at 7am (7:00), and sunset at 7pm (19:00).
      *
      * (x,y) coordinates reflected across the x-axis based on Android screen coordinates.
+     *
+     * @param hour    hour in current time
      */
     private float daylightCycle(float hour) {
         return (float) -1*amplitude * (float) Math.sin((Math.PI / (float) 12)*(hour - 7)) + verticalShift;
