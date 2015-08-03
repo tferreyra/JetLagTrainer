@@ -131,8 +131,8 @@ public class OriginTime extends Activity {
             submit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 
-                    schedule.originSleepTime = getSleepTime();
-                    schedule.originWakeTime = getWakeTime();
+                    schedule.originSleepTime = getSleepTime()/60;
+                    schedule.originWakeTime = getWakeTime()/60;
                     schedule.save();
 
                     Intent intent = new Intent(OriginTime.this, SleepStrategySelection.class);

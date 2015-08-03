@@ -7,7 +7,7 @@ import com.orm.SugarRecord;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;;
+import java.util.TimeZone;
 
 /**
  * Created by linxi on 7/27/15.
@@ -20,8 +20,8 @@ public class Schedule extends SugarRecord<Schedule> {
     public Calendar startDate;
     public Calendar travelDate;
 
-    public int originSleepTime;
-    public int originWakeTime;
+    public int originSleepTime; //in minutes
+    public int originWakeTime; //in minutes
     //TODO: Implement logic to calculate schedules based on a destination sleep time.
     //TODO: Implement activity to query user for Destination sleep times.
     public int destinationSleepTime;

@@ -13,7 +13,6 @@ public class NotificationReceiver extends BroadcastReceiver {
         String selection = intent.getStringExtra("id");
 
         if (selection.equals("sleep")) {
-
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                     .setSmallIcon(R.drawable.cast_ic_notification_0)
                     .setContentTitle("It's time for bed...")

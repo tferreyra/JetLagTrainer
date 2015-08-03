@@ -96,8 +96,8 @@ public class InputSummaryActivity extends Activity {
     }
 
     private String timeConversion(Integer i) {
-        int hours = i / 3600;
-        int minutes = (i % 3600) / 60;
+        int hours = i / 60;
+        int minutes = (i % 60);
 
         String AMPM = " AM";
         if (hours == 0) {
