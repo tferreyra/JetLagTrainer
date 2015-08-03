@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 
 /**
@@ -27,6 +28,7 @@ public class SchedulePagerAdapter extends FragmentStatePagerAdapter {
     // It is called when the Adapter needs a fragment
     // and it does not exists.
     public Fragment getItem(int position) {
+        Log.d("POSITION:", String.valueOf(position));
         Night night = schedule.currentNight;
         // Create fragment object
         Fragment fragment = new ScheduleFragment();
@@ -46,7 +48,7 @@ public class SchedulePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 20;
     }
 
 
