@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Created by josef on 8/2/15.
@@ -39,10 +42,22 @@ public class ScheduleFragment extends Fragment {
         TextView index = (TextView) rootView.findViewById(R.id.night_index);
         index.setText("Night " + (night.nightIndex + 1));
 
+        //Set calendar dates
+        TextView dates = (TextView) rootView.findViewById(R.id.dates);
+        Calendar today = night.sleepStartDate;
+        Calendar tomorrow = (Calendar) today.clone();
+        tomorrow.add(Calendar.DATE, 1);
+
+        dates.setText(today.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault()) + " " +
+                today.get(Calendar.DATE) + " - " +
+                tomorrow.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault()) + " " +
+                tomorrow.get(Calendar.DATE));
+
         agenda = night.getAgenda();
         AgendaAdapter adapter = new AgendaAdapter(getActivity(), agenda);
         ListView agendaList = (ListView) rootView.findViewById(R.id.agenda);
         agendaList.setAdapter(adapter);
+
 
         return rootView;
     }

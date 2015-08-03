@@ -41,22 +41,23 @@ public class Night extends SugarRecord<Night> {
         this.parent = parent;
         this.sleepStartDate = sleepStartDate;
         this.sleepTime = sleepTime;
-        this.wakeTime = wakeTime;
         this.melatoninStrategy = melatoninStrategy;
         this.lightStrategy = lightStrategy;
         this.previous = previous;
         this.next = next;
         this.advancing = advancing;
         this.save();
+
+        this.wakeTime = adjustTime(wakeTime) + 24*60;
     }
 
     public Night nextNight() {
         int newSleepTime = adjustTime(sleepTime);
-        int newWakeTime = adjustTime(wakeTime);
+        int newWakeTime = adjustTime(wakeTime - 24*60);
         Calendar newSleepStartDate = (Calendar) sleepStartDate.clone();
         newSleepStartDate.add(Calendar.DATE, 1);
         
-        Night nextNight = new Night(parent, nightIndex + 1, sleepStartDate,
+        Night nextNight = new Night(parent, nightIndex + 1, newSleepStartDate,
                                     newSleepTime, newWakeTime,
                                     melatoninStrategy, lightStrategy,
                                     this.getId(), 0, advancing);
@@ -77,7 +78,7 @@ public class Night extends SugarRecord<Night> {
         if(advancing) {
             return sleepTime - 5*60;
         }
-        return wakeTime + 1 * 60;
+        return wakeTime + 60;
     }
 
     public int[] lightRange() {

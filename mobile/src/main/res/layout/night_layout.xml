@@ -9,15 +9,32 @@
         android:layout_height="wrap_content"
         android:weightSum="100">
 
-        <TextView
-            android:id="@+id/night_index"
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/darkTeal"
-            android:text="Day 1"
-            style="@style/bodyText"
-            android:textSize="30dp"
-            android:padding="10dp"/>
+            android:padding="10dp">
+            <TextView
+                android:id="@+id/night_index"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Day 1"
+                style="@style/bodyText"
+                android:textSize="30dp"
+                />
+
+            <TextView
+                android:id="@+id/dates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jan 25 - Jan 26"
+                style="@style/bodyText"
+                android:textSize="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+
 
         <com.iantoxi.jetlagtrainer.SleepScheduleGraphView
             android:id="@+id/sleepScheduleGraph"
