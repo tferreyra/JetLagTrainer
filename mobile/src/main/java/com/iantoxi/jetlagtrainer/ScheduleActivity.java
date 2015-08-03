@@ -1,13 +1,17 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.transition.Slide;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.RelativeLayout;
 
 
 public class ScheduleActivity extends Activity {
@@ -29,7 +33,21 @@ public class ScheduleActivity extends Activity {
         scheduleId = (long) intent.getExtras().get("scheduleId");
         schedule = Schedule.findById(Schedule.class, scheduleId);
 
+        LayoutInflater inflater = getLayoutInflater();
+        RelativeLayout main = (RelativeLayout) findViewById(R.id.main_view);
+
+        View view = inflater.inflate(R.layout.night_layout, null,true);
+
+        main.addView(view);
+
         drawSleepScheduleGraph();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        finish();
     }
 
     /**
@@ -65,4 +83,5 @@ public class ScheduleActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.orm.SugarDb;
 import com.orm.SugarRecord;
@@ -34,12 +35,12 @@ public class MainActivity extends Activity {
         getWindow().setSharedElementEnterTransition(slide);
         getWindow().setSharedElementExitTransition(slide);
 
-        List<Schedule> values = Schedule.find(Schedule.class, "active = ?", "TRUE");
+
+        List<Schedule> values = Schedule.find(Schedule.class, "active = ?", "1");
         if (values.size() != 0) {
             final long scheduleId = values.get(0).getId();
-            String stringOne = getString(R.string.main_sleep);
-            String stringTwo = getString(R.string.existing_sleep);
-            stringOne.replace(stringOne, stringTwo);
+            TextView startText = (TextView) findViewById(R.id.startButton);
+            startText.setText(getString(R.string.existing_sleep));
             final Button button = (Button) findViewById(R.id.button);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -91,6 +92,7 @@ public class MainActivity extends Activity {
                 );
 
         ActivityCompat.startActivity(this, intent, options.toBundle());
+        finish();
     }
 
     public void launchHistory(View view) {
@@ -102,17 +104,8 @@ public class MainActivity extends Activity {
 
     public void launchExistingSchedule(long scheduleId) {
         Intent intent = new Intent(this, ScheduleActivity.class);
-        String transitionName = getString(R.string.transition_main_graph);
         intent.putExtra("scheduleId", scheduleId);
-        View graphic = findViewById(R.id.sleep_training_graphic);
-
-        ActivityOptionsCompat options =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-                        graphic,   // The view which starts the transition
-                        transitionName    // The transitionName of the view we’re transitioning to
-                );
-
-        ActivityCompat.startActivity(this, intent, options.toBundle());
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
 }

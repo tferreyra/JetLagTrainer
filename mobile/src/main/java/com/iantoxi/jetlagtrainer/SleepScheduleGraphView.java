@@ -78,7 +78,7 @@ public class SleepScheduleGraphView extends View {
 
         int TOP = getPaddingTop();
         int BOTTOM = getHeight() - getPaddingBottom();
-        int HEIGHT = (BOTTOM - TOP)/2;
+        int HEIGHT = (BOTTOM - TOP);
 
         // Set heights of different graph sections:
         // 1) Title bar heights.
@@ -212,8 +212,8 @@ public class SleepScheduleGraphView extends View {
         setPaintAttributes(black, Color.BLACK, Paint.Style.STROKE, STROKE_WIDTH);
         Paint white = new Paint();
         setPaintAttributes(white, Color.WHITE, Paint.Style.STROKE, STROKE_WIDTH);
-        float delta = (float) graphWidth/ (float) ((TERMINAL_TIME - INITIAL_TIME)*300);
-        float delta2 = (float) (TERMINAL_TIME - INITIAL_TIME) / (float) ((TERMINAL_TIME - INITIAL_TIME)*300);
+        float delta = (float) graphWidth/ (float) ((TERMINAL_TIME - INITIAL_TIME)*100);
+        float delta2 = (float) (TERMINAL_TIME - INITIAL_TIME) / (float) ((TERMINAL_TIME - INITIAL_TIME)*100);
         float x0 = LEFT;
         float y0 = daylightCycle(bedTime);
         // Graphs from Noon to Noon.
@@ -232,9 +232,10 @@ public class SleepScheduleGraphView extends View {
             x0 += delta;
             y0 = y1;
         }
+
         // Draw shaded region for sleep times.
-        drawSleepRegion(bedTime, wakeTime, Color.CYAN);
-        drawSleepRegion(targetBedTime, targetWakeTime, Color.YELLOW);
+         drawSleepRegion(bedTime, wakeTime, Color.CYAN, 20);
+         drawSleepRegion(targetBedTime, targetWakeTime, Color.YELLOW, 5);
     }
 
     /**
@@ -278,15 +279,21 @@ public class SleepScheduleGraphView extends View {
      * @param startTime   time input in seconds from midnight
      * @param endTime     time input in seconds from midnight
      * @param color       color of striped region
+     * @param alpha       integer from 0-255 indicating transparency level
      */
-    private void drawSleepRegion(float startTime, float endTime, int color) {
+    private void drawSleepRegion(float startTime, float endTime, int color, int alpha) {
         float delta = graphWidth/((TERMINAL_TIME - INITIAL_TIME)*10);
         startTime = convertSecToHourFloat(startTime);   // assumes startTime after noon
         endTime = convertSecToHourFloat(endTime) + 24;  // assumes endTime before noon
-        float left = INITIAL_TIME + ((startTime - INITIAL_TIME)/.10f)*delta;
-        float right = INITIAL_TIME + ((endTime - INITIAL_TIME)/.10f)*delta;
-        drawStripedRegion(left, verticalShift - amplitude, right, verticalShift + amplitude,
-                2, 10, color, 2f);
+        int left = (int) (INITIAL_TIME + ((startTime - INITIAL_TIME)/.10f)*delta);
+        int right = (int) (INITIAL_TIME + ((endTime - INITIAL_TIME)/.10f)*delta);
+        int top = verticalShift - amplitude;
+        int bottom = verticalShift + amplitude;
+        setPaintAttributes(paint, Color.CYAN, Paint.Style.FILL);
+        paint.setAlpha(alpha);
+        drawRect(mCanvas, left, top, right, bottom, paint);
+//        drawStripedRegion(left, verticalShift - amplitude, right, verticalShift + amplitude,
+//                2, 10, color, 2f);
     }
 
     /**
