@@ -93,7 +93,7 @@ public class Night extends SugarRecord<Night> {
     public HashMap<Integer, Integer> getAgenda() {
         HashMap<Integer, Integer> agenda = new HashMap<Integer, Integer>();
         agenda.put(sleepTime, R.string.sleep_start_time);
-        agenda.put(wakeTime, R.string.wake_time);
+        agenda.put(wakeTime, R.string.sleep_end_time);
 
         if(melatoninStrategy) {
             agenda.put(melatoninTime(), R.string.melatonin);
@@ -101,11 +101,10 @@ public class Night extends SugarRecord<Night> {
 
         if(lightStrategy) {
             if (advancing) {
-                agenda.put(lightRange()[1], R.string.light_off_time);
                 agenda.put(noLightRange()[0], R.string.light_off_time);
+            } else {
+                agenda.put(lightRange()[0], R.string.light_on_time);
             }
-            agenda.put(lightRange()[0], R.string.light_on_time);
-            agenda.put(noLightRange()[1], R.string.light_off_time);
         }
 
         return agenda;

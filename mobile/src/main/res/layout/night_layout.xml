@@ -25,23 +25,21 @@
             android:layout_width="fill_parent"
             android:layout_height="230dp"/>
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Agenda"
-                style="@style/bodyText"
-                android:textSize="20dp"
-                android:layout_margin="10dp"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Agenda"
+            style="@style/bodyText"
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
 
         <ListView
+            android:id="@+id/agenda"
             android:layout_width="fill_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_height="wrap_content">
         </ListView>
-
-        <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="50"></FrameLayout>
 
     </LinearLayout>
 

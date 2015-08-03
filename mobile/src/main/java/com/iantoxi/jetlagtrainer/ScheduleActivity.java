@@ -26,8 +26,7 @@ public class ScheduleActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //setContentView(R.layout.activity_schedule);
-        setContentView(R.layout.night_layout);
+        setContentView(R.layout.activity_schedule);
         Slide slide = new Slide();
         slide.excludeTarget(android.R.id.statusBarBackground, true);
         slide.excludeTarget(android.R.id.navigationBarBackground, true);
@@ -38,9 +37,8 @@ public class ScheduleActivity extends FragmentActivity {
         scheduleId = (long) intent.getExtras().get("scheduleId");
         schedule = Schedule.findById(Schedule.class, scheduleId);
 
-        drawSleepScheduleGraph();
         // Set up the ViewPager.
-        mSchedulePagerAdapter = new SchedulePagerAdapter(getSupportFragmentManager(), this);
+        mSchedulePagerAdapter = new SchedulePagerAdapter(getSupportFragmentManager(), this, schedule);
 
         mViewPager = (ViewPager) findViewById(R.id.main_view);
         mViewPager.setAdapter(mSchedulePagerAdapter);
@@ -73,18 +71,6 @@ public class ScheduleActivity extends FragmentActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Currently has issue with Night object not being created fast enough
-     * from previous activity, leaving the currentNight object null.
-     */
-    private void drawSleepScheduleGraph() {
-        Night currentNight = schedule.currentNight;
-        SleepScheduleGraphView graph = (SleepScheduleGraphView) findViewById(R.id.sleepScheduleGraph);
-        graph.setSleepSchedule(currentNight.sleepTime, currentNight.wakeTime,
-                schedule.destinationWakeTime, schedule.destinationSleepTime,
-                schedule.zoneGap);
     }
 
 
