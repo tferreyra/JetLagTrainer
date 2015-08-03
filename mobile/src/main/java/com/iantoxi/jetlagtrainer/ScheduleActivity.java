@@ -14,12 +14,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class ScheduleActivity extends FragmentActivity {
     private long scheduleId;
     private Schedule schedule;
     private SchedulePagerAdapter mSchedulePagerAdapter;
     private ViewPager mViewPager;
+
+    //TODO need to create a dialog launched from ImageButton to allow users to adjust schedule parameters
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +43,14 @@ public class ScheduleActivity extends FragmentActivity {
         // Set up the ViewPager.
         mSchedulePagerAdapter = new SchedulePagerAdapter(getSupportFragmentManager(), this, schedule);
 
-        mViewPager = (ViewPager) findViewById(R.id.main_view);
+        mViewPager = (ViewPager) findViewById(R.id.nights_scroll);
         mViewPager.setAdapter(mSchedulePagerAdapter);
         mViewPager.setCurrentItem(schedule.currentNight.nightIndex);
+
+        TextView destinationName = (TextView) findViewById(R.id.destination_name);
+        TextView zoneGap = (TextView) findViewById(R.id.zone_gap);
+        destinationName.setText(schedule.destinationTimezone);
+        zoneGap.setText(Integer.toString(schedule.zoneGap));
     }
 
     //TODO: currently, when going from main screen to view schedule screen and back again repeatedly, many more MainActivity activities are created.
