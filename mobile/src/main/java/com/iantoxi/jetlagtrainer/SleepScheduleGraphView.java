@@ -21,7 +21,7 @@ public class SleepScheduleGraphView extends View {
     // Initial hour on graph.
     private final int INITIAL_TIME = 12;
     // Terminal hour on graph (not mod 24).
-    private final int TERMINAL_TIME = 36;
+    private final int TERMINAL_TIME = 38;
     // x-coordinate for Left border of View.
     private int LEFT;
     // x-coordinate for Right border of View.
@@ -38,10 +38,10 @@ public class SleepScheduleGraphView extends View {
     private int amplitude;
     // Graph width.
     private int graphWidth;
-    // y-coordinate of Current Time axis labels.
-    private int yCurrentTimeAxis;
-    // y-coordinate of Target Time axis labels.
-    private int yTargetTimeAxis;
+    // y-coordinate of bottom border of Current Time axis labels.
+    private int bottomCurrentTimeAxis;
+    // y-coordinate of top border of Target Time axis labels.
+    private int topTargetTimeAxis;
     // Text size of axes labels.
     private int axesTextSize;
     // Height of axes labels.
@@ -60,6 +60,9 @@ public class SleepScheduleGraphView extends View {
     private float targetWakeTime;
     // Time Zone Difference.
     private float timeDiff;
+    // y-coordinates of top and border of graph.
+    private int topGraph;
+    private int bottomGraph;
 
     public SleepScheduleGraphView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -87,21 +90,23 @@ public class SleepScheduleGraphView extends View {
         // 2) Font size of titles and axes labels.
         // 3) Graph size (sine function section of View).
         timeAxesHeight = (HEIGHT/20)*3;
-        axesTextSize = timeAxesHeight/2;
-        int graphHeight = (HEIGHT/20)*14;
+        axesTextSize = timeAxesHeight/3;
+        paint.setTextSize(axesTextSize);
+        timeAxesHeight = (int) Math.max(timeAxesHeight, paint.measureText("12pm")+1);
+        axesTextSize = timeAxesHeight/3;
+        int graphHeight = HEIGHT - 2*timeAxesHeight;
 
         // Draw Current Time axis.
         int topCurrentTimeAxis = TOP;
-        int bottomCurrentTimeAxis = topCurrentTimeAxis + timeAxesHeight;
-        yCurrentTimeAxis = bottomCurrentTimeAxis;
+        bottomCurrentTimeAxis = topCurrentTimeAxis + timeAxesHeight;
         setPaintAttributes(paint, Color.WHITE, Paint.Style.FILL);
         drawRect(canvas, LEFT, topCurrentTimeAxis, RIGHT, bottomCurrentTimeAxis, paint);
         setPaintAttributes(paint, Color.BLACK, Paint.Style.STROKE, STROKE_WIDTH);
         drawRect(canvas, LEFT, topCurrentTimeAxis, RIGHT, bottomCurrentTimeAxis, paint);
 
         // Draw Graph. Dark shaded night half created by additional rectangle.
-        int topGraph = bottomCurrentTimeAxis;
-        int bottomGraph = topGraph + graphHeight;
+        topGraph = bottomCurrentTimeAxis;
+        bottomGraph = topGraph + graphHeight;
         int topNight = topGraph + (graphHeight/2);
         int bottomNight = bottomGraph;
         setPaintAttributes(paint, Color.WHITE, Paint.Style.FILL);
@@ -117,9 +122,8 @@ public class SleepScheduleGraphView extends View {
         graphWidth = RIGHT - LEFT;
 
         // Draw Target Time axis.
-        int topTargetTimeAxis = bottomGraph;
+        topTargetTimeAxis = bottomGraph;
         int bottomTargetTimeAxis = topTargetTimeAxis + timeAxesHeight;
-        yTargetTimeAxis = bottomTargetTimeAxis;
         setPaintAttributes(paint, Color.WHITE, Paint.Style.FILL);
         drawRect(canvas, LEFT, topTargetTimeAxis, RIGHT, bottomTargetTimeAxis, paint);
         setPaintAttributes(paint, Color.BLACK, Paint.Style.STROKE, STROKE_WIDTH);
@@ -202,7 +206,6 @@ public class SleepScheduleGraphView extends View {
         float y0 = daylightCycle(bedTime);
         // Graphs from Noon to Noon.
         float eps = (float) Math.pow(10.0, -2.0);
-        Log.d("delta2:", String.valueOf(delta2));
         for (float x1 = INITIAL_TIME; x1 <= TERMINAL_TIME; x1+=delta2) {
             float y1 = daylightCycle((float) x1);
             if (y1 > verticalShift) {
@@ -221,8 +224,8 @@ public class SleepScheduleGraphView extends View {
         // Note: Graph y-values based on target time zone, so
         // need to shift given current bedTime and wakeTime by timeDiff.
         // timeDiff given as (target - current) time zone.
-         drawSleepRegion(bedTime-timeDiff, wakeTime-timeDiff, Color.CYAN, 20);
-         drawSleepRegion(targetBedTime, targetWakeTime, Color.YELLOW, 30);
+        drawSleepRegion(bedTime-timeDiff, wakeTime-timeDiff, Color.CYAN, 20);
+        drawSleepRegion(targetBedTime, targetWakeTime, Color.YELLOW, 30);
     }
 
     /**
@@ -259,8 +262,16 @@ public class SleepScheduleGraphView extends View {
                 targetHour = targetHour % 12;
                 targetLabel = String.valueOf(targetHour) + "pm";
             }
-            mCanvas.drawText(currentLabel, x+10, yCurrentTimeAxis - (float) timeAxesHeight/ (float) 3, paint);
-            mCanvas.drawText(targetLabel, x+10, yTargetTimeAxis - (float) timeAxesHeight/ (float) 3, paint);
+            float cWidth = paint.measureText(currentLabel);
+            float tWidth = paint.measureText(targetLabel);
+            mCanvas.save();
+            mCanvas.rotate(-90, x+cWidth, bottomCurrentTimeAxis - axesTextSize/2);
+            mCanvas.drawText(currentLabel, x+cWidth, bottomCurrentTimeAxis - axesTextSize/2, paint);
+            mCanvas.restore();
+            mCanvas.save();
+            mCanvas.rotate(90, x+axesTextSize, topTargetTimeAxis + axesTextSize/2);
+            mCanvas.drawText(targetLabel, x+axesTextSize, topTargetTimeAxis + axesTextSize/2, paint);
+            mCanvas.restore();
         }
     }
 
@@ -278,11 +289,13 @@ public class SleepScheduleGraphView extends View {
         endTime = convertSecToHourFloat(endTime) + 24;  // assumes endTime before noon
         int left = (int) (INITIAL_TIME + ((startTime - INITIAL_TIME)/.10f)*delta);
         int right = (int) (INITIAL_TIME + ((endTime - INITIAL_TIME)/.10f)*delta);
-        int top = verticalShift - amplitude;
-        int bottom = verticalShift + amplitude;
         setPaintAttributes(paint, color, Paint.Style.FILL);
         paint.setAlpha(alpha);
-        drawRect(mCanvas, left, top, right, bottom, paint);
+        drawRect(mCanvas, left, topGraph, right, bottomGraph, paint);
+        // Draw Lines at left and right borders of region.
+        setPaintAttributes(paint, color, Paint.Style.FILL, 2f);
+        mCanvas.drawLine(left, bottomGraph, left, topGraph, paint);
+        mCanvas.drawLine(right, bottomGraph, right, topGraph, paint);
 //        drawStripedRegion(left, verticalShift - amplitude, right, verticalShift + amplitude,
 //                2, 10, color, 2f);
     }
