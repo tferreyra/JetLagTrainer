@@ -61,5 +61,11 @@
     <!--Evaluation Screen-->
     <string name="feedback">How did the strategy work for you?</string>
 
+    <!-- Schedule Agenda Items -->
+    <string name="sleep_start_time">Go to sleep</string>
+    <string name="sleep_end_time">Wake up</string>
+    <string name="melatonin_time">Take melatonin</string>
+    <string name="light_on_time">Increase light exposure</string>
+    <string name = "light_off_time">Decrease light exposure</string>
 
 </resources>

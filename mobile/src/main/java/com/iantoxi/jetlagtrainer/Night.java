@@ -3,19 +3,22 @@ package com.iantoxi.jetlagtrainer;
 import com.orm.SugarRecord;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * Created by linxi on 7/28/15.
  */
 public class Night extends SugarRecord<Night> {
     public long parent; //SugarORM id
+    public int nightIndex; //index in schedule
     public Calendar sleepStartDate;
     public int sleepTime;
     public int wakeTime;
     public boolean melatoninStrategy;
     public  boolean lightStrategy;
     public long previous; //SugarORM id
-    public Night next;
+    public long next; //SugarORM id
+
 
     private boolean advancing;
 
@@ -24,38 +27,41 @@ public class Night extends SugarRecord<Night> {
     }
 
     public Night(long parent,
+                 int index,
                  Calendar sleepStartDate,
                  int sleepTime,                 // time of sleep in minutes from 12:00AM on sleepStartDate
                  int wakeTime,                  // time of wake in minutes from 12:00AM
                  boolean melatoninStrategy,
                  boolean lightStrategy,
                  long previous,
-                 Night next,
+                 long next,
                  boolean advancing) {
 
+        this.nightIndex = index;
         this.parent = parent;
         this.sleepStartDate = sleepStartDate;
         this.sleepTime = sleepTime;
-        this.wakeTime = wakeTime;
         this.melatoninStrategy = melatoninStrategy;
         this.lightStrategy = lightStrategy;
         this.previous = previous;
         this.next = next;
         this.advancing = advancing;
         this.save();
+
+        this.wakeTime = adjustTime(wakeTime) + 24*60;
     }
 
     public Night nextNight() {
         int newSleepTime = adjustTime(sleepTime);
-        int newWakeTime = adjustTime(wakeTime);
+        int newWakeTime = adjustTime(wakeTime - 24*60);
         Calendar newSleepStartDate = (Calendar) sleepStartDate.clone();
         newSleepStartDate.add(Calendar.DATE, 1);
         
-        Night nextNight = new Night(parent, sleepStartDate,
+        Night nextNight = new Night(parent, nightIndex + 1, newSleepStartDate,
                                     newSleepTime, newWakeTime,
                                     melatoninStrategy, lightStrategy,
-                                    this.getId(), null, advancing);
-        this.next = nextNight;
+                                    this.getId(), 0, advancing);
+        this.next = nextNight.getId();
         this.save();
         return nextNight;
     }
@@ -72,7 +78,7 @@ public class Night extends SugarRecord<Night> {
         if(advancing) {
             return sleepTime - 5*60;
         }
-        return wakeTime + 1 * 60;
+        return wakeTime + 60;
     }
 
     public int[] lightRange() {
@@ -88,4 +94,25 @@ public class Night extends SugarRecord<Night> {
         }
         return new int[] {wakeTime , wakeTime + 2*60};
     }
+
+    public HashMap<Integer, Integer> getAgenda() {
+        HashMap<Integer, Integer> agenda = new HashMap<Integer, Integer>();
+        agenda.put(sleepTime, R.string.sleep_start_time);
+        agenda.put(wakeTime, R.string.sleep_end_time);
+
+        if(melatoninStrategy) {
+            agenda.put(melatoninTime(), R.string.melatonin_time);
+        }
+
+        if(lightStrategy) {
+            if (advancing) {
+                agenda.put(noLightRange()[0], R.string.light_off_time);
+            } else {
+                agenda.put(lightRange()[0], R.string.light_on_time);
+            }
+        }
+
+        return agenda;
+    }
+
 }

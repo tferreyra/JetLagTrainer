@@ -9,15 +9,31 @@
         android:layout_height="wrap_content"
         android:weightSum="100">
 
-
-        <TextView
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/darkTeal"
-            android:text="Day 1"
-            style="@style/bodyText"
-            android:textSize="30dp"
-            android:padding="10dp"/>
+            android:padding="10dp">
+            <TextView
+                android:id="@+id/night_index"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Day 1"
+                style="@style/bodyText"
+                android:textSize="30dp"
+                />
+
+            <TextView
+                android:id="@+id/dates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jan 25 - Jan 26"
+                style="@style/bodyText"
+                android:textSize="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
 
 
         <com.iantoxi.jetlagtrainer.SleepScheduleGraphView
@@ -25,25 +41,28 @@
             android:layout_width="fill_parent"
             android:layout_height="230dp"/>
 
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Agenda"
-                style="@style/bodyText"
-                android:textSize="20dp"
-                android:layout_margin="10dp"/>
-
-        <ListView
+        <TextView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-        </ListView>
-
-        <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="50"></FrameLayout>
+            android:layout_height="wrap_content"
+            android:text="Agenda"
+            style="@style/bodyText"
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
+       <FrameLayout
+           android:layout_width="fill_parent"
+           android:background="@color/lightTeal"
+           android:layout_height="fill_parent">
+           <ListView
+               android:background="@color/darkBlue"
+               android:id="@+id/agenda"
+               android:layout_marginTop="1sp"
+               android:layout_marginBottom="1dp"
+               android:layout_width="fill_parent"
+               android:paddingRight="30dp"
+               android:paddingLeft="30dp"
+               android:layout_height="fill_parent">
+           </ListView>
+       </FrameLayout>
 
     </LinearLayout>
-
 </RelativeLayout>
