@@ -21,8 +21,10 @@ public class ScheduleActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_schedule);
+        //setContentView(R.layout.activity_schedule);
+        setContentView(R.layout.night_layout);
         Slide slide = new Slide();
         slide.excludeTarget(android.R.id.statusBarBackground, true);
         slide.excludeTarget(android.R.id.navigationBarBackground, true);
@@ -33,13 +35,6 @@ public class ScheduleActivity extends Activity {
         scheduleId = (long) intent.getExtras().get("scheduleId");
         schedule = Schedule.findById(Schedule.class, scheduleId);
 
-        LayoutInflater inflater = getLayoutInflater();
-        RelativeLayout main = (RelativeLayout) findViewById(R.id.main_view);
-
-        View view = inflater.inflate(R.layout.night_layout, null,true);
-
-        main.addView(view);
-
         drawSleepScheduleGraph();
     }
 
@@ -48,18 +43,6 @@ public class ScheduleActivity extends Activity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         finish();
-    }
-
-    /**
-     * Currently has issue with Night object not being created fast enough
-     * from previous activity, leaving the currentNight object null.
-     */
-    private void drawSleepScheduleGraph() {
-        Night currentNight = schedule.currentNight;
-        SleepScheduleGraphView graph = (SleepScheduleGraphView) findViewById(R.id.sleepScheduleGraph);
-        graph.setSleepSchedule(currentNight.sleepTime, currentNight.wakeTime,
-                schedule.destinationWakeTime, schedule.destinationSleepTime,
-                schedule.zoneGap);
     }
 
     @Override
@@ -83,5 +66,19 @@ public class ScheduleActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Currently has issue with Night object not being created fast enough
+     * from previous activity, leaving the currentNight object null.
+     */
+    private void drawSleepScheduleGraph() {
+        Night currentNight = schedule.currentNight;
+        SleepScheduleGraphView graph = (SleepScheduleGraphView) findViewById(R.id.sleepScheduleGraph);
+        graph.setSleepSchedule(currentNight.sleepTime, currentNight.wakeTime,
+                schedule.destinationWakeTime, schedule.destinationSleepTime,
+                schedule.zoneGap);
+    }
+
+
 
 }

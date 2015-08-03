@@ -3,6 +3,7 @@ package com.iantoxi.jetlagtrainer;
 import com.orm.SugarRecord;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * Created by linxi on 7/28/15.
@@ -88,4 +89,26 @@ public class Night extends SugarRecord<Night> {
         }
         return new int[] {wakeTime , wakeTime + 2*60};
     }
+
+    public HashMap<Integer, Integer> getAgenda() {
+        HashMap<Integer, Integer> agenda = new HashMap<Integer, Integer>();
+        agenda.put(sleepTime, R.string.sleep_start_time);
+        agenda.put(wakeTime, R.string.wake_time);
+
+        if(melatoninStrategy) {
+            agenda.put(melatoninTime(), R.string.melatonin);
+        }
+
+        if(lightStrategy) {
+            if (advancing) {
+                agenda.put(lightRange()[1], R.string.light_off_time);
+                agenda.put(noLightRange()[0], R.string.light_off_time);
+            }
+            agenda.put(lightRange()[0], R.string.light_on_time);
+            agenda.put(noLightRange()[1], R.string.light_off_time);
+        }
+
+        return agenda;
+    }
+
 }
