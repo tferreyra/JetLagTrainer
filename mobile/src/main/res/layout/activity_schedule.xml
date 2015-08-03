@@ -4,9 +4,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<com.iantoxi.jetlagtrainer.SleepScheduleGraphView-->
-        <!--android:id="@+id/sleepScheduleGraph"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="fill_parent"/>-->
-
 </android.support.v4.view.ViewPager>

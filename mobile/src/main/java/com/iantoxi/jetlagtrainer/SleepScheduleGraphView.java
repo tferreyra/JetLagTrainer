@@ -221,8 +221,8 @@ public class SleepScheduleGraphView extends View {
         // Note: Graph y-values based on target time zone, so
         // need to shift given current bedTime and wakeTime by timeDiff.
         // timeDiff given as (target - current) time zone.
-         drawSleepRegion(bedTime-timeDiff, wakeTime-timeDiff, Color.CYAN, 40);
-         drawSleepRegion(targetBedTime, targetWakeTime, Color.YELLOW, 20);
+         drawSleepRegion(bedTime-timeDiff, wakeTime-timeDiff, Color.CYAN, 20);
+         drawSleepRegion(targetBedTime, targetWakeTime, Color.YELLOW, 30);
     }
 
     /**

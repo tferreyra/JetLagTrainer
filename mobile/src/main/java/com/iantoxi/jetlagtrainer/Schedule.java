@@ -100,9 +100,9 @@ public class Schedule extends SugarRecord<Schedule> {
     //Recursively creates nights. Creates number of nights matching number of adjustment hours.
     private void createNights(int sleepTime, int wakeTime) {
 
-        firstNight = new Night(this.getId(), startDate, sleepTime, wakeTime,
+        firstNight = new Night(this.getId(), 0, startDate, sleepTime, wakeTime,
                                melatoninStrategy, lightStrategy,
-                               0, null, advancing);
+                               0, 0, advancing);
 
         currentNight = firstNight;
         int toAdjust = adjustment - 1;
@@ -115,8 +115,8 @@ public class Schedule extends SugarRecord<Schedule> {
 
     public void updateCurrentNight() {
         Calendar today = Calendar.getInstance();
-        while(today.compareTo(currentNight.sleepStartDate) > 0 && currentNight.next != null) {
-            currentNight = currentNight.next;
+        while(today.compareTo(currentNight.sleepStartDate) > 0 && currentNight.next != 0) {
+            currentNight = Night.findById(Night.class, currentNight.next);
         }
     }
 
