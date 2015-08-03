@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\judav\Documents\Android Projects\v8\wear\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="C:\Users\judav\Documents\Android Projects\v8\wear\build\intermediates\pre-dexed\debug\classes-3ee9767e2c34f262e266d370c84f8e247863ace2.jar" />
+    </item>
+    <item
+        jar="C:\Users\judav\Documents\Android Projects\v8\wear\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="69dd177337ead693c408c8dddc9546bb6f1244fa">
+        <dex dex="C:\Users\judav\Documents\Android Projects\v8\wear\build\intermediates\pre-dexed\debug\classes-c30a17b75143a39d84ef262f97c06f436ff0bcb8.jar" />
+    </item>
+    <item
+        jar="C:\Users\judav\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.0.0\support-annotations-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
+        <dex dex="C:\Users\judav\Documents\Android Projects\v8\wear\build\intermediates\pre-dexed\debug\support-annotations-22.0.0-b4b128afbc8fc306e4c7ee79cdcab159c3fef2dc.jar" />
+    </item>
+    <item
+        jar="C:\Users\judav\Documents\Android Projects\v8\wear\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a78183f30e769a98ab4820794f597763088d3065">
+        <dex dex="C:\Users\judav\Documents\Android Projects\v8\wear\build\intermediates\pre-dexed\debug\classes-d9704b6253737de1ee882e768748748891a3d6ff.jar" />
+    </item>
+    <item
+        jar="C:\Users\judav\Documents\Android Projects\v8\wear\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\jars\libs\internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="C:\Users\judav\Documents\Android Projects\v8\wear\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-10b512230c47173ab00ec79a8f3947acc6ed0620.jar" />
+    </item>
+    <item
+        jar="C:\Users\judav\Documents\Android Projects\v8\wear\build\intermediates\exploded-aar\com.google.android.support\wearable\1.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0e239b45d3b94ac3d759405a9c5fd1f88e53913b">
+        <dex dex="C:\Users\judav\Documents\Android Projects\v8\wear\build\intermediates\pre-dexed\debug\classes-acff103f21f7251600b1ec41f8e2cf87279b56ec.jar" />
+    </item>
+    <item
+        jar="C:\Users\judav\Documents\Android Projects\v8\wear\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\22.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c6d79137693d494dee16372d3921f919eb724ced">
+        <dex dex="C:\Users\judav\Documents\Android Projects\v8\wear\build\intermediates\pre-dexed\debug\classes-e45ae4642a6143ce9fbea7b911ba6a24e468eb33.jar" />
+    </item>
+
+</items>

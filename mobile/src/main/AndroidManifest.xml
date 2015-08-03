@@ -51,6 +51,11 @@
             android:label="@string/title_activity_input_summary" >
         </activity>
 
+        <receiver
+            android:name=".NotificationReceiver"
+            android:label="NotificationReceiver" >
+        </receiver>
+
         <service
             android:name=".ListenerServiceFromWear"
             android:label="ListenerServiceFromWear" >
@@ -58,6 +63,12 @@
                 <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
             </intent-filter>
         </service>
+
+        <service
+            android:name=".SendServiceToWear"
+            android:label="SendServiceToWear" >
+        </service>
+
 
         <meta-data
             android:name="DATABASE"

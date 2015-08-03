@@ -11,18 +11,23 @@ import com.google.android.gms.wearable.CapabilityApi;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.Wearable;
 
-public class SendServiceToMobile extends IntentService {
+public class SendServiceToWear extends IntentService {
+
     private GoogleApiClient mGoogleApiClient;
     private String messagePath;
     private Node node = null;
 
-    public SendServiceToMobile() {
-        super("SendServiceToMobile");
+    public SendServiceToWear() {
+        super("SendServiceToWear");
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        messagePath = intent.getStringExtra("message");
+        if (intent.getStringArrayExtra("message")[0].equals("light")) {
+            messagePath = intent.getStringArrayExtra("message")[1];
+        } else {
+            messagePath = intent.getStringExtra("message");
+        }
 
         // Creates and builds GoogleApiClient.
         mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(
@@ -43,7 +48,7 @@ public class SendServiceToMobile extends IntentService {
         mGoogleApiClient.connect();
 
         CapabilityApi.GetCapabilityResult capResult = Wearable.CapabilityApi.getCapability(mGoogleApiClient,
-                "broadcast_to_mobile", CapabilityApi.FILTER_REACHABLE).await();
+                "broadcast_to_wear", CapabilityApi.FILTER_REACHABLE).await();
 
         // Gets first node; for our purpose this works because there is only one node available.
         if (capResult.getCapability().getNodes().size() > 0) {
