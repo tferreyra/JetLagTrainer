@@ -21,9 +21,8 @@
         android:layout_marginLeft="20dp"
         android:text="@string/feedback"
         android:id="@+id/textView"
-        android:layout_marginTop="42dp"
-        android:layout_below="@+id/textView3"
-        android:layout_alignEnd="@+id/textView3" />
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentStart="true" />
 
     <RatingBar
         android:layout_width="wrap_content"
@@ -31,7 +30,8 @@
         android:id="@+id/ratingBar"
         android:layout_above="@+id/frameLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="41dp" />
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -67,21 +67,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text="Origin"
         android:id="@+id/textView2"
+        android:layout_marginTop="25dp"
         android:layout_below="@+id/imageView"
-        android:layout_alignStart="@+id/textView"
-        android:layout_marginTop="39dp" />
+        android:layout_alignStart="@+id/editText"
+        android:layout_marginBottom="25dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text="Destination"
         android:id="@+id/textView3"
-        android:layout_marginEnd="36dp"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="35dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -90,7 +91,8 @@
         android:text="to"
         android:id="@+id/textView4"
         android:layout_alignBottom="@+id/textView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp" />
 
 </RelativeLayout>
 
