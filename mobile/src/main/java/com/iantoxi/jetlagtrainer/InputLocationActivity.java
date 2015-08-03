@@ -219,6 +219,7 @@ public class InputLocationActivity extends Activity {
                     public void onClick(View v) {
 
                         Intent intent = new Intent(InputLocationActivity.this, OriginTime.class);
+
                         intent.putExtra("scheduleId", scheduleId);
 
                         String transitionName = getString(R.string.transition_main_input);
