@@ -12,7 +12,7 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String selection = intent.getStringExtra("id");
 
-        if (selection.equals("sleep")) {
+        if ("sleep".equals(selection)) {
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                     .setSmallIcon(R.drawable.cast_ic_notification_0)
                     .setContentTitle("It's time for bed...")
@@ -22,7 +22,7 @@ public class NotificationReceiver extends BroadcastReceiver {
             notificationManager.notify(10, notificationBuilder.build());
 
 
-        } else if ( selection.equals("melatonin")) {
+        } else if ("melatonin".equals(selection)) {
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                     .setSmallIcon(R.drawable.cast_ic_notification_0)

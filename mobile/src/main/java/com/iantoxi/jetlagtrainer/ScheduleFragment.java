@@ -68,8 +68,8 @@ public class ScheduleFragment extends Fragment {
      */
     private void drawSleepScheduleGraph(View view) {
         SleepScheduleGraphView graph = (SleepScheduleGraphView) view.findViewById(R.id.sleepScheduleGraph);
-        graph.setSleepSchedule(night.sleepTime, night.wakeTime,
-                schedule.destinationWakeTime, schedule.destinationSleepTime,
+        graph.setSleepSchedule(night.sleepTime * 60, night.wakeTime * 60,
+                schedule.destinationWakeTime * 60, schedule.destinationSleepTime * 60,
                 schedule.zoneGap);
     }
 
