@@ -78,7 +78,7 @@ public class SleepScheduleGraphView extends View {
 
         int TOP = getPaddingTop();
         int BOTTOM = getHeight() - getPaddingBottom();
-        int HEIGHT = (BOTTOM - TOP)/2;
+        int HEIGHT = (BOTTOM - TOP);
 
         // Set heights of different graph sections:
         // 1) Title bar heights.

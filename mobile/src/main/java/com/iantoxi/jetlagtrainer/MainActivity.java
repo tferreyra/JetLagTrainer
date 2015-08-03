@@ -103,17 +103,8 @@ public class MainActivity extends Activity {
 
     public void launchExistingSchedule(long scheduleId) {
         Intent intent = new Intent(this, ScheduleActivity.class);
-        String transitionName = getString(R.string.transition_main_graph);
         intent.putExtra("scheduleId", scheduleId);
-        View graphic = findViewById(R.id.sleep_training_graphic);
-
-        ActivityOptionsCompat options =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-                        graphic,   // The view which starts the transition
-                        transitionName    // The transitionName of the view we’re transitioning to
-                );
-
-        ActivityCompat.startActivity(this, intent, options.toBundle());
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
 }
