@@ -10,13 +10,15 @@ import java.util.HashMap;
  */
 public class Night extends SugarRecord<Night> {
     public long parent; //SugarORM id
+    public int nightIndex; //index in schedule
     public Calendar sleepStartDate;
     public int sleepTime;
     public int wakeTime;
     public boolean melatoninStrategy;
     public  boolean lightStrategy;
     public long previous; //SugarORM id
-    public Night next;
+    public long next; //SugarORM id
+
 
     private boolean advancing;
 
@@ -25,15 +27,17 @@ public class Night extends SugarRecord<Night> {
     }
 
     public Night(long parent,
+                 int index,
                  Calendar sleepStartDate,
                  int sleepTime,                 // time of sleep in minutes from 12:00AM on sleepStartDate
                  int wakeTime,                  // time of wake in minutes from 12:00AM
                  boolean melatoninStrategy,
                  boolean lightStrategy,
                  long previous,
-                 Night next,
+                 long next,
                  boolean advancing) {
 
+        this.nightIndex = index;
         this.parent = parent;
         this.sleepStartDate = sleepStartDate;
         this.sleepTime = sleepTime;
@@ -52,11 +56,11 @@ public class Night extends SugarRecord<Night> {
         Calendar newSleepStartDate = (Calendar) sleepStartDate.clone();
         newSleepStartDate.add(Calendar.DATE, 1);
         
-        Night nextNight = new Night(parent, sleepStartDate,
+        Night nextNight = new Night(parent, nightIndex + 1, sleepStartDate,
                                     newSleepTime, newWakeTime,
                                     melatoninStrategy, lightStrategy,
-                                    this.getId(), null, advancing);
-        this.next = nextNight;
+                                    this.getId(), 0, advancing);
+        this.next = nextNight.getId();
         this.save();
         return nextNight;
     }
@@ -96,7 +100,7 @@ public class Night extends SugarRecord<Night> {
         agenda.put(wakeTime, R.string.sleep_end_time);
 
         if(melatoninStrategy) {
-            agenda.put(melatoninTime(), R.string.melatonin);
+            agenda.put(melatoninTime(), R.string.melatonin_time);
         }
 
         if(lightStrategy) {

@@ -235,7 +235,7 @@ public class SleepScheduleGraphView extends View {
 
         // Draw shaded region for sleep times.
          drawSleepRegion(bedTime, wakeTime, Color.CYAN, 20);
-         drawSleepRegion(targetBedTime, targetWakeTime, Color.YELLOW, 5);
+         drawSleepRegion(targetBedTime, targetWakeTime, Color.YELLOW, 30);
     }
 
     /**

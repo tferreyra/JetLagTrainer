@@ -42,8 +42,12 @@ public class ScheduleActivity extends FragmentActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.main_view);
         mViewPager.setAdapter(mSchedulePagerAdapter);
+        mViewPager.setCurrentItem(schedule.currentNight.nightIndex);
     }
 
+    //TODO: currently, when going from main screen to view schedule screen and back again repeatedly, many more MainActivity activities are created.
+    // To demonstrate: launch application with an ongoing schedule. Go to schedule, press back, go to schedule again, press back again. Repeat multiple times.
+    // Then, press back multiple times to view the many MainActivities.
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.HashMap;
 
@@ -25,7 +26,6 @@ public class ScheduleFragment extends Fragment {
         // Inflate the layout resource that'll be returned
         View rootView = inflater.inflate(R.layout.night_layout, container, false);
 
-
         // Get the arguments that was supplied when
         // the fragment was instantiated in the
         // CustomPagerAdapter
@@ -35,8 +35,11 @@ public class ScheduleFragment extends Fragment {
 
         drawSleepScheduleGraph(rootView);
 
-        agenda = night.getAgenda();
+        //Set top banner to "Night [X]"
+        TextView index = (TextView) rootView.findViewById(R.id.night_index);
+        index.setText("Night " + (night.nightIndex + 1));
 
+        agenda = night.getAgenda();
         AgendaAdapter adapter = new AgendaAdapter(getActivity(), agenda);
         ListView agendaList = (ListView) rootView.findViewById(R.id.agenda);
         agendaList.setAdapter(adapter);

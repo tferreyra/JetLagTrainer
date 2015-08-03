@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by josef on 8/2/15.
@@ -13,11 +16,22 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 public class SchedulePagerAdapter extends FragmentStatePagerAdapter {
     private Schedule schedule;
     protected Context mContext;
+    private ArrayList<Night> nights;
 
     public SchedulePagerAdapter(FragmentManager fm, Context context, Schedule schedule) {
         super(fm);
         mContext = context;
         this.schedule = schedule;
+        loadNights();
+    }
+
+    private void loadNights() {
+        nights = new ArrayList<Night>();
+        Night currentNight = schedule.currentNight;
+        while (currentNight != null) {
+            nights.add(currentNight);
+            currentNight = Night.findById(Night.class, currentNight.next);
+        }
     }
 
     @Override
@@ -27,7 +41,8 @@ public class SchedulePagerAdapter extends FragmentStatePagerAdapter {
     // It is called when the Adapter needs a fragment
     // and it does not exists.
     public Fragment getItem(int position) {
-        Night night = schedule.currentNight;
+        Night night = nights.get(position);
+
         // Create fragment object
         Fragment fragment = new ScheduleFragment();
         // Attach some data to it that we'll
@@ -46,7 +61,7 @@ public class SchedulePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return nights.size();
     }
 
 
