@@ -232,9 +232,10 @@ public class SleepScheduleGraphView extends View {
             x0 += delta;
             y0 = y1;
         }
+
         // Draw shaded region for sleep times.
-        drawSleepRegion(bedTime, wakeTime, Color.CYAN);
-        drawSleepRegion(targetBedTime, targetWakeTime, Color.YELLOW);
+         drawSleepRegion(bedTime, wakeTime, Color.CYAN, 20);
+         drawSleepRegion(targetBedTime, targetWakeTime, Color.YELLOW, 5);
     }
 
     /**
@@ -278,15 +279,21 @@ public class SleepScheduleGraphView extends View {
      * @param startTime   time input in seconds from midnight
      * @param endTime     time input in seconds from midnight
      * @param color       color of striped region
+     * @param alpha       integer from 0-255 indicating transparency level
      */
-    private void drawSleepRegion(float startTime, float endTime, int color) {
+    private void drawSleepRegion(float startTime, float endTime, int color, int alpha) {
         float delta = graphWidth/((TERMINAL_TIME - INITIAL_TIME)*10);
         startTime = convertSecToHourFloat(startTime);   // assumes startTime after noon
         endTime = convertSecToHourFloat(endTime) + 24;  // assumes endTime before noon
-        float left = INITIAL_TIME + ((startTime - INITIAL_TIME)/.10f)*delta;
-        float right = INITIAL_TIME + ((endTime - INITIAL_TIME)/.10f)*delta;
-        drawStripedRegion(left, verticalShift - amplitude, right, verticalShift + amplitude,
-                2, 10, color, 2f);
+        int left = (int) (INITIAL_TIME + ((startTime - INITIAL_TIME)/.10f)*delta);
+        int right = (int) (INITIAL_TIME + ((endTime - INITIAL_TIME)/.10f)*delta);
+        int top = verticalShift - amplitude;
+        int bottom = verticalShift + amplitude;
+        setPaintAttributes(paint, Color.CYAN, Paint.Style.FILL);
+        paint.setAlpha(alpha);
+        drawRect(mCanvas, left, top, right, bottom, paint);
+//        drawStripedRegion(left, verticalShift - amplitude, right, verticalShift + amplitude,
+//                2, 10, color, 2f);
     }
 
     /**
