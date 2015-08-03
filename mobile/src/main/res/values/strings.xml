@@ -58,6 +58,8 @@
     <!--Input Summary screen -->
     <string name="summary_title">Summary</string>
 
+    <!--Evaluation Screen-->
+    <string name="feedback">How did the strategy work for you?</string>
 
 
 </resources>

@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
         getWindow().setSharedElementEnterTransition(slide);
         getWindow().setSharedElementExitTransition(slide);
 
-        List<Schedule> values = Schedule.find(Schedule.class, "active = ?", "true");
+        List<Schedule> values = Schedule.find(Schedule.class, "active = ?", "TRUE");
         if (values.size() != 0) {
             final long scheduleId = values.get(0).getId();
             String stringOne = getString(R.string.main_sleep);

@@ -14,6 +14,7 @@ import java.util.Map;
 /**
  * Created by linxi on 7/28/15.
  */
+
 public class HistoryAdapter extends BaseAdapter {
     private List<Schedule> schedules;
     Context context;
