@@ -3,6 +3,8 @@ package com.iantoxi.jetlagtrainer;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.transition.Slide;
@@ -13,10 +15,11 @@ import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 
-
-public class ScheduleActivity extends Activity {
+public class ScheduleActivity extends FragmentActivity {
     private long scheduleId;
     private Schedule schedule;
+    private SchedulePagerAdapter mSchedulePagerAdapter;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,18 +32,24 @@ public class ScheduleActivity extends Activity {
         getWindow().setEnterTransition(slide);
         getWindow().setExitTransition(slide);
 
-        Intent intent = getIntent();
-        scheduleId = (long) intent.getExtras().get("scheduleId");
-        schedule = Schedule.findById(Schedule.class, scheduleId);
+        // Set up the ViewPager.
+        mSchedulePagerAdapter = new SchedulePagerAdapter(getSupportFragmentManager(), this);
 
-        LayoutInflater inflater = getLayoutInflater();
-        RelativeLayout main = (RelativeLayout) findViewById(R.id.main_view);
-
-        View view = inflater.inflate(R.layout.night_layout, null,true);
-
-        main.addView(view);
-
-        drawSleepScheduleGraph();
+        mViewPager = (ViewPager) findViewById(R.id.main_view);
+        mViewPager.setAdapter(mSchedulePagerAdapter);
+//
+//        Intent intent = getIntent();
+//        scheduleId = (long) intent.getExtras().get("scheduleId");
+//        schedule = Schedule.findById(Schedule.class, scheduleId);
+//
+//        LayoutInflater inflater = getLayoutInflater();
+//        RelativeLayout main = (RelativeLayout) findViewById(R.id.main_view);
+//
+//        View view = inflater.inflate(R.layout.night_layout, null,true);
+//
+//        main.addView(view);
+//
+//        drawSleepScheduleGraph();
     }
 
     @Override
