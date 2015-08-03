@@ -44,8 +44,9 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         Calendar date = new GregorianCalendar(year, month, day);
-
-        if(date.compareTo(Calendar.getInstance()) < 0) {
+        Calendar today = Calendar.getInstance();
+        Schedule.toBeginningOfTheDay(today);
+        if(date.compareTo(today) < 0) {
             date = Calendar.getInstance();
             year = date.get(Calendar.YEAR);
             month = date.get(Calendar.MONTH);

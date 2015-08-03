@@ -3,11 +3,13 @@
 
     <!-- Main Screen-->
     <string name="main_sleep">Start a sleep shift.</string>
+    <string name="existing_sleep">View current sleep schedule.</string>
     <string name="main_history">My history.</string>
 
     <!-- Transition Strings -->
     <string name="transition_main_input">transition from main to input</string>
     <string name="transition_input_flight">transition from input to flight</string>
+    <string name="transition_main_graph">transition from main to graph</string>
 
     <!-- Activity Names -->
     <string name="title_activity_input_selection">InputSelectionActivity</string>

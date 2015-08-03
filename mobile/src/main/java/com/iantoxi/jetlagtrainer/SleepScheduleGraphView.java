@@ -212,8 +212,8 @@ public class SleepScheduleGraphView extends View {
         setPaintAttributes(black, Color.BLACK, Paint.Style.STROKE, STROKE_WIDTH);
         Paint white = new Paint();
         setPaintAttributes(white, Color.WHITE, Paint.Style.STROKE, STROKE_WIDTH);
-        float delta = (float) graphWidth/ (float) ((TERMINAL_TIME - INITIAL_TIME)*300);
-        float delta2 = (float) (TERMINAL_TIME - INITIAL_TIME) / (float) ((TERMINAL_TIME - INITIAL_TIME)*300);
+        float delta = (float) graphWidth/ (float) ((TERMINAL_TIME - INITIAL_TIME)*100);
+        float delta2 = (float) (TERMINAL_TIME - INITIAL_TIME) / (float) ((TERMINAL_TIME - INITIAL_TIME)*100);
         float x0 = LEFT;
         float y0 = daylightCycle(bedTime);
         // Graphs from Noon to Noon.
