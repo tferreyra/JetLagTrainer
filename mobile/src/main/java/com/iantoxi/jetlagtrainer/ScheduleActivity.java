@@ -2,6 +2,9 @@ package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ScheduleActivity extends FragmentActivity {
     private long scheduleId;
@@ -51,6 +55,8 @@ public class ScheduleActivity extends FragmentActivity {
         TextView zoneGap = (TextView) findViewById(R.id.zone_gap);
         destinationName.setText(schedule.destinationTimezone);
         zoneGap.setText(Integer.toString(schedule.zoneGap));
+
+        setReminders();
     }
 
     //TODO: currently, when going from main screen to view schedule screen and back again repeatedly, many more MainActivity activities are created.
@@ -85,6 +91,37 @@ public class ScheduleActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void setReminders() {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Night currentNight = schedule.currentNight;
+
+        Intent sleepIntent = new Intent(this, NotificationReceiver.class);
+        sleepIntent.putExtra("id", "sleep");
+        PendingIntent sleepPendingIntent = PendingIntent.getBroadcast(this, 1, sleepIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, currentNight.sleepTime * 60 * 1000, sleepPendingIntent);
+
+        if (schedule.melatoninStrategy) {
+            Intent melatoninIntent = new Intent(this, NotificationReceiver.class);
+            sleepIntent.putExtra("id", "melatonin");
+            PendingIntent melatoninPendingIntent = PendingIntent.getBroadcast(this, 2, melatoninIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, (currentNight.sleepTime - 30) * 60 * 1000, melatoninPendingIntent);
+        }
+
+        if (schedule.lightStrategy) {
+            Intent lightIntent = new Intent(this, SendServiceToWear.class);
+            String[] extra = {"light", Integer.toString(currentNight.sleepTime)};
+            lightIntent.putExtra("message", extra);
+            startService(lightIntent);
+        }
+    }
+
+    private String getSleepTime(int seconds) {
+        int hours = seconds / 3600;
+        seconds %= 3600;
+        int minutes = seconds / 60;
+        seconds %= 60;
+        return Integer.toString(hours) + ":" + Integer.toString(minutes) + ":" + Integer.toString(seconds);
+    }
 
 
 }
