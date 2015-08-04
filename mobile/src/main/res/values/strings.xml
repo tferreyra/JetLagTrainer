@@ -17,6 +17,7 @@
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="title_activity_input_location">InputLocationActivity</string>
     <string name="title_activity_origin_time">OriginTime</string>
+    <string name="title_evaluation_activity">EvaluationActivity</string>
 
     <!--Destination and Date input screen -->
     <string name="leaving_from">I will be leaving from: </string>
