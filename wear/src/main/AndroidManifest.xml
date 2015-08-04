@@ -22,6 +22,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".LightSensor"
+            android:label="LightSensor" >
+        </activity>
+
         <service
             android:name=".SendServiceToMobile"
             android:label="SendServiceToMobile" >
