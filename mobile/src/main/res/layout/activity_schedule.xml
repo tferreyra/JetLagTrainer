@@ -13,70 +13,96 @@
     </android.support.v4.view.ViewPager>
 
     <LinearLayout
+        android:id="@+id/schedule_bar"
         android:layout_width="fill_parent"
-        android:layout_weight="15"
+        android:layout_weight="30"
         android:background="@color/darkPurple"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:weightSum="100"
         android:layout_height="0dp">
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="60"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Traveling to: "
-                style="@style/bodyText"
-                android:textSize="10sp"/>
-            <TextView
-                android:id="@+id/destination_name"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="America/Los Angeles"
-                style="@style/bodyText"
-                android:textSize="20sp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="25"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Shifting"
-                style="@style/bodyText"
-                android:textSize="10sp"/>
-            <TextView
-                android:id="@+id/zone_gap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="7"
-                style="@style/bodyText"
-                android:textSize="20sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="hours"
-                style="@style/bodyText"
-                android:textSize="10sp"/>
+            android:layout_width="fill_parent"
+            android:layout_weight="50"
+            android:background="@color/darkPurple"
+            android:orientation="horizontal"
+            android:weightSum="100"
+            android:layout_height="0dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="60"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Traveling to: "
+                    style="@style/bodyText"
+                    android:textSize="10sp"/>
+                <TextView
+                    android:id="@+id/destination_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="America/Los Angeles"
+                    style="@style/bodyText"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="25"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Shifting"
+                    style="@style/bodyText"
+                    android:textSize="10sp"/>
+                <TextView
+                    android:id="@+id/zone_gap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="7"
+                    style="@style/bodyText"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="hours"
+                    style="@style/bodyText"
+                    android:textSize="10sp"/>
+            </LinearLayout>
+            <ImageButton
+                android:id="@+id/options_button"
+                android:layout_width="0dp"
+                android:layout_weight="15"
+                android:layout_height="fill_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="launchScheduleBarOptions"
+                android:src="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"/>
         </LinearLayout>
 
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_weight="15"
-            android:layout_height="fill_parent"
-            android:background="?android:attr/selectableItemBackground"
-            android:src="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"/>
+        <!--Options Menu-->
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_weight="50"
+            android:background="@color/teal"
+            android:layout_height="0dp">
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerVertical="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="cancelSchedule"
+                android:text="Cancel Schedule"/>
+        </RelativeLayout>
+
     </LinearLayout>
 
 </LinearLayout>

@@ -1,53 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
 android:layout_height="wrap_content"
-android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:background="@color/darkPurple"
+    android:orientation="horizontal"
     android:weightSum="100">
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_weight="30">
+        android:layout_weight="15"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/history_id"
-            android:layout_width="wrap_content"
+            android:id="@+id/month"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Side"/>
-    </RelativeLayout>
+            android:gravity="center"
+            android:text="Jan"
+            style="@style/bodyText"
+            android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="29"
+            style="@style/bodyText"
+            android:textSize="20sp"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_weight="70"
+        android:layout_weight="60"
         android:orientation="vertical"
-        android:weightSum="100">
-        <RelativeLayout
+        android:padding="10dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content">
+        <TextView
             android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="60">
-            <TextView
-                android:id="@+id/origin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Content on the right top"
-                android:textSize="20sp"
-                />
-        </RelativeLayout>
-
-        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:text="Destination: "
+            style="@style/bodyText"
+            android:textSize="10sp"/>
+        <TextView
+            android:id="@+id/destination_name"
             android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="40">
-            <TextView
-                android:id="@+id/destination"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Content on the right2"/>
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:text="America/Los Angeles"
+            style="@style/bodyText"
+            android:textSize="20sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="25"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Shifted"
+            style="@style/bodyText"
+            android:textSize="10sp"/>
+        <TextView
+            android:id="@+id/zone_gap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="7"
+            style="@style/bodyText"
+            android:textSize="20sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="hours"
+            style="@style/bodyText"
+            android:textSize="10sp"/>
     </LinearLayout>
 
 </LinearLayout>
+
+
+
+
