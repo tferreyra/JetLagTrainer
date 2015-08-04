@@ -31,6 +31,10 @@
             android:label="@string/title_activity_sleep_strategy" >
         </activity>
         <activity
+            android:name=".EvaluationActivity"
+            android:label="@string/title_evaluation_activity" >
+        </activity>
+        <activity
             android:name=".HistoryActivity"
             android:label="@string/title_activity_history" >
         </activity>
