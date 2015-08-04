@@ -61,6 +61,8 @@ public class HistoryAdapter extends BaseAdapter {
         zoneGap.setText(Integer.toString(schedule.zoneGap));
         destination.setText(schedule.destinationTimezone);
 
+        view.setTag(R.id.schedule_tags, schedule.getId());
+
         return view;
     }
 }

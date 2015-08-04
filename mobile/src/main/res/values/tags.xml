@@ -3,4 +3,5 @@
     <!-- Tags -->
     <item name="date_tags" type = "id"/>
     <item name="time_tags" type = "id"/>
+    <item name="schedule_tags" type = "id"/>
 </resources>

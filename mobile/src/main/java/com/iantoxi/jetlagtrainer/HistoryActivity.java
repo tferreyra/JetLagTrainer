@@ -1,9 +1,11 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.ListActivity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -34,13 +36,21 @@ public class HistoryActivity extends ListActivity {
         setListAdapter(adapter);
     }
 
-
     private void setTransitions() {
         Slide slide = new Slide();
         slide.excludeTarget(android.R.id.statusBarBackground, true);
         slide.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setEnterTransition(slide);
         getWindow().setExitTransition(slide);
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        long scheduleId = (Long) v.getTag(R.id.schedule_tags);
+        Intent intent = new Intent(this, ScheduleActivity.class);
+        intent.putExtra("scheduleId", scheduleId);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     @Override

@@ -62,6 +62,19 @@ public class ScheduleActivity extends FragmentActivity {
         setReminders();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!schedule.isActive()) {
+
+        }
+    }
+
+    private void launchEvaluation() {
+
+    }
+
     private void setScheduleBar() {
         TextView destinationName = (TextView) findViewById(R.id.destination_name);
         TextView zoneGap = (TextView) findViewById(R.id.zone_gap);
