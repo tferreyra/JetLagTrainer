@@ -98,7 +98,8 @@ public class ScheduleActivity extends FragmentActivity {
         Night currentNight = schedule.currentNight;
         long sleepTime = currentNight.sleepTime * 60 * 1000; // convert from minutes to milliseconds
 
-        long currentTime = System.currentTimeMillis();
+        Calendar calendar = Calendar.getInstance();
+        long currentTime = calendar.getTimeInMillis();
         long timeRemaining;
 
         if (sleepTime > currentTime) { // set notification if time to sleep hasn't passed already

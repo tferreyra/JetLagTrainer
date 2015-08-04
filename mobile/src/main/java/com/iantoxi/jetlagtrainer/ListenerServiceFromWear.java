@@ -32,10 +32,13 @@ public class ListenerServiceFromWear extends WearableListenerService{
         Night currentNight = null;
         currentNight = schedule.currentNight;
 
+        Calendar calendar = Calendar.getInstance();
+        long currentTime = calendar.getTimeInMillis();
+
         if (messageEvent.getPath().equals(sleeping) && currentNight != null) {
             long sleepTime = currentNight.sleepTime * 60 * 1000; // in milliseconds
             long leeway = 30 * 60 * 1000; // do not tell users to stay awake if less than half an hour to bedtime
-            if (sleepTime - leeway > System.currentTimeMillis()) {
+            if (sleepTime - leeway > currentTime) {
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(ListenerServiceFromWear.this)
                         .setSmallIcon(R.drawable.cast_ic_notification_0)
                         .setContentTitle("It's not time to sleep yet...")
@@ -46,7 +49,6 @@ public class ListenerServiceFromWear extends WearableListenerService{
             }
         } else if (messageEvent.getPath().equals(light) && currentNight != null) {
             int[] noLightRange = currentNight.noLightRange();
-            long currentTime = System.currentTimeMillis();
             if (noLightRange[0] * 60 * 1000 <= currentTime && currentTime <= noLightRange[1] * 60 * 1000) {
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(ListenerServiceFromWear.this)
                         .setSmallIcon(R.drawable.cast_ic_notification_0)
@@ -58,7 +60,6 @@ public class ListenerServiceFromWear extends WearableListenerService{
             }
         } else if (messageEvent.getPath().equals(dark) && currentNight != null) {
             int[] lightRange = currentNight.lightRange();
-            long currentTime = System.currentTimeMillis();
             if (lightRange[0] * 60 * 1000 <= currentTime && currentTime <= lightRange[1] * 60 * 1000) {
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(ListenerServiceFromWear.this)
                         .setSmallIcon(R.drawable.cast_ic_notification_0)
