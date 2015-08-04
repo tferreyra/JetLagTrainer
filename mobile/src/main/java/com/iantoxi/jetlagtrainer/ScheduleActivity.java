@@ -83,10 +83,14 @@ public class ScheduleActivity extends FragmentActivity {
     // Then, press back multiple times to view the many MainActivities.
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        finish();
+        boolean finished = getIntent().getBooleanExtra("finished", false);
+        if (finished) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            finish();
+        }
+        super.onBackPressed();
     }
 
     @Override
