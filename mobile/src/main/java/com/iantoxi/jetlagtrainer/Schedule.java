@@ -41,6 +41,8 @@ public class Schedule extends SugarRecord<Schedule> {
     private boolean active;
     private boolean calculated = false;
 
+    public Calendar endDate;
+
     public Schedule() {
         //necessary for Sugar ORM
     }
@@ -115,6 +117,8 @@ public class Schedule extends SugarRecord<Schedule> {
             currentNight = currentNight.nextNight();
             toAdjust -= 1;
         }
+        endDate = currentNight.sleepStartDate;
+
         currentNight = firstNight;
     }
 

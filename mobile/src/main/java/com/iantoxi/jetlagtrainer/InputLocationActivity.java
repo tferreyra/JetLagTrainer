@@ -253,6 +253,7 @@ public class InputLocationActivity extends Activity {
         schedule.destinationTimezone = destinationTimeZone;
         schedule.startDate = Calendar.getInstance();
         schedule.travelDate = getTravelDate();
+        schedule.endDate = schedule.travelDate;
         schedule.save();
         return schedule.getId();
     }

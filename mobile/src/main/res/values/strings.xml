@@ -69,4 +69,6 @@
     <string name="light_on_time">Increase light exposure</string>
     <string name = "light_off_time">Decrease light exposure</string>
 
+    <string name="sleep_schedule_expired">Your sleep schedule is complete.</string>
+
 </resources>

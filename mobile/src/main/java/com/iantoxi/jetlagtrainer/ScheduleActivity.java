@@ -1,5 +1,6 @@
 package com.iantoxi.jetlagtrainer;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.AlarmManager;
@@ -7,12 +8,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.transition.Slide;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +26,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,14 +74,57 @@ public class ScheduleActivity extends FragmentActivity {
         if (!schedule.isActive()) {
             Button cancelSchedule = (Button) findViewById(R.id.cancel_schedule);
             cancelSchedule.setText("Schedule Evaluation");
-
             cancelSchedule.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     launchEvaluation();
                 }
             });
+        }
+    }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (!schedule.isActive()) {
+            evaluateExpiration();
+        }
+    }
+
+    private void evaluateExpiration() {
+        if(Calendar.getInstance().compareTo(schedule.endDate) > 0) {
+            LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+            View popUpView = layoutInflater.inflate(R.layout.schedule_expiration_dialog, null);
+            final PopupWindow popupWindow = new PopupWindow(popUpView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+            popupWindow.setOutsideTouchable(true);
+            popupWindow.setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
+            popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+
+            Button archive = (Button) popUpView.findViewById(R.id.archive);
+            archive.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popupWindow.dismiss();
+                }
+            });
+
+            Button evaluate = (Button) popUpView.findViewById(R.id.evaluate);
+            archive.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cancelSchedule(v);
+                }
+            });
+
+            evaluate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    launchEvaluation();
+                }
+            });
+
+            View parent = findViewById(R.id.activity_schedule);
+            popupWindow.showAtLocation(parent, Gravity.CENTER, 0, 0);
         }
     }
 
