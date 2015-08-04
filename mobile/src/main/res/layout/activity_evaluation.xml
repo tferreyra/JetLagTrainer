@@ -21,8 +21,8 @@
         android:layout_marginLeft="20dp"
         android:text="@string/feedback"
         android:id="@+id/textView"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentStart="true" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
 
     <RatingBar
         android:layout_width="wrap_content"
@@ -67,22 +67,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Origin"
+        android:text="America/Los Angeles"
         android:id="@+id/textView2"
-        android:layout_marginTop="25dp"
         android:layout_below="@+id/imageView"
-        android:layout_alignStart="@+id/editText"
-        android:layout_marginBottom="25dp" />
+        android:layout_centerHorizontal="true"
+        android:paddingTop="25dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Destination"
+        android:text="Europe/Madrid"
         android:id="@+id/textView3"
-        android:layout_alignBottom="@+id/textView4"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="35dp" />
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -90,9 +88,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="to"
         android:id="@+id/textView4"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp" />
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
 
