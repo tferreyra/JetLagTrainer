@@ -66,8 +66,8 @@ public class AgendaAdapter extends BaseAdapter {
         String formattedTime = processTime(temp, wake);
 
         //TODO: format time into hours:minutes AM/PM format
-        //time.setText(Integer.toString((Integer) sortedTimes[position]));
-        time.setText(formattedTime);
+        time.setText(Integer.toString((Integer) sortedTimes[position]));
+        //time.setText(formattedTime);
         event.setText(context.getString(stringId));
 
         return view;
@@ -83,7 +83,16 @@ public class AgendaAdapter extends BaseAdapter {
         if (integer < 0)
             time = 1440 + integer;
         else if (wake) {
-            time = integer - 1440;
+            if (integer > 1440)
+                time = integer - 1440;
+            else {
+                if (integer > 720) {
+                    time = integer - 720;
+                    override = true;
+                } else {
+                    time = integer;
+                }
+            }
             if (time < 0) {
                 time += 720;
                 override = true;
