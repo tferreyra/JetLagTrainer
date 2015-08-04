@@ -53,7 +53,7 @@ public class LightSensor extends Activity {
                 startService(intent);
             }
         });
-        RelativeLayout relative2 = (RelativeLayout) findViewById(R.id.top);
+        RelativeLayout relative2 = (RelativeLayout) findViewById(R.id.bottom);
         relative2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
