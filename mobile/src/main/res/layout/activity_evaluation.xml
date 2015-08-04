@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="America/Los Angeles"
-        android:id="@+id/textView2"
+        android:id="@+id/origin"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
         android:paddingTop="25dp" />
@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Europe/Madrid"
-        android:id="@+id/textView3"
+        android:id="@+id/dest"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true" />
 
@@ -88,7 +88,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="to"
         android:id="@+id/textView4"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/origin"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
