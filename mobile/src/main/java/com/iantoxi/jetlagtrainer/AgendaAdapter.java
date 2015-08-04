@@ -75,11 +75,20 @@ public class AgendaAdapter extends BaseAdapter {
 
     private String processTime(Integer integer, boolean wake) {
         int time;
+        boolean override = false;
+
+        if (integer == 0 && wake)
+            return "12:00 AM";
+
         if (integer < 0)
             time = 1440 + integer;
-        else if (wake)
+        else if (wake) {
             time = integer - 1440;
-        else
+            if (time < 0) {
+                time += 720;
+                override = true;
+            }
+        } else
             time = integer;
 
         int hours = time / 60;
@@ -92,7 +101,8 @@ public class AgendaAdapter extends BaseAdapter {
             AMPM = " PM";
             if (hours > 12)
                 hours -= 12;
-        }
+        } else if (override)
+            AMPM = " PM";
 
         if (minutes < 10) {
             return Integer.toString(hours) + ":0" + Integer.toString(minutes) + AMPM;
