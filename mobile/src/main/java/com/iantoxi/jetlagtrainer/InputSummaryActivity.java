@@ -92,7 +92,9 @@ public class InputSummaryActivity extends Activity {
         schedule.save();
         Intent intent = new Intent(this, ScheduleActivity.class);
         intent.putExtra("scheduleId", scheduleId);
+        intent.putExtra("finished", true);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        finish();
     }
 
     private String timeConversion(Integer i) {

@@ -49,6 +49,11 @@ public class Schedule extends SugarRecord<Schedule> {
         return active;
     }
 
+    public void cancelSchedule() {
+        active = false;
+        this.save();
+    }
+
     public boolean isCalculated() {
         return calculated;
     }
