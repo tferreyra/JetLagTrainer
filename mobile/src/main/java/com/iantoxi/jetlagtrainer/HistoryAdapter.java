@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -24,7 +26,7 @@ public class HistoryAdapter extends BaseAdapter {
         super();
         context = activity;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        schedules = Schedule.find(Schedule.class, "active = ? AND calculated = ?", new String[]{"FALSE", "TRUE"});
+        schedules = Schedule.find(Schedule.class, "active = ? AND calculated = ?", new String[]{"0", "1"});
     }
 
     @Override
@@ -44,15 +46,20 @@ public class HistoryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view=inflater.inflate(R.layout.history_list_item_layout, null,true);
-        TextView historyId = (TextView) view.findViewById(R.id.history_id);
-        TextView origin = (TextView) view.findViewById(R.id.origin);
-        TextView destination = (TextView) view.findViewById(R.id.destination);
+        Schedule schedule = schedules.get(position);
 
-//        historyId.setText(Integer.toString(position));
-        historyId.setText(Integer.toString(schedules.size()));
-        origin.setText(schedules.get(position).originTimezone);
-        destination.setText(schedules.get(position).destinationTimezone);
+        Calendar night = schedule.startDate;
+        
+        View view=inflater.inflate(R.layout.history_list_item_layout, null,true);
+        TextView zoneGap = (TextView) view.findViewById(R.id.zone_gap);
+        TextView month = (TextView) view.findViewById(R.id.month);
+        TextView date = (TextView) view.findViewById(R.id.date);
+        TextView destination = (TextView) view.findViewById(R.id.destination_name);
+
+        month.setText(night.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault()));
+        date.setText(Integer.toString(night.get(Calendar.DATE)));
+        zoneGap.setText(Integer.toString(schedule.zoneGap));
+        destination.setText(schedule.destinationTimezone);
 
         return view;
     }
