@@ -35,7 +35,6 @@ public class MainActivity extends Activity {
         getWindow().setSharedElementEnterTransition(slide);
         getWindow().setSharedElementExitTransition(slide);
 
-
         List<Schedule> values = Schedule.find(Schedule.class, "active = ?", "1");
         if (values.size() != 0) {
             final long scheduleId = values.get(0).getId();

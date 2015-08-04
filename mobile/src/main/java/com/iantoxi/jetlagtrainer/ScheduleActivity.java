@@ -84,6 +84,7 @@ public class ScheduleActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         finish();
     }
@@ -170,4 +171,9 @@ public class ScheduleActivity extends FragmentActivity {
         display.getSize(size);
         return size;
     }
+
+    public void cancelSchedule(View view) {
+        schedule.cancelSchedule();
+    }
+
 }
