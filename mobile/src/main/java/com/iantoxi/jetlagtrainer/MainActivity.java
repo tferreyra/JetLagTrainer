@@ -35,7 +35,11 @@ public class MainActivity extends Activity {
         getWindow().setSharedElementEnterTransition(slide);
         getWindow().setSharedElementExitTransition(slide);
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         List<Schedule> values = Schedule.find(Schedule.class, "active = ?", "1");
         if (values.size() != 0) {
             final long scheduleId = values.get(0).getId();
@@ -48,6 +52,8 @@ public class MainActivity extends Activity {
                 }
             });
         } else {
+            TextView startText = (TextView) findViewById(R.id.startButton);
+            startText.setText(getString(R.string.main_sleep));
             final Button button = (Button) findViewById(R.id.button);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {

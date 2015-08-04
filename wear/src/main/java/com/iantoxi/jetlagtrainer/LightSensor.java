@@ -20,13 +20,14 @@ public class LightSensor extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
+        setContentView(R.layout.light_listener_notifier);
+        /*final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
             }
-        });
+        });*/
 
         SensorEventListener sensorListener = new SensorEventListener() {
             @Override

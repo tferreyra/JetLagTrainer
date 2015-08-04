@@ -7,4 +7,6 @@
     <string name="description">The wear portion of this app will send you notifications
                 to help you stay on your sleep schedule. So
                 swipe away and continue on with your day! :D</string>
+    <string name="light_control_description">You will now be notified if you are being exposed
+                to too much or too little light according to your sleep schedule.</string>
 </resources>
