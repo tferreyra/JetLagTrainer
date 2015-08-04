@@ -23,11 +23,7 @@ public class SendServiceToWear extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        if (intent.getStringArrayExtra("message")[0].equals("light")) {
-            messagePath = intent.getStringArrayExtra("message")[1];
-        } else {
-            messagePath = intent.getStringExtra("message");
-        }
+        messagePath = intent.getStringExtra("message");
 
         // Creates and builds GoogleApiClient.
         mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(
