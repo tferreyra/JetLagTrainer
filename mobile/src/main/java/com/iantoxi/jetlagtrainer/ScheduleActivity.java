@@ -141,7 +141,6 @@ public class ScheduleActivity extends FragmentActivity {
         }
     }
 
-<<<<<<< HEAD
     private String getSleepTime(int seconds) {
         int hours = seconds / 3600;
         seconds %= 3600;
@@ -171,7 +170,4 @@ public class ScheduleActivity extends FragmentActivity {
         display.getSize(size);
         return size;
     }
-
-=======
->>>>>>> b1bebf3832337c0fe89e3e158dc8b86927f6b302
 }
