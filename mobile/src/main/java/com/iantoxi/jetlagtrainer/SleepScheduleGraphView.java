@@ -48,28 +48,36 @@ public class SleepScheduleGraphView extends View {
     private int timeAxesHeight;
     // Paint object to use throughout drawing process.
     private Paint paint;
-    // Rect object to use throughout drawing process.
-    private Rect rect;
     // Canvas to draw sleep schedule.
     private Canvas mCanvas;
-    // Current Bedtime and Wake Time.
+    // Current Bedtime and Wake Time in seconds from midnight.
     private float bedTime;
     private float wakeTime;
+    // Current Bedtime and Wake Time in hours.
+    private int bedTimeHour;
+    private int wakeTimeHour;
     // Target Bedtime and Wake Time.
     private float targetBedTime;
     private float targetWakeTime;
+    // Target Bedtime and Wake Time in hours.
+    private int targetBedTimeHour;
+    private int targetWakeTimeHour;
     // Time Zone Difference.
     private float timeDiff;
     // y-coordinates of top and border of graph.
     private int topGraph;
     private int bottomGraph;
+    // x-coordinates of current and target bedTime and wakeTime hours.
+    private float xCurrentBedTime;
+    private float xCurrentWakeTime;
+    private float xTargetBedTime;
+    private float xTargetWakeTime;
 
     public SleepScheduleGraphView(Context context, AttributeSet attrs) {
         super(context, attrs);
         Paint.FontMetrics fm = new Paint.FontMetrics();
         paint = new Paint();
         paint.getFontMetrics(fm);
-        rect = new Rect();
     }
 
     @Override
@@ -141,10 +149,6 @@ public class SleepScheduleGraphView extends View {
         return seconds / NUM_SECS_PER_HOUR;
     }
 
-    private int converSecToHourInt(float seconds) {
-        return (int) (seconds / NUM_SECS_PER_HOUR);
-    }
-
     private void setPaintAttributes(Paint p, int color, Paint.Style style) {
         p.setColor(color);
         p.setStyle(style);
@@ -162,8 +166,7 @@ public class SleepScheduleGraphView extends View {
         p.setTypeface(typeface);
     }
 
-    private void drawRect(Canvas c, int left, int top, int right, int bottom, Paint p) {
-        rect.set(left, top, right, bottom);
+    private void drawRect(Canvas c, float left, float top, float right, float bottom, Paint p) {
         c.drawRect(left, top, right, bottom, p);
     }
 
@@ -182,6 +185,16 @@ public class SleepScheduleGraphView extends View {
         this.targetBedTime = targetBedTime;
         this.targetWakeTime = targetWakeTime;
         this.timeDiff = timeDiff;
+
+        this.bedTimeHour = Math.round(this.bedTime/ (float) 3600) % 24;
+        this.wakeTimeHour = Math.round(this.wakeTime/ (float) 3600) % 24;
+        this.targetBedTimeHour = Math.round(this.targetBedTime/ (float) 3600) % 24;
+        this.targetWakeTimeHour = Math.round(this.targetWakeTime/ (float)3600) % 24;
+
+        this.xCurrentBedTime = LEFT;
+        this.xCurrentWakeTime = RIGHT;
+        this.xTargetBedTime = LEFT;
+        this.xTargetWakeTime = RIGHT;
         invalidate();
     }
 
@@ -207,14 +220,14 @@ public class SleepScheduleGraphView extends View {
         // Graphs from Noon to Noon.
         float eps = (float) Math.pow(10.0, -2.0);
         for (float x1 = INITIAL_TIME; x1 <= TERMINAL_TIME; x1+=delta2) {
-            float y1 = daylightCycle((float) x1);
+            float y1 = daylightCycle(x1);
             if (y1 > verticalShift) {
                 mCanvas.drawLine(x0, y0, x0+delta, y1, white);
             } else {
                 mCanvas.drawLine(x0, y0, x0+delta, y1, black);
             }
             if (Math.abs(x1-Math.round(x1)) < eps) {
-                drawAxisLabel(x0, (float) x1, timeDiff);
+                drawAxisLabel(x0, x1, timeDiff);
             }
             x0 += delta;
             y0 = y1;
@@ -224,8 +237,10 @@ public class SleepScheduleGraphView extends View {
         // Note: Graph y-values based on target time zone, so
         // need to shift given current bedTime and wakeTime by timeDiff.
         // timeDiff given as (target - current) time zone.
-        drawSleepRegion(bedTime-timeDiff, wakeTime-timeDiff, Color.CYAN, 20);
-        drawSleepRegion(targetBedTime, targetWakeTime, Color.YELLOW, 30);
+        Log.d("LEFT", String.valueOf(LEFT));
+        Log.d("RIGHT", String.valueOf(RIGHT));
+        drawSleepRegion(true, Color.CYAN, 20);
+        drawSleepRegion(false, Color.YELLOW, 30);
     }
 
     /**
@@ -239,6 +254,24 @@ public class SleepScheduleGraphView extends View {
         paint.setStrokeWidth(0f);
         int targetHour = Math.round(time) % 24;
         int currentHour = Math.round(time - timeDiff) % 24;
+        Log.d("targetHour", String.valueOf(targetHour));
+        Log.d("targetWakeTimeHour", String.valueOf(targetWakeTimeHour));
+        Log.d("currentHour", String.valueOf(currentHour));
+        Log.d("currentWakeTimeHour", String.valueOf(wakeTimeHour));
+        if (targetHour == targetBedTimeHour) {
+            Log.d("TARGETBEDTIMEHOUR X", String.valueOf(x));
+            xTargetBedTime = x;
+        } else if (targetHour == targetWakeTimeHour) {
+            Log.d("TARGETWAKETIMEHOUR X", String.valueOf(x));
+            xTargetWakeTime = x;
+        }
+        if (currentHour == bedTimeHour) {
+            Log.d("CURRENTBEDTIMEHOUR X", String.valueOf(x));
+            xCurrentBedTime = x;
+        } else if (currentHour == wakeTimeHour) {
+            Log.d("CURRENTWAKETIMEHOUR X", String.valueOf(x));
+            xCurrentWakeTime = x;
+        }
         String currentLabel = null;
         String targetLabel = null;
         if (targetHour % 4 == 0) {
@@ -278,19 +311,17 @@ public class SleepScheduleGraphView extends View {
     /**
      * Draw sleep region on graph. Currently only supports startTime
      * in the after noon, and endTime before noon.
-     * @param startTime   time input in seconds from midnight
-     * @param endTime     time input in seconds from midnight
+     * @param isCurrent   true if drawing current sleep region, false if drawing target sleep region
      * @param color       color of striped region
      * @param alpha       integer from 0-255 indicating transparency level
      */
-    private void drawSleepRegion(float startTime, float endTime, int color, int alpha) {
-        float delta = graphWidth/((TERMINAL_TIME - INITIAL_TIME)*10);
-        startTime = convertSecToHourFloat(startTime);   // assumes startTime after noon
-        endTime = convertSecToHourFloat(endTime) + 24;  // assumes endTime before noon
-        int left = (int) (INITIAL_TIME + ((startTime - INITIAL_TIME)/.10f)*delta);
-        int right = (int) (INITIAL_TIME + ((endTime - INITIAL_TIME)/.10f)*delta);
+    private void drawSleepRegion(boolean isCurrent, int color, int alpha) {
         setPaintAttributes(paint, color, Paint.Style.FILL);
         paint.setAlpha(alpha);
+        float left = (isCurrent) ? xCurrentBedTime : xTargetBedTime;
+        float right = (isCurrent) ? xCurrentWakeTime : xTargetWakeTime;
+        Log.d("left region:", String.valueOf(left));
+        Log.d("right region:", String.valueOf(right));
         drawRect(mCanvas, left, topGraph, right, bottomGraph, paint);
         // Draw Lines at left and right borders of region.
         setPaintAttributes(paint, color, Paint.Style.FILL, 2f);
