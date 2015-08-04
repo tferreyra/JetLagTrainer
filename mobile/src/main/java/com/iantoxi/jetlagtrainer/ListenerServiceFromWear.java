@@ -38,7 +38,7 @@ public class ListenerServiceFromWear extends WearableListenerService{
         if (messageEvent.getPath().equals(sleeping) && currentNight != null) {
             long sleepTime = currentNight.sleepTime * 60 * 1000; // in milliseconds
             long leeway = 30 * 60 * 1000; // do not tell users to stay awake if less than half an hour to bedtime
-            if (sleepTime - leeway > currentTime) {
+            //if (sleepTime - leeway > currentTime) {
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(ListenerServiceFromWear.this)
                         .setSmallIcon(R.drawable.cast_ic_notification_0)
                         .setContentTitle("It's not time to sleep yet...")
@@ -46,10 +46,10 @@ public class ListenerServiceFromWear extends WearableListenerService{
                         .setAutoCancel(true);
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ListenerServiceFromWear.this);
                 notificationManager.notify(10, notificationBuilder.build());
-            }
+            //}
         } else if (messageEvent.getPath().equals(light) && currentNight != null) {
             int[] noLightRange = currentNight.noLightRange();
-            if (noLightRange[0] * 60 * 1000 <= currentTime && currentTime <= noLightRange[1] * 60 * 1000) {
+            //if (noLightRange[0] * 60 * 1000 <= currentTime && currentTime <= noLightRange[1] * 60 * 1000) {
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(ListenerServiceFromWear.this)
                         .setSmallIcon(R.drawable.cast_ic_notification_0)
                         .setContentTitle("Too much light...")
@@ -57,10 +57,10 @@ public class ListenerServiceFromWear extends WearableListenerService{
                         .setAutoCancel(true);
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ListenerServiceFromWear.this);
                 notificationManager.notify(10, notificationBuilder.build());
-            }
+            //}
         } else if (messageEvent.getPath().equals(dark) && currentNight != null) {
             int[] lightRange = currentNight.lightRange();
-            if (lightRange[0] * 60 * 1000 <= currentTime && currentTime <= lightRange[1] * 60 * 1000) {
+            //if (lightRange[0] * 60 * 1000 <= currentTime && currentTime <= lightRange[1] * 60 * 1000) {
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(ListenerServiceFromWear.this)
                         .setSmallIcon(R.drawable.cast_ic_notification_0)
                         .setContentTitle("Not enough light...")
@@ -68,7 +68,7 @@ public class ListenerServiceFromWear extends WearableListenerService{
                         .setAutoCancel(true);
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ListenerServiceFromWear.this);
                 notificationManager.notify(10, notificationBuilder.build());
-            }
+            //}
         }
     }
 }
