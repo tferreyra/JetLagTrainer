@@ -101,25 +101,20 @@ public class ScheduleActivity extends FragmentActivity {
             popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
 
             Button archive = (Button) popUpView.findViewById(R.id.archive);
-            archive.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    popupWindow.dismiss();
-                }
-            });
-
             Button evaluate = (Button) popUpView.findViewById(R.id.evaluate);
             archive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     cancelSchedule(v);
+                    popupWindow.dismiss();
                 }
             });
-
             evaluate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    cancelSchedule(v);
                     launchEvaluation();
+                    popupWindow.dismiss();
                 }
             });
 
