@@ -57,10 +57,46 @@ public class AgendaAdapter extends BaseAdapter {
 
         int stringId = tasks.get((Integer) sortedTimes[position]);
 
+        Integer temp = (Integer) sortedTimes[position];
+
+        boolean wake = false;
+        if (context.getString(stringId).equals("Wake up"))
+            wake = true;
+
+        String formattedTime = processTime(temp, wake);
+
         //TODO: format time into hours:minutes AM/PM format
-        time.setText(Integer.toString((Integer) sortedTimes[position]));
+        //time.setText(Integer.toString((Integer) sortedTimes[position]));
+        time.setText(formattedTime);
         event.setText(context.getString(stringId));
 
         return view;
+    }
+
+    private String processTime(Integer integer, boolean wake) {
+        int time;
+        if (integer < 0)
+            time = 1440 + integer;
+        else if (wake)
+            time = integer - 1440;
+        else
+            time = integer;
+
+        int hours = time / 60;
+        int minutes = time % 60;
+
+        String AMPM = " AM";
+        if (hours == 0) {
+            hours = 12; // since 12 AM is represented as 0
+        } else if (hours >= 12) {
+            AMPM = " PM";
+            if (hours > 12)
+                hours -= 12;
+        }
+
+        if (minutes < 10) {
+            return Integer.toString(hours) + ":0" + Integer.toString(minutes) + AMPM;
+        } else
+            return Integer.toString(hours) + ":" + Integer.toString(minutes) + AMPM;
     }
 }
