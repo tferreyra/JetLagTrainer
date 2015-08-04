@@ -20,7 +20,7 @@ import android.widget.ListView;
 import java.util.List;
 
 
-public class HistoryActivity extends Activity {
+public class HistoryActivity extends ListActivity {
     SQLiteDatabase db;
 
     @Override
@@ -30,14 +30,10 @@ public class HistoryActivity extends Activity {
         setContentView(R.layout.activity_history);
         setTransitions();
 
-        setHistoryListAdapter();
+        HistoryAdapter adapter = new HistoryAdapter(this);
+        setListAdapter(adapter);
     }
 
-    private void setHistoryListAdapter() {
-        HistoryAdapter adapter = new HistoryAdapter(this);
-        ListView historyList = (ListView) findViewById(R.id.history_list);
-        historyList.setAdapter(adapter);
-    }
 
     private void setTransitions() {
         Slide slide = new Slide();
