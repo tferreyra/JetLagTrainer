@@ -52,7 +52,6 @@ public class LightSensor extends Activity {
 
             @Override
             public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
             }
         };
 

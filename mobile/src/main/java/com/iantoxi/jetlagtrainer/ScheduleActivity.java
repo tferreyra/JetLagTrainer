@@ -98,8 +98,7 @@ public class ScheduleActivity extends FragmentActivity {
         Night currentNight = schedule.currentNight;
         long sleepTime = currentNight.sleepTime * 60 * 1000; // convert from minutes to milliseconds
 
-        Calendar calendar = Calendar.getInstance();
-        long currentTime = calendar.getTimeInMillis();
+        long currentTime = System.currentTimeMillis();
         long timeRemaining;
 
         if (sleepTime > currentTime) { // set notification if time to sleep hasn't passed already
@@ -110,19 +109,18 @@ public class ScheduleActivity extends FragmentActivity {
             alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeRemaining, sleepPendingIntent);
         }
 
-        if (schedule.melatoninStrategy && sleepTime - (30 * 60 * 1000) > currentTime) {
+        if (schedule.melatoninStrategy && sleepTime - (currentNight.melatoninTime() * 60 * 1000) > currentTime) {
             Intent melatoninIntent = new Intent(this, NotificationReceiver.class);
             melatoninIntent.putExtra("id", "melatonin");
             PendingIntent melatoninPendingIntent = PendingIntent.getBroadcast(this, 2, melatoninIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, sleepTime - (30 * 60 * 1000) - currentTime, melatoninPendingIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, sleepTime - (currentNight.melatoninTime() * 60 * 1000) - currentTime, melatoninPendingIntent);
         }
 
         Intent lightIntent = new Intent(this, SendServiceToWear.class);
-        if (schedule.lightStrategy)
+        if (schedule.lightStrategy) {
             lightIntent.putExtra("message", "light");
-        else
-            lightIntent.putExtra("message", "no light");
-        startService(lightIntent); // send message to wear to indicate whether ambient light sensor should be registered and activated
+            startService(lightIntent); // send message to wear to indicate whether ambient light sensor should be registered and activated
+        }
     }
 
 }
