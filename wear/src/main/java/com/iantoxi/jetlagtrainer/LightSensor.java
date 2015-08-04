@@ -7,8 +7,13 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class LightSensor extends Activity {
@@ -28,6 +33,35 @@ public class LightSensor extends Activity {
                 mTextView = (TextView) stub.findViewById(R.id.text);
             }
         });*/
+
+        // Uncomment below to turn center logo into button for testing.
+        ImageView button = (ImageView) findViewById(R.id.logo);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LightSensor.this, SendServiceToMobile.class);
+                intent.putExtra("message", "sleeping");
+                startService(intent);
+            }
+        });
+        RelativeLayout relative1 = (RelativeLayout) findViewById(R.id.top);
+        relative1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LightSensor.this, SendServiceToMobile.class);
+                intent.putExtra("message", "light");
+                startService(intent);
+            }
+        });
+        RelativeLayout relative2 = (RelativeLayout) findViewById(R.id.bottom);
+        relative2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LightSensor.this, SendServiceToMobile.class);
+                intent.putExtra("message", "dark");
+                startService(intent);
+            }
+        });
 
         SensorEventListener sensorListener = new SensorEventListener() {
             @Override

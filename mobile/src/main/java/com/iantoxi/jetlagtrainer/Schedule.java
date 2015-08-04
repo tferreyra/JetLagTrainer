@@ -71,6 +71,9 @@ public class Schedule extends SugarRecord<Schedule> {
             advancing = true;
         }
 
+        destinationSleepTime = originSleepTime;
+        destinationWakeTime = originWakeTime;
+
         adjustment = Math.abs(zoneGap);
 
         shiftStartDate();

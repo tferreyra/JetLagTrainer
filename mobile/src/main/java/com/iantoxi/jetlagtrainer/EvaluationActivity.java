@@ -1,9 +1,14 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.util.List;
+
 
 /**
  * Created by tatianaferreyra on 8/3/15.
@@ -13,6 +18,15 @@ public class EvaluationActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_evaluation);
+
+        Intent getIntent = getIntent();
+        long scheduleId = (long) getIntent.getExtras().get("scheduleId");
+        Schedule schedule = Schedule.findById(Schedule.class, scheduleId);
+        TextView origin = (TextView) findViewById(R.id.origin);
+        origin.setText(schedule.originTimezone);
+        TextView dest = (TextView) findViewById(R.id.dest);
+        dest.setText(schedule.destinationTimezone);
     }
 
     @Override
