@@ -1,5 +1,7 @@
 package com.iantoxi.jetlagtrainer;
 
+import android.content.Intent;
+
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
 
@@ -11,9 +13,9 @@ public class ListenerServiceFromMobile extends WearableListenerService{
 
     @Override
     public void onMessageReceived(MessageEvent messageEvent) {
-
-        int sleepTime = Integer.parseInt(messageEvent.getPath());
-
-
+        if (messageEvent.getPath().equals("light")) {
+            Intent intent = new Intent(this, LightSensor.class);
+            startActivity(intent);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,7 +14,6 @@ public class MainActivity extends Activity {
 
     private TextView mTextView;
     private SensorManager sensorManager;
-    private Sensor lightSensor;
     private Sensor heartRateSensor;
 
     @Override
@@ -31,25 +31,22 @@ public class MainActivity extends Activity {
         SensorEventListener sensorListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
-                if (event.sensor.getType() == Sensor.TYPE_LIGHT) {
-
-                } else if (event.sensor.getType() == Sensor.TYPE_HEART_RATE) {
-
+                if (event.sensor.getType() == Sensor.TYPE_HEART_RATE) {
+                    int heartRate = (int) event.values[0];
+                    if (heartRate < 55) { // threshold may not/probably isn't accurate, can figure out what it should be later
+                        Intent intent = new Intent(MainActivity.this, SendServiceToMobile.class);
+                        intent.putExtra("message", "sleeping");
+                        startService(intent);
+                    }
                 }
-
             }
-
             @Override
             public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
             }
         };
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         heartRateSensor = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
-        sensorManager.registerListener(sensorListener, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(sensorListener, heartRateSensor, SensorManager.SENSOR_DELAY_NORMAL);
-
     }
 }

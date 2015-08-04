@@ -3,6 +3,9 @@
     package="com.iantoxi.jetlagtrainer" >
 
     <uses-feature android:name="android.hardware.type.watch" />
+    <uses-feature android:name="android.hardware.sensor.light" />
+    <uses-permission android:name="android.permission.BODY_SENSORS" />
+
 
     <application
         android:allowBackup="true"

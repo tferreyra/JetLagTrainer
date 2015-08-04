@@ -21,7 +21,6 @@ public class NotificationReceiver extends BroadcastReceiver {
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             notificationManager.notify(10, notificationBuilder.build());
 
-
         } else if ("melatonin".equals(selection)) {
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
@@ -31,9 +30,6 @@ public class NotificationReceiver extends BroadcastReceiver {
                     .setAutoCancel(true);
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             notificationManager.notify(10, notificationBuilder.build());
-
         }
-
-
     }
 }
