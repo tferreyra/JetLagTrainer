@@ -25,7 +25,7 @@ public class EvaluationActivity extends Activity {
         Schedule schedule = Schedule.findById(Schedule.class, scheduleId);
         TextView origin = (TextView) findViewById(R.id.origin);
         origin.setText(schedule.originTimezone);
-        TextView dest = (TextView) findViewById(R.id.dest);g
+        TextView dest = (TextView) findViewById(R.id.dest);
         dest.setText(schedule.destinationTimezone);
     }
 
