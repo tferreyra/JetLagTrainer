@@ -35,11 +35,27 @@
                 />
         </RelativeLayout>
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="15dp"
+            android:textSize="12sp"
+            style="@style/bodyText"
+            android:gravity="center|bottom"
+            android:text="Local Time"
+            />
 
         <com.iantoxi.jetlagtrainer.SleepScheduleGraphView
             android:id="@+id/sleepScheduleGraph"
             android:layout_width="fill_parent"
-            android:layout_height="230dp"/>
+            android:layout_height="200dp"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="15dp"
+            android:textSize="12sp"
+            style="@style/bodyText"
+            android:gravity="center|bottom"
+            android:text="Destination Time"
+            />
 
         <TextView
             android:layout_width="fill_parent"
