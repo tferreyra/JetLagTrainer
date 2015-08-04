@@ -121,7 +121,6 @@ public class Schedule extends SugarRecord<Schedule> {
             toAdjust -= 1;
         }
         endDate = currentNight.sleepStartDate;
-
         currentNight = firstNight;
     }
 

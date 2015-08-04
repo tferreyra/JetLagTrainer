@@ -41,6 +41,8 @@
         android:id="@+id/editText"
         android:background="@drawable/eval_border"
         android:layout_marginLeft="0dp"
+        android:padding="10dp"
+        android:gravity="start"
         android:layout_marginRight="0dp"
         android:layout_below="@+id/textView"
         android:layout_above="@+id/ratingBar"
