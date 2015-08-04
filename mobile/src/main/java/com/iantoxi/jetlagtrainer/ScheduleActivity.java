@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -60,6 +61,30 @@ public class ScheduleActivity extends FragmentActivity {
         setScheduleBar();
 
         setReminders();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!schedule.isActive()) {
+            Button cancelSchedule = (Button) findViewById(R.id.cancel_schedule);
+            cancelSchedule.setText("Schedule Evaluation");
+
+            cancelSchedule.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    launchEvaluation();
+                }
+            });
+
+        }
+    }
+
+    private void launchEvaluation() {
+        Intent intent = new Intent(this, EvaluationActivity.class);
+        intent.putExtra("scheduleId", scheduleId);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     private void setScheduleBar() {

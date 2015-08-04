@@ -49,7 +49,7 @@ public class HistoryAdapter extends BaseAdapter {
         Schedule schedule = schedules.get(position);
 
         Calendar night = schedule.startDate;
-        
+
         View view=inflater.inflate(R.layout.history_list_item_layout, null,true);
         TextView zoneGap = (TextView) view.findViewById(R.id.zone_gap);
         TextView month = (TextView) view.findViewById(R.id.month);
@@ -60,6 +60,8 @@ public class HistoryAdapter extends BaseAdapter {
         date.setText(Integer.toString(night.get(Calendar.DATE)));
         zoneGap.setText(Integer.toString(schedule.zoneGap));
         destination.setText(schedule.destinationTimezone);
+
+        view.setTag(R.id.schedule_tags, schedule.getId());
 
         return view;
     }

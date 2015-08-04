@@ -1,9 +1,11 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.ListActivity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -20,7 +22,7 @@ import android.widget.ListView;
 import java.util.List;
 
 
-public class HistoryActivity extends Activity {
+public class HistoryActivity extends ListActivity {
     SQLiteDatabase db;
 
     @Override
@@ -30,13 +32,8 @@ public class HistoryActivity extends Activity {
         setContentView(R.layout.activity_history);
         setTransitions();
 
-        setHistoryListAdapter();
-    }
-
-    private void setHistoryListAdapter() {
         HistoryAdapter adapter = new HistoryAdapter(this);
-        ListView historyList = (ListView) findViewById(R.id.history_list);
-        historyList.setAdapter(adapter);
+        setListAdapter(adapter);
     }
 
     private void setTransitions() {
@@ -45,6 +42,15 @@ public class HistoryActivity extends Activity {
         slide.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setEnterTransition(slide);
         getWindow().setExitTransition(slide);
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        long scheduleId = (Long) v.getTag(R.id.schedule_tags);
+        Intent intent = new Intent(this, ScheduleActivity.class);
+        intent.putExtra("scheduleId", scheduleId);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     @Override

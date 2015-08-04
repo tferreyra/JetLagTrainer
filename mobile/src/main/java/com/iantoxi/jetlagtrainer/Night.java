@@ -48,7 +48,7 @@ public class Night extends SugarRecord<Night> {
         this.advancing = advancing;
         this.save();
 
-        this.wakeTime = adjustTime(wakeTime) + 24*60;
+        this.wakeTime = wakeTime + 24*60;
     }
 
     public Night nextNight() {
@@ -100,7 +100,7 @@ public class Night extends SugarRecord<Night> {
         agenda.put(sleepTime, R.string.sleep_start_time);
         agenda.put(wakeTime, R.string.sleep_end_time);
 
-        if(melatoninStrategy) {
+        if(melatoninStrategy && advancing) {
             agenda.put(melatoninTime(), R.string.melatonin_time);
         }
 
