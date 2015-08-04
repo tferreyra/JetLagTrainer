@@ -225,7 +225,7 @@ public class SleepScheduleGraphView extends View {
         // need to shift given current bedTime and wakeTime by timeDiff.
         // timeDiff given as (target - current) time zone.
         drawSleepRegion(bedTime + 3600*timeDiff, wakeTime+3600 * timeDiff, Color.CYAN, 20);
-        drawSleepRegion(targetBedTime - 3600*timeDiff, targetWakeTime - 3600*timeDiff, Color.YELLOW, 30);
+        drawSleepRegion(targetBedTime, targetWakeTime, Color.YELLOW, 30);
     }
 
     /**
