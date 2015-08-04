@@ -60,13 +60,13 @@ public class AgendaAdapter extends BaseAdapter {
         Integer temp = (Integer) sortedTimes[position];
 
         boolean wake = false;
-        if (context.getString(stringId).equals("Wake up"))
+        if (context.getString(stringId).equals("Wake up") || context.getString(stringId).equals("Take melatonin"))
             wake = true;
 
         String formattedTime = processTime(temp, wake);
 
         //TODO: format time into hours:minutes AM/PM format
-        //time.setText(Integer.toString((Integer) sortedTimes[position]));
+        time.setText(Integer.toString((Integer) sortedTimes[position]));
         time.setText(formattedTime);
         event.setText(context.getString(stringId));
 
