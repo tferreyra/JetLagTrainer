@@ -20,6 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 public class ScheduleActivity extends FragmentActivity {
     private long scheduleId;
     private Schedule schedule;
@@ -94,34 +96,33 @@ public class ScheduleActivity extends FragmentActivity {
     private void setReminders() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Night currentNight = schedule.currentNight;
+        long sleepTime = currentNight.sleepTime * 60 * 1000; // convert from minutes to milliseconds
 
-        Intent sleepIntent = new Intent(this, NotificationReceiver.class);
-        sleepIntent.putExtra("id", "sleep");
-        PendingIntent sleepPendingIntent = PendingIntent.getBroadcast(this, 1, sleepIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, currentNight.sleepTime * 60 * 1000, sleepPendingIntent);
+        Calendar calendar = Calendar.getInstance();
+        long currentTime = calendar.getTimeInMillis();
+        long timeRemaining;
 
-        if (schedule.melatoninStrategy) {
+        if (sleepTime > currentTime) { // set notification if time to sleep hasn't passed already
+            Intent sleepIntent = new Intent(this, NotificationReceiver.class);
+            sleepIntent.putExtra("id", "sleep");
+            timeRemaining = sleepTime - currentTime; // time (in milliseconds) until notification is triggered
+            PendingIntent sleepPendingIntent = PendingIntent.getBroadcast(this, 1, sleepIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeRemaining, sleepPendingIntent);
+        }
+
+        if (schedule.melatoninStrategy && sleepTime - (30 * 60 * 1000) > currentTime) {
             Intent melatoninIntent = new Intent(this, NotificationReceiver.class);
-            sleepIntent.putExtra("id", "melatonin");
+            melatoninIntent.putExtra("id", "melatonin");
             PendingIntent melatoninPendingIntent = PendingIntent.getBroadcast(this, 2, melatoninIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, (currentNight.sleepTime - 30) * 60 * 1000, melatoninPendingIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, sleepTime - (30 * 60 * 1000) - currentTime, melatoninPendingIntent);
         }
 
-        if (schedule.lightStrategy) {
-            Intent lightIntent = new Intent(this, SendServiceToWear.class);
-            String[] extra = {"light", Integer.toString(currentNight.sleepTime)};
-            lightIntent.putExtra("message", extra);
-            startService(lightIntent);
-        }
+        Intent lightIntent = new Intent(this, SendServiceToWear.class);
+        if (schedule.lightStrategy)
+            lightIntent.putExtra("message", "light");
+        else
+            lightIntent.putExtra("message", "no light");
+        startService(lightIntent); // send message to wear to indicate whether ambient light sensor should be registered and activated
     }
-
-    private String getSleepTime(int seconds) {
-        int hours = seconds / 3600;
-        seconds %= 3600;
-        int minutes = seconds / 60;
-        seconds %= 60;
-        return Integer.toString(hours) + ":" + Integer.toString(minutes) + ":" + Integer.toString(seconds);
-    }
-
 
 }
