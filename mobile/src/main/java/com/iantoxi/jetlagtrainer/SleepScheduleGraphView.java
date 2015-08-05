@@ -205,20 +205,20 @@ public class SleepScheduleGraphView extends View {
         float x0 = LEFT;
         float y0 = daylightCycle(bedTime);
         // Graphs from Noon to Noon.
-        float eps = (float) Math.pow(10.0, -2.0);
-        for (float x1 = INITIAL_TIME; x1 <= TERMINAL_TIME; x1+=delta2) {
-            float y1 = daylightCycle((float) x1);
-            if (y1 > verticalShift) {
-                mCanvas.drawLine(x0, y0, x0+delta, y1, white);
-            } else {
-                mCanvas.drawLine(x0, y0, x0+delta, y1, black);
-            }
-            if (Math.abs(x1-Math.round(x1)) < eps) {
-                drawAxisLabel(x0, (float) x1, timeDiff);
-            }
-            x0 += delta;
-            y0 = y1;
-        }
+//        float eps = (float) Math.pow(10.0, -2.0);
+//        for (float x1 = INITIAL_TIME; x1 <= TERMINAL_TIME; x1+=delta2) {
+//            float y1 = daylightCycle((float) x1);
+//            if (y1 > verticalShift) {
+//                mCanvas.drawLine(x0, y0, x0+delta, y1, white);
+//            } else {
+//                mCanvas.drawLine(x0, y0, x0+delta, y1, black);
+//            }
+//            if (Math.abs(x1-Math.round(x1)) < eps) {
+//                drawAxisLabel(x0, (float) x1, timeDiff);
+//            }
+//            x0 += delta;
+//            y0 = y1;
+//        }
 
         // Draw shaded region for sleep times.
         // Note: Graph y-values based on target time zone, so
