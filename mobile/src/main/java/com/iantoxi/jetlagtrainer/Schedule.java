@@ -119,7 +119,7 @@ public class Schedule extends SugarRecord<Schedule> {
                                0, 0, advancing);
 
         currentNight = firstNight;
-        int toAdjust = adjustment - 1;
+        int toAdjust = adjustment;
         while(toAdjust > 0) {
             currentNight = currentNight.nextNight();
             toAdjust -= 1;

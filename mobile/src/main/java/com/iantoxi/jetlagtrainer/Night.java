@@ -46,9 +46,9 @@ public class Night extends SugarRecord<Night> {
         this.previous = previous;
         this.next = next;
         this.advancing = advancing;
-        this.save();
-
         this.wakeTime = wakeTime + 24*60;
+
+        this.save();
     }
 
     public Night nextNight() {
