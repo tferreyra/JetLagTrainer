@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/comments"
         android:background="@drawable/eval_border"
         android:layout_marginLeft="0dp"
         android:padding="10dp"
@@ -59,28 +59,31 @@
             android:id="@+id/submit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/darkPurple"
-            android:textColor="#44FFFFFF"
+            android:background="?android:selectableItemBackground"
             android:textSize="25sp"
             android:padding="15dp"
-            android:text="Rate"/>
+            android:onClick="saveEvaluation"
+            android:text="Save"/>
     </FrameLayout>
 
     <TextView
         android:layout_width="wrap_content"
+        style="@style/bodyText"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="America/Los Angeles"
+        android:textSize="25sp"
         android:id="@+id/origin"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:paddingTop="25dp" />
+        android:paddingTop="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Europe/Madrid"
+        android:textSize="25sp"
+        style="@style/bodyText"
         android:id="@+id/dest"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true" />
@@ -88,7 +91,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        style="@style/bodyText"
         android:text="to"
         android:id="@+id/textView4"
         android:layout_below="@+id/origin"

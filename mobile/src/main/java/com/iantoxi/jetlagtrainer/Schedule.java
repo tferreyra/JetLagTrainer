@@ -19,6 +19,7 @@ public class Schedule extends SugarRecord<Schedule> {
 
     public Calendar startDate;
     public Calendar travelDate;
+    public Calendar endDate;
 
     public int originSleepTime; //in minutes
     public int originWakeTime; //in minutes
@@ -41,7 +42,10 @@ public class Schedule extends SugarRecord<Schedule> {
     private boolean active;
     private boolean calculated = false;
 
-    public Calendar endDate;
+    // User text response.
+    public String comments;
+    // Number of stars given.
+    public float rating;
 
     public Schedule() {
         //necessary for Sugar ORM

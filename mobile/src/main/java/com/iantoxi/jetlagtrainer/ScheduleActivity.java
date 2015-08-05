@@ -73,7 +73,7 @@ public class ScheduleActivity extends FragmentActivity {
 
         if (!schedule.isActive()) {
             Button cancelSchedule = (Button) findViewById(R.id.cancel_schedule);
-            cancelSchedule.setText("Schedule Evaluation");
+            cancelSchedule.setText("Evaluation");
             cancelSchedule.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -14,6 +18,7 @@ import java.util.List;
  * Created by tatianaferreyra on 8/3/15.
  */
 public class EvaluationActivity extends Activity {
+    private Schedule schedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +27,17 @@ public class EvaluationActivity extends Activity {
 
         Intent getIntent = getIntent();
         long scheduleId = (long) getIntent.getExtras().get("scheduleId");
-        Schedule schedule = Schedule.findById(Schedule.class, scheduleId);
+        schedule = Schedule.findById(Schedule.class, scheduleId);
         TextView origin = (TextView) findViewById(R.id.origin);
         origin.setText(schedule.originTimezone);
         TextView dest = (TextView) findViewById(R.id.dest);
         dest.setText(schedule.destinationTimezone);
+
+        RatingBar rating = (RatingBar) findViewById(R.id.ratingBar);
+        EditText comments = (EditText) findViewById(R.id.comments);
+
+        rating.setRating(schedule.rating);
+        comments.setText(schedule.comments);
     }
 
     @Override
@@ -49,6 +60,19 @@ public class EvaluationActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void saveEvaluation(View view) {
+        RatingBar rating = (RatingBar) findViewById(R.id.ratingBar);
+
+        EditText comments = (EditText) findViewById(R.id.comments);
+
+        schedule.comments = comments.getText().toString();
+        schedule.rating = rating.getRating();
+
+        schedule.save();
+
+        Toast.makeText(this, "Your evaluation has been saved.", Toast.LENGTH_LONG).show();
     }
 
 }
