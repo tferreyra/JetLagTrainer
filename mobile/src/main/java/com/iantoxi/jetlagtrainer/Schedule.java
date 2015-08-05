@@ -130,9 +130,11 @@ public class Schedule extends SugarRecord<Schedule> {
 
     public void updateCurrentNight() {
         Calendar today = Calendar.getInstance();
+        toBeginningOfTheDay(today);
         while(today.compareTo(currentNight.sleepStartDate) > 0 && currentNight.next != 0) {
             currentNight = Night.findById(Night.class, currentNight.next);
         }
+        this.save();
     }
 
     public void newSleepTime(int sleepTime, int wakeTime) {

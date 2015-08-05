@@ -59,6 +59,7 @@ public class ScheduleActivity extends FragmentActivity {
         Intent intent = getIntent();
         scheduleId = (long) intent.getExtras().get("scheduleId");
         schedule = Schedule.findById(Schedule.class, scheduleId);
+        schedule.updateCurrentNight();
 
         setUpViewPager();
 
