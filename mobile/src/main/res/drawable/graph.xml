@@ -14,8 +14,7 @@
     <group>
         <path
             android:name="upper_half"
-            android:fillColor="#FFFFFF"
-            android:fillAlpha="0.05"
+            android:strokeColor="#10FFFFFF"
             android:pathData="M0,0h800v250H0V0z"/>
         <path
             android:name="border"
@@ -26,19 +25,19 @@
     <group>
         <path
             android:name="bottom"
-            android:strokeColor="#F1F2F2"
+            android:strokeColor="#261C2B"
             android:strokeWidth="2"
             android:pathData="M199.995,250c49.999,100,99.998,200,199.995,200
         c99.999,0,149.998-100,199.998-200"/>
         <path
             android:name="left"
             android:strokeWidth="2"
-            android:strokeColor="#F1F2F2"
+            android:strokeColor="#2FFF"
             android:pathData="M0,50c99.998,0,149.996,100,199.995,200"/>
         <path
             android:name="right"
             android:strokeWidth="2"
-            android:strokeColor="#F1F2F2"
+            android:strokeColor="#2FFF"
             android:pathData="M599.988,250c50-100,100-200,199.999-200"/>
     </group>
 </vector>
