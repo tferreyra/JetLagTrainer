@@ -23,8 +23,8 @@ public class NotificationReceiver extends BroadcastReceiver {
                     .setContentTitle(sleepTitle)
                     .setContentText(sleepText)
                     .setAutoCancel(true)
-                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.sleep_notification_img));
-                    //.extend(new NotificationCompat.WearableExtender().setBackground());
+                    //.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.sleep_notification_img));
+                    .extend(new NotificationCompat.WearableExtender().setBackground(BitmapFactory.decodeResource(context.getResources(), R.drawable.sleep_notification_img)));
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             notificationManager.notify(10, notificationBuilder.build());
         } else if ("melatonin".equals(selection)) {
@@ -33,7 +33,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                     .setContentTitle(melatoninTitle)
                     .setContentText(melatoninText)
                     .setAutoCancel(true)
-                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.melatonin_notification_img));
+                    .extend(new NotificationCompat.WearableExtender().setBackground(BitmapFactory.decodeResource(context.getResources(), R.drawable.melatonin_notification_img)));
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             notificationManager.notify(10, notificationBuilder.build());
         }
