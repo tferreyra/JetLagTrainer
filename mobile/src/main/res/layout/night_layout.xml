@@ -39,18 +39,72 @@
             android:layout_width="fill_parent"
             android:layout_height="15dp"
             android:textSize="12sp"
+            android:textColor="#3FFF"
             style="@style/bodyText"
             android:gravity="center|bottom"
             android:text="Local Time"
             />
 
+        <LinearLayout
+            android:id="@+id/origin_time_axis"
+            android:layout_width="fill_parent"
+            android:layout_height="15dp"
+            android:orientation="horizontal"
+            android:weightSum="60">
+            <TextView
+                android:text="9 AM"
+                style="@style/graph_times"/>
+            <TextView
+                android:text="1 PM"
+                style="@style/graph_times"/>
+            <TextView
+                android:text="5 PM"
+                style="@style/graph_times"/>
+            <TextView
+                android:text="9 PM"
+                style="@style/graph_times"/>
+            <TextView
+                android:text="1 AM"
+                style="@style/graph_times"/>
+            <TextView
+                android:text="5 AM"
+                style="@style/graph_times"/>
+        </LinearLayout>
+
         <com.iantoxi.jetlagtrainer.SleepScheduleGraphView
             android:id="@+id/sleepScheduleGraph"
             android:layout_width="fill_parent"
-            android:layout_height="200dp"/>
+            android:background="@drawable/graph"
+            android:layout_height="170dp"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="15dp"
+            android:weightSum="60">
+            <TextView
+                android:text="12 PM"
+                style="@style/graph_times"/>
+            <TextView
+                android:text="4 PM"
+                style="@style/graph_times"/>
+            <TextView
+                android:text="8 PM"
+                style="@style/graph_times"/>
+            <TextView
+                android:text="12 AM"
+                style="@style/graph_times"/>
+            <TextView
+                android:text="4 AM"
+                style="@style/graph_times"/>
+            <TextView
+                android:text="8 AM"
+                style="@style/graph_times"/>
+        </LinearLayout>
+
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="15dp"
+            android:textColor="#3FFF"
             android:textSize="12sp"
             style="@style/bodyText"
             android:gravity="center|bottom"
