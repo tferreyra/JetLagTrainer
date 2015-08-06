@@ -16,16 +16,23 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class LightSensor extends Activity {
 
     private TextView mTextView;
     private SensorManager sensorManager;
     private Sensor lightSensor;
     private boolean isLight = true;
+    private Timer timer;
+    private TimerTask lightTask, darkTask;
+    private boolean isLightTaskRunning = false, isDarkTaskRunning = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.light_listener_notifier);
+        timer = new Timer();
         /*final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
@@ -35,7 +42,7 @@ public class LightSensor extends Activity {
         });*/
 
         // Uncomment below to turn center logo into button for testing.
-        ImageView button = (ImageView) findViewById(R.id.logo);
+/*        ImageView button = (ImageView) findViewById(R.id.logo);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +68,7 @@ public class LightSensor extends Activity {
                 intent.putExtra("message", "dark");
                 startService(intent);
             }
-        });
+        });*/
 
         SensorEventListener sensorListener = new SensorEventListener() {
             @Override
@@ -73,14 +80,38 @@ public class LightSensor extends Activity {
                     // wear will notify watch to check whether user is supposed to be getting light or staying in the dark
                     if (isLight && light < 10) {
                         isLight = false;
-                        Intent intent = new Intent(LightSensor.this, SendServiceToMobile.class);
-                        intent.putExtra("message", "dark");
-                        startActivity(intent);
+                        darkTask = new TimerTask() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(LightSensor.this, SendServiceToMobile.class);
+                                intent.putExtra("message", "dark");
+                                startActivity(intent);
+                                isDarkTaskRunning = false;
+                            }
+                        };
+                        timer.schedule(darkTask, 30000);
+                        isDarkTaskRunning = true;
+                    } else if (!isLight && light >= 10 && isDarkTaskRunning) {
+                        darkTask.cancel();
+                        isLight = true;
+                        isDarkTaskRunning = false;
                     } else if (!isLight && (light > 10000)) {
                         isLight = true;
-                        Intent intent = new Intent(LightSensor.this, SendServiceToMobile.class);
-                        intent.putExtra("message", "light");
-                        startActivity(intent);
+                        lightTask = new TimerTask() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(LightSensor.this, SendServiceToMobile.class);
+                                intent.putExtra("message", "light");
+                                startActivity(intent);
+                                isLightTaskRunning = false;
+                            }
+                        };
+                        timer.schedule(lightTask, 30000);
+                        isLightTaskRunning = true;
+                    } else if (isLight && light < 10000 && isLightTaskRunning) {
+                        lightTask.cancel();
+                        isLight = false;
+                        isLightTaskRunning = false;
                     }
                 }
             }
