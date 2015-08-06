@@ -192,13 +192,13 @@ public class ScheduleActivity extends FragmentActivity {
         long currentTime = calendar.getTimeInMillis();
         long timeRemaining;
 
-        //if (sleepTime > currentTime) { // set notification if time to sleep hasn't passed already
+        if (sleepTime > currentTime) { // set notification if time to sleep hasn't passed already
             Intent sleepIntent = new Intent(this, NotificationReceiver.class);
             sleepIntent.putExtra("id", "sleep");
-            timeRemaining = 0; //sleepTime - currentTime; // time (in milliseconds) until notification is triggered
+            timeRemaining = sleepTime - currentTime; // time (in milliseconds) until notification is triggered
             PendingIntent sleepPendingIntent = PendingIntent.getBroadcast(this, 1, sleepIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeRemaining, sleepPendingIntent);
-        //}
+        }
 
         if (schedule.melatoninStrategy && sleepTime - (currentNight.melatoninTime() * 60 * 1000) > currentTime) {
             Intent melatoninIntent = new Intent(this, NotificationReceiver.class);

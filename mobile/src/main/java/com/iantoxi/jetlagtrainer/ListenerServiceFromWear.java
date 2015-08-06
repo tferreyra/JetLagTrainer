@@ -1,5 +1,6 @@
 package com.iantoxi.jetlagtrainer;
 
+import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
@@ -48,7 +49,9 @@ public class ListenerServiceFromWear extends WearableListenerService {
                         .setSmallIcon(R.drawable.cast_ic_notification_0)
                         .setContentTitle(awakeTitle)
                         .setContentText(awakeText)
-                        .setAutoCancel(true);
+                        .setAutoCancel(true)
+                        .extend(new NotificationCompat.WearableExtender().setBackground(BitmapFactory
+                                .decodeResource(ListenerServiceFromWear.this.getResources(), R.drawable.stay_awake_notification_img)));
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ListenerServiceFromWear.this);
                 notificationManager.notify(10, notificationBuilder.build());
             }
@@ -59,7 +62,9 @@ public class ListenerServiceFromWear extends WearableListenerService {
                         .setSmallIcon(R.drawable.cast_ic_notification_0)
                         .setContentTitle(lightTitle)
                         .setContentText(lightText)
-                        .setAutoCancel(true);
+                        .setAutoCancel(true)
+                        .extend(new NotificationCompat.WearableExtender().setBackground(BitmapFactory
+                                .decodeResource(ListenerServiceFromWear.this.getResources(), R.drawable.too_bright_notification_img)));
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ListenerServiceFromWear.this);
                 notificationManager.notify(10, notificationBuilder.build());
             }
@@ -70,7 +75,9 @@ public class ListenerServiceFromWear extends WearableListenerService {
                         .setSmallIcon(R.drawable.cast_ic_notification_0)
                         .setContentTitle(darkTitle)
                         .setContentText(darkText)
-                        .setAutoCancel(true);
+                        .setAutoCancel(true)
+                        .extend(new NotificationCompat.WearableExtender().setBackground(BitmapFactory
+                                .decodeResource(ListenerServiceFromWear.this.getResources(), R.drawable.too_dark_notification_img)));
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ListenerServiceFromWear.this);
                 notificationManager.notify(10, notificationBuilder.build());
             }

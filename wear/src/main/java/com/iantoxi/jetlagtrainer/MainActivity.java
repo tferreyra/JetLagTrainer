@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
     private Timer timer;
     private TimerTask heartRateTask;
     private boolean isHeartRateTaskRunning;
+    private int heartRateThreshold = 55, taskDelay = 30000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class MainActivity extends Activity {
             public void onSensorChanged(SensorEvent event) {
                 if (event.sensor.getType() == Sensor.TYPE_HEART_RATE) {
                     int heartRate = (int) event.values[0];
-                    if (heartRate < 55) { // threshold may not/probably isn't accurate, can figure out what it should be later
+                    if (heartRate < heartRateThreshold) { // threshold may not/probably isn't accurate, can figure out what it should be later
                         heartRateTask = new TimerTask() {
                             @Override
                             public void run() {
@@ -49,9 +50,9 @@ public class MainActivity extends Activity {
                                 isHeartRateTaskRunning = false;
                             }
                         };
-                        timer.schedule(heartRateTask, 30000);
+                        timer.schedule(heartRateTask, taskDelay);
                         isHeartRateTaskRunning = true;
-                    } else if (heartRate > 55 && isHeartRateTaskRunning) {
+                    } else if (heartRate > heartRateThreshold && isHeartRateTaskRunning) {
                         heartRateTask.cancel();
                         isHeartRateTaskRunning = false;
                     }
