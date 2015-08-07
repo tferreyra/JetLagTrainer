@@ -35,6 +35,11 @@ public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTim
         } else if (textView.getId() == R.id.wake_time) {
             //Default time to 8AM
             dialog = new TimePickerDialog(getActivity(), this, 8, 0, false);
+        } else {
+            Integer total = (Integer) textView.getTag(R.id.time_tags);
+            if (total != null) {
+                dialog = new TimePickerDialog(getActivity(), this, total/60, total % 60, false);
+            }
         }
 
         return dialog;

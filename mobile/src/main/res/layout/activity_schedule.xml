@@ -16,14 +16,14 @@
     <LinearLayout
         android:id="@+id/schedule_bar"
         android:layout_width="fill_parent"
-        android:layout_weight="30"
+        android:layout_weight="60"
         android:background="@color/darkPurple"
         android:orientation="vertical"
         android:weightSum="100"
         android:layout_height="0dp">
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_weight="50"
+            android:layout_weight="25"
             android:background="@color/darkPurple"
             android:orientation="horizontal"
             android:weightSum="100"
@@ -91,21 +91,125 @@
         </LinearLayout>
 
         <!--Options Menu-->
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_weight="50"
-            android:background="@color/teal"
+            android:layout_weight="75"
+            android:orientation="vertical"
+            android:weightSum="100"
             android:layout_height="0dp">
-            <Button
-                android:id="@+id/cancel_schedule"
+
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_centerVertical="true"
-                android:textSize="25sp"
-                android:background="?android:attr/selectableItemBackground"
-                android:onClick="cancelSchedule"
-                android:text="Cancel Schedule"/>
-        </RelativeLayout>
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:layout_weight="15">
+                <TextView
+                    android:id="@+id/dates"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="100"
+                    style="@style/bodyText"
+                    android:gravity="center"
+                    android:text="January 24 - February 5"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:weightSum="100"
+                android:layout_weight="20">
+                <ImageView
+                    android:id="@+id/melatonin_check"
+                    android:layout_weight="10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/check"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:paddingLeft="7dp"
+                    android:layout_weight="40"
+                    style="@style/bodyText"
+                    android:gravity="center_vertical|left"
+                    android:text="Melatonin"/>
+                <ImageView
+                    android:id="@+id/light_check"
+                    android:layout_weight="10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/check"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:paddingLeft="7dp"
+                    style="@style/bodyText"
+                    android:gravity="center_vertical|left"
+                    android:text="Light Exposure"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/change_sleep_time_wrapper"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:layout_weight="45"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:paddingRight="10dp"
+                    android:layout_weight="60"
+                    style="@style/bodyText"
+                    android:gravity="center_vertical|right"
+                    android:text="Change tonight's sleep time:"/>
+                <FrameLayout
+                    android:layout_height="fill_parent"
+                    android:background="@color/teal"
+                    android:layout_weight="40"
+                    android:layout_width="0dp">
+                    <Button
+                        android:id="@+id/change_sleep_time"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_centerVertical="true"
+                        android:textSize="25sp"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:onClick="setNewSleepTime"
+                        android:text="7:00PM"/>
+                </FrameLayout>
+
+            </LinearLayout>
+
+
+
+            <FrameLayout
+                android:id="@+id/cancel_background"
+                android:layout_width="fill_parent"
+                android:background="@color/red"
+                android:layout_weight="20"
+                android:layout_height="0dp">
+                <Button
+                    android:id="@+id/cancel_schedule"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_centerVertical="true"
+                    android:textSize="25sp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="Hold to Cancel"/>
+            </FrameLayout>
+        </LinearLayout>
+
 
     </LinearLayout>
 

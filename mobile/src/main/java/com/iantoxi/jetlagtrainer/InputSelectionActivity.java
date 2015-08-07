@@ -16,15 +16,13 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 
-import java.io.IOException;
+
 import java.util.Calendar;
 import java.util.Random;
 import java.util.TimeZone;
 
 
 public class InputSelectionActivity extends Activity {
-
-    private String searchQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
