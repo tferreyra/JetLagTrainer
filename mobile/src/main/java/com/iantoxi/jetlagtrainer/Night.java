@@ -46,14 +46,14 @@ public class Night extends SugarRecord<Night> {
         this.previous = previous;
         this.next = next;
         this.advancing = advancing;
-        this.wakeTime = wakeTime + 24*60;
+        this.wakeTime = wakeTime;
 
         this.save();
     }
 
     public Night nextNight() {
         int newSleepTime = adjustTime(sleepTime);
-        int newWakeTime = adjustTime(wakeTime - 24*60);
+        int newWakeTime = adjustTime(wakeTime);
         Calendar newSleepStartDate = (Calendar) sleepStartDate.clone();
         newSleepStartDate.add(Calendar.DATE, 1);
         

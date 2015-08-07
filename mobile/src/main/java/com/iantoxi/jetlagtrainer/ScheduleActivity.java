@@ -127,6 +127,9 @@ public class ScheduleActivity extends FragmentActivity {
             public void afterTextChanged(Editable s) {
                 if (!s.toString().isEmpty()) {
                     int newSleepTime = getNewSleepTime()/60;
+                    if (newSleepTime < 720) {
+                        newSleepTime += 24*60; 
+                    }
                     schedule.newSleepTime(newSleepTime);
                     Intent intent = new Intent(ScheduleActivity.this, ScheduleActivity.class);
                     intent.putExtra("scheduleId", scheduleId);
