@@ -29,7 +29,8 @@
         android:layout_width="fill_parent"
         android:layout_below="@id/input_summary_title"
         android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2">
         <LinearLayout
             android:background="#15FFFFFF"
             android:layout_width="fill_parent"
@@ -245,4 +246,12 @@
             android:text="Calculate Schedule"
             android:onClick="calculateSchedule"/>
     </FrameLayout>
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 </RelativeLayout>

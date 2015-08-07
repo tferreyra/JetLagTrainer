@@ -62,6 +62,10 @@
     <!--Evaluation Screen-->
     <string name="feedback">How did the strategy work for you?</string>
 
+    <!--History Screen-->
+    <string name="title">Your History</string>
+    <string name="empty">Your History is empty!</string>
+
     <!-- Schedule Agenda Items -->
     <string name="sleep_start_time">Go to sleep</string>
     <string name="sleep_end_time">Wake up</string>

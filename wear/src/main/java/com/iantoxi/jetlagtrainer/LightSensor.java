@@ -16,16 +16,28 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class LightSensor extends Activity {
 
     private TextView mTextView;
     private SensorManager sensorManager;
     private Sensor lightSensor;
     private boolean isLight = true;
+    private Timer timer;
+    private TimerTask lightTask, darkTask;
+    private boolean isLightTaskRunning = false, isDarkTaskRunning = false;
+    /* Unit of light is in lx. Wiki says daylight is 10,000 - 25,000 lux, and darkness is 3.4 lx
+       Logic here is that if there is significant change in brightness (from light to dark or vice versa)
+       wear will notify watch to check whether user is supposed to be getting light or staying in the dark
+       https://en.wikipedia.org/wiki/Lux */
+    private int lightnessThrehold = 10000, darknessThreshold = 10, taskDelay = 10;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.light_listener_notifier);
+        timer = new Timer();
         /*final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
@@ -35,7 +47,7 @@ public class LightSensor extends Activity {
         });*/
 
         // Uncomment below to turn center logo into button for testing.
-        ImageView button = (ImageView) findViewById(R.id.logo);
+/*        ImageView button = (ImageView) findViewById(R.id.logo);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,26 +73,48 @@ public class LightSensor extends Activity {
                 intent.putExtra("message", "dark");
                 startService(intent);
             }
-        });
+        });*/
 
         SensorEventListener sensorListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
                 if (event.sensor.getType() == Sensor.TYPE_LIGHT) {
                     int light = (int) event.values[0];
-                    // Unit of light is in lx. Wiki says daylight is 10,000 - 25,000 lux, and darkness is 3.4 lx
-                    // Logic here is that if there is significant change in brightness (from light to dark or vice versa)
-                    // wear will notify watch to check whether user is supposed to be getting light or staying in the dark
-                    if (isLight && light < 10) {
+
+                    if (isLight && light < darknessThreshold) {
                         isLight = false;
-                        Intent intent = new Intent(LightSensor.this, SendServiceToMobile.class);
-                        intent.putExtra("message", "dark");
-                        startActivity(intent);
-                    } else if (!isLight && (light > 10000)) {
+                        darkTask = new TimerTask() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(LightSensor.this, SendServiceToMobile.class);
+                                intent.putExtra("message", "dark");
+                                startActivity(intent);
+                                isDarkTaskRunning = false;
+                            }
+                        };
+                        timer.schedule(darkTask, taskDelay);
+                        isDarkTaskRunning = true;
+                    } else if (!isLight && light >= darknessThreshold && isDarkTaskRunning) {
+                        darkTask.cancel();
                         isLight = true;
-                        Intent intent = new Intent(LightSensor.this, SendServiceToMobile.class);
-                        intent.putExtra("message", "light");
-                        startActivity(intent);
+                        isDarkTaskRunning = false;
+                    } else if (!isLight && (light > lightnessThrehold)) {
+                        isLight = true;
+                        lightTask = new TimerTask() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(LightSensor.this, SendServiceToMobile.class);
+                                intent.putExtra("message", "light");
+                                startActivity(intent);
+                                isLightTaskRunning = false;
+                            }
+                        };
+                        timer.schedule(lightTask, taskDelay);
+                        isLightTaskRunning = true;
+                    } else if (isLight && light < lightnessThrehold && isLightTaskRunning) {
+                        lightTask.cancel();
+                        isLight = false;
+                        isLightTaskRunning = false;
                     }
                 }
             }

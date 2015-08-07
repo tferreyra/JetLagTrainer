@@ -10,11 +10,18 @@ import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends Activity {
 
     private TextView mTextView;
     private SensorManager sensorManager;
     private Sensor heartRateSensor;
+    private Timer timer;
+    private TimerTask heartRateTask;
+    private boolean isHeartRateTaskRunning;
+    private int heartRateThreshold = 55, taskDelay = 30000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +40,21 @@ public class MainActivity extends Activity {
             public void onSensorChanged(SensorEvent event) {
                 if (event.sensor.getType() == Sensor.TYPE_HEART_RATE) {
                     int heartRate = (int) event.values[0];
-                    if (heartRate < 55) { // threshold may not/probably isn't accurate, can figure out what it should be later
-                        Intent intent = new Intent(MainActivity.this, SendServiceToMobile.class);
-                        intent.putExtra("message", "sleeping");
-                        startService(intent);
+                    if (heartRate < heartRateThreshold) { // threshold may not/probably isn't accurate, can figure out what it should be later
+                        heartRateTask = new TimerTask() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(MainActivity.this, SendServiceToMobile.class);
+                                intent.putExtra("message", "sleeping");
+                                startService(intent);
+                                isHeartRateTaskRunning = false;
+                            }
+                        };
+                        timer.schedule(heartRateTask, taskDelay);
+                        isHeartRateTaskRunning = true;
+                    } else if (heartRate > heartRateThreshold && isHeartRateTaskRunning) {
+                        heartRateTask.cancel();
+                        isHeartRateTaskRunning = false;
                     }
                 }
             }
