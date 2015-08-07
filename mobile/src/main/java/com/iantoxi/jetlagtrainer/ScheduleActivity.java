@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.AlarmManager;
+import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.transition.Slide;
 import android.view.Display;
 import android.view.Gravity;
@@ -25,6 +28,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -32,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class ScheduleActivity extends FragmentActivity {
     private long scheduleId;
@@ -66,6 +71,12 @@ public class ScheduleActivity extends FragmentActivity {
         setScheduleBar();
 
         setReminders();
+
+        setCancel();
+
+        setChangeSleepTime();
+
+
     }
 
     @Override
@@ -74,6 +85,8 @@ public class ScheduleActivity extends FragmentActivity {
 
         if (!schedule.isActive()) {
             Button cancelSchedule = (Button) findViewById(R.id.cancel_schedule);
+            View cancelBackground = findViewById(R.id.cancel_background);
+            cancelBackground.setBackgroundColor(getResources().getColor(R.color.teal));
             cancelSchedule.setText("Evaluation");
             cancelSchedule.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,14 +94,69 @@ public class ScheduleActivity extends FragmentActivity {
                     launchEvaluation();
                 }
             });
+
+            View changeSleepTime = findViewById(R.id.change_sleep_time_wrapper);
+            changeSleepTime.setVisibility(View.INVISIBLE);
         }
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (!schedule.isActive()) {
+        //Only evaluate for expiration if schedule is the currently active schedule.
+        if (schedule.isActive()) {
             evaluateExpiration();
+        }
+    }
+    private void setChangeSleepTime() {
+        Button changeSleepTime = (Button) findViewById(R.id.change_sleep_time);
+        changeSleepTime.setTag(R.id.time_tags, schedule.currentNight.sleepTime);
+        changeSleepTime.setText(TimeDialog.timeComponentsToString(schedule.currentNight.sleepTime / 60,
+                schedule.currentNight.sleepTime % 60));
+
+        changeSleepTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!s.toString().isEmpty()) {
+                    int newSleepTime = getNewSleepTime()/60;
+                    schedule.newSleepTime(newSleepTime);
+                    Intent intent = new Intent(ScheduleActivity.this, ScheduleActivity.class);
+                    intent.putExtra("scheduleId", scheduleId);
+                    intent.putExtra("finished", true);
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(ScheduleActivity.this).toBundle());
+                    finish();
+                }
+            }
+        });
+    }
+
+    private int getNewSleepTime() {
+        Button sleepButton = (Button) findViewById(R.id.change_sleep_time);
+        Object intValue = sleepButton.getTag(R.id.time_tags);
+        if (intValue == null) {
+            return -1;
+        }
+        return (int) intValue;
+    }
+
+    private void setCancel() {
+        if(schedule.isActive()) {
+            Button cancel = (Button) findViewById(R.id.cancel_schedule);
+            cancel.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    cancelSchedule(v);
+                    return true;
+                }
+            });
         }
     }
 
@@ -133,8 +201,26 @@ public class ScheduleActivity extends FragmentActivity {
     private void setScheduleBar() {
         TextView destinationName = (TextView) findViewById(R.id.destination_name);
         TextView zoneGap = (TextView) findViewById(R.id.zone_gap);
+        TextView dates = (TextView) findViewById(R.id.dates);
+
         destinationName.setText(schedule.destinationTimezone);
+        ImageView check;
+        if(!schedule.lightStrategy) {
+            check = (ImageView) findViewById(R.id.light_check);
+            check.setVisibility(View.INVISIBLE);
+        }
+        if(!schedule.melatoninStrategy) {
+            check = (ImageView) findViewById(R.id.melatonin_check);
+            check.setVisibility(View.INVISIBLE);
+        }
+
         zoneGap.setText(Integer.toString(schedule.zoneGap));
+
+        String startToEnd = schedule.startDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+        startToEnd = startToEnd + " " + schedule.startDate.get(Calendar.DATE);
+        startToEnd = startToEnd + " - " + schedule.endDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+        startToEnd = startToEnd + " " + schedule.endDate.get(Calendar.DATE);
+        dates.setText(startToEnd);
     }
 
     private void setUpViewPager(){
@@ -228,10 +314,10 @@ public class ScheduleActivity extends FragmentActivity {
         ImageButton optionsButton = (ImageButton) findViewById(R.id.options_button);
         int height = getSize().y;
         if(dialogVisible) {
-            scheduleBar.animate().translationYBy(height* 0.14f).start();
+            scheduleBar.animate().translationYBy(height* 0.43f).start();
             optionsButton.setImageDrawable(getDrawable(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha));
         } else {
-            scheduleBar.animate().translationYBy(height * -0.14f).start();
+            scheduleBar.animate().translationYBy(height * -0.43f).start();
             optionsButton.setImageDrawable(getDrawable(R.drawable.abc_ic_clear_mtrl_alpha));
         }
         dialogVisible = !dialogVisible;
@@ -247,6 +333,15 @@ public class ScheduleActivity extends FragmentActivity {
     public void cancelSchedule(View view) {
         schedule.cancelSchedule();
         onBackPressed();
+    }
+
+    public void setNewSleepTime(View view) {
+        TimeDialog dialog = new TimeDialog();
+        dialog.init(view);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        dialog.show(ft, "TimePicker");
+        /*sleepTimeSet = true;
+        evaluateSubmitPotential();*/
     }
 
 }
