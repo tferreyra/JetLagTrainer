@@ -133,8 +133,14 @@ public class ScheduleActivity extends FragmentActivity {
     private void setScheduleBar() {
         TextView destinationName = (TextView) findViewById(R.id.destination_name);
         TextView zoneGap = (TextView) findViewById(R.id.zone_gap);
+        TextView direction = (TextView) findViewById(R.id.direction);
         destinationName.setText(schedule.destinationTimezone);
-        zoneGap.setText(Integer.toString(schedule.zoneGap));
+        if(schedule.zoneGap > 0) {
+            direction.setText("Advanced");
+        } else {
+            direction.setText("Delayed");
+        }
+        zoneGap.setText(Integer.toString(Math.abs(schedule.zoneGap)));
     }
 
     private void setUpViewPager(){
