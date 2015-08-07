@@ -25,8 +25,8 @@ public class Schedule extends SugarRecord<Schedule> {
     public int originWakeTime = -1; //in minutes
     //TODO: Implement logic to calculate schedules based on a destination sleep time.
     //TODO: Implement activity to query user for Destination sleep times.
-    public int destinationSleepTime = -1;
-    public int destinationWakeTime = -1;
+    public int destinationSleepTime = -1;//relative to local timezone
+    public int destinationWakeTime = -1;//relative to local timezone
 
     public boolean melatoninStrategy;
     public boolean lightStrategy;
@@ -75,10 +75,10 @@ public class Schedule extends SugarRecord<Schedule> {
             advancing = true;
         }
 
-        destinationSleepTime = originSleepTime;
-        destinationWakeTime = originWakeTime;
-
         adjustment = Math.abs(zoneGap);
+
+        destinationSleepTime = originSleepTime + zoneGap * 60;
+        destinationWakeTime = originWakeTime + zoneGap * 60;
 
         shiftStartDate();
 
@@ -124,10 +124,15 @@ public class Schedule extends SugarRecord<Schedule> {
                                0, 0, advancing);
 
         currentNight = firstNight;
-        int toAdjust = adjustment;
-        while(toAdjust > 0) {
-            currentNight = currentNight.nextNight();
-            toAdjust -= 1;
+
+        if (advancing) {
+            while(currentNight.sleepTime < destinationSleepTime) {
+                currentNight = currentNight.nextNight();
+            }
+        } else {
+            while(currentNight.sleepTime > destinationSleepTime) {
+                currentNight = currentNight.nextNight();
+            }
         }
         endDate = currentNight.sleepStartDate;
         currentNight = firstNight;
@@ -142,8 +147,8 @@ public class Schedule extends SugarRecord<Schedule> {
         this.save();
     }
 
-    public void newSleepTime(int sleepTime, int wakeTime) {
-        //TODO: Implement logic to shift sleep times when users deviate from sleep schedule.
+    public void newSleepTime(Night wrongNight, int sleepTime) {
+
     }
 
     public static void toBeginningOfTheDay(Calendar calendar) {
