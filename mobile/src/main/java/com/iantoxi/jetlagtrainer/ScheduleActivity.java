@@ -136,9 +136,9 @@ public class ScheduleActivity extends FragmentActivity {
         TextView direction = (TextView) findViewById(R.id.direction);
         destinationName.setText(schedule.destinationTimezone);
         if(schedule.zoneGap > 0) {
-            direction.setText("Advanced");
+            direction.setText("Advancing");
         } else {
-            direction.setText("Delayed");
+            direction.setText("Delaying");
         }
         zoneGap.setText(Integer.toString(Math.abs(schedule.zoneGap)));
     }

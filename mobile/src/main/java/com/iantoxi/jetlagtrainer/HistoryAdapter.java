@@ -61,9 +61,9 @@ public class HistoryAdapter extends BaseAdapter {
 
         TextView direction = (TextView) view.findViewById(R.id.direction);
         if(schedule.zoneGap > 0) {
-            direction.setText("Advancing");
+            direction.setText("Advanced");
         } else {
-            direction.setText("Delaying");
+            direction.setText("Delayed");
         }
         zoneGap.setText(Integer.toString(Math.abs(schedule.zoneGap)));
 
