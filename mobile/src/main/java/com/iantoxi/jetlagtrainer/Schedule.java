@@ -77,8 +77,8 @@ public class Schedule extends SugarRecord<Schedule> {
 
         adjustment = Math.abs(zoneGap);
 
-        destinationSleepTime = originSleepTime + zoneGap * 60;
-        destinationWakeTime = originWakeTime + zoneGap * 60;
+        destinationSleepTime = originSleepTime - zoneGap * 60;
+        destinationWakeTime = originWakeTime - zoneGap * 60;
 
         shiftStartDate();
 
@@ -126,11 +126,11 @@ public class Schedule extends SugarRecord<Schedule> {
         currentNight = firstNight;
 
         if (advancing) {
-            while(currentNight.sleepTime < destinationSleepTime) {
+            while(currentNight.sleepTime > destinationSleepTime) {
                 currentNight = currentNight.nextNight();
             }
         } else {
-            while(currentNight.sleepTime > destinationSleepTime) {
+            while(currentNight.sleepTime < destinationSleepTime) {
                 currentNight = currentNight.nextNight();
             }
         }
