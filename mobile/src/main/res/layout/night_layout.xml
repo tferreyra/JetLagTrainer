@@ -52,21 +52,27 @@
             android:orientation="horizontal"
             android:weightSum="60">
             <TextView
+                android:id="@+id/origin01"
                 android:text="9 AM"
                 style="@style/graph_times"/>
             <TextView
+                android:id="@+id/origin02"
                 android:text="1 PM"
                 style="@style/graph_times"/>
             <TextView
+                android:id="@+id/origin03"
                 android:text="5 PM"
                 style="@style/graph_times"/>
             <TextView
+                android:id="@+id/origin04"
                 android:text="9 PM"
                 style="@style/graph_times"/>
             <TextView
+                android:id="@+id/origin05"
                 android:text="1 AM"
                 style="@style/graph_times"/>
             <TextView
+                android:id="@+id/origin06"
                 android:text="5 AM"
                 style="@style/graph_times"/>
         </LinearLayout>
@@ -78,25 +84,32 @@
             android:layout_height="170dp"/>
 
         <LinearLayout
+            android:id="@+id/destination_time_axis"
             android:layout_width="fill_parent"
             android:layout_height="15dp"
             android:weightSum="60">
             <TextView
+                android:id="@+id/destination01"
                 android:text="12 PM"
                 style="@style/graph_times"/>
             <TextView
+                android:id="@+id/destination02"
                 android:text="4 PM"
                 style="@style/graph_times"/>
             <TextView
+                android:id="@+id/destination03"
                 android:text="8 PM"
                 style="@style/graph_times"/>
             <TextView
+                android:id="@+id/destination04"
                 android:text="12 AM"
                 style="@style/graph_times"/>
             <TextView
+                android:id="@+id/destination05"
                 android:text="4 AM"
                 style="@style/graph_times"/>
             <TextView
+                android:id="@+id/destination06"
                 android:text="8 AM"
                 style="@style/graph_times"/>
         </LinearLayout>

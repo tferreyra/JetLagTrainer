@@ -192,12 +192,6 @@ public class SleepScheduleGraphView extends View {
      * given in seconds from midnight.
      */
     private void drawSleepSchedule() {
-        Log.d("bedTime", String.valueOf(bedTime));
-        Log.d("wakeTime", String.valueOf(wakeTime));
-        Log.d("targetBedTime", String.valueOf(targetBedTime));
-        Log.d("targetWakeTime", String.valueOf(targetWakeTime));
-        Log.d("timeDiff", String.valueOf(timeDiff));
-
         Paint black = new Paint();
         setPaintAttributes(black, Color.BLACK, Paint.Style.STROKE, STROKE_WIDTH);
         Paint white = new Paint();
@@ -293,8 +287,6 @@ public class SleepScheduleGraphView extends View {
         endTime = convertSecToHourFloat(endTime);  // assumes endTime before noon
         int left = 0;
         int right = 0;
-        Log.d("startTime", String.valueOf(startTime));
-        Log.d("endTime", String.valueOf(endTime));
         if (startTime < 12) {
             left = (int) (RIGHT - ((TERMINAL_TIME - (startTime+24))/delta2)*delta);
         } else if (startTime > 24) {
@@ -309,8 +301,6 @@ public class SleepScheduleGraphView extends View {
         } else {
             right = (int) (LEFT + ((endTime - INITIAL_TIME)/delta2)*delta);
         }
-        Log.d("left", String.valueOf(left));
-        Log.d("right", String.valueOf(right));
         setPaintAttributes(paint, color, Paint.Style.FILL);
         paint.setAlpha(alpha);
         if (left > right) {
