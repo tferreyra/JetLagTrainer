@@ -22,8 +22,8 @@ import android.widget.Toast;
 public class SleepStrategySelection extends Activity {
     private long scheduleId;
     private Schedule schedule;
-    private boolean melatoninSelected = false;
-    private boolean lightSelected = false;
+    private boolean melatoninSelected;
+    private boolean lightSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +35,17 @@ public class SleepStrategySelection extends Activity {
         scheduleId = (long) intent.getExtras().get("scheduleId");
         schedule = Schedule.findById(Schedule.class, scheduleId);
 
+        melatoninSelected = schedule.melatoninStrategy;
+        lightSelected = schedule.lightStrategy;
+
         final ImageView melatoninCheck = (ImageView) findViewById(R.id.melatonin_check);
-        melatoninCheck.setVisibility(View.INVISIBLE);
         final ImageView lightCheck = (ImageView) findViewById(R.id.light_check);
-        lightCheck.setVisibility(View.INVISIBLE);
+        if (!lightSelected) {
+            lightCheck.setVisibility(View.INVISIBLE);
+        }
+        if (!melatoninSelected) {
+            melatoninCheck.setVisibility(View.INVISIBLE);
+        }
 
         final FrameLayout melatoninView = (FrameLayout) findViewById(R.id.melatonin_button);
         melatoninView.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +112,14 @@ public class SleepStrategySelection extends Activity {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        schedule.lightStrategy = lightSelected;
+        schedule.melatoninStrategy = melatoninSelected;
+        schedule.save();
+        super.onBackPressed();
     }
 
     @Override

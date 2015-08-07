@@ -38,10 +38,6 @@ public class OriginTime extends Activity {
         getWindow().setEnterTransition(slide);
         getWindow().setExitTransition(slide);
 
-        Intent intent = getIntent();
-        scheduleId = (long) intent.getExtras().get("scheduleId");
-        schedule = Schedule.findById(Schedule.class, scheduleId);
-
         Button sleepButton = (Button) findViewById(R.id.sleep_time);
         sleepButton.addTextChangedListener(new TextWatcher() {
             @Override
@@ -80,6 +76,9 @@ public class OriginTime extends Activity {
 
     protected void onResume() {
         super.onResume();
+        Intent intent = getIntent();
+        scheduleId = (long) intent.getExtras().get("scheduleId");
+        schedule = Schedule.findById(Schedule.class, scheduleId);
         Button button;
         if(!sleepTimeSet && schedule.originSleepTime != -1) {
             button = (Button) findViewById(R.id.sleep_time);
