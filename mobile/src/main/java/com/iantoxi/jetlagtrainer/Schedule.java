@@ -21,12 +21,12 @@ public class Schedule extends SugarRecord<Schedule> {
     public Calendar travelDate;
     public Calendar endDate;
 
-    public int originSleepTime; //in minutes
-    public int originWakeTime; //in minutes
+    public int originSleepTime = -1; //in minutes
+    public int originWakeTime = -1; //in minutes
     //TODO: Implement logic to calculate schedules based on a destination sleep time.
     //TODO: Implement activity to query user for Destination sleep times.
-    public int destinationSleepTime;
-    public int destinationWakeTime;
+    public int destinationSleepTime = -1;
+    public int destinationWakeTime = -1;
 
     public boolean melatoninStrategy;
     public boolean lightStrategy;
@@ -49,6 +49,7 @@ public class Schedule extends SugarRecord<Schedule> {
 
     public Schedule() {
         //necessary for Sugar ORM
+        active = true;
     }
 
     public boolean isActive() {
@@ -65,7 +66,6 @@ public class Schedule extends SugarRecord<Schedule> {
     }
 
     public void calculateSchedule() {
-        active = true;
         calculated = true;
 
         zoneGap = calculateZoneGap();
@@ -105,7 +105,12 @@ public class Schedule extends SugarRecord<Schedule> {
 
     //Calculates the number of hours in difference between two timezones on the date of travel.
     public int calculateZoneGap() {
-        long travelDateInMillis = travelDate.getTimeInMillis();
+        long travelDateInMillis;
+        if(travelDate == null) {
+            travelDateInMillis = Calendar.getInstance().getTimeInMillis();
+        } else {
+            travelDateInMillis = travelDate.getTimeInMillis();
+        }
         long offset = TimeZone.getTimeZone(destinationTimezone).getOffset(travelDateInMillis)
                 - TimeZone.getTimeZone(originTimezone).getOffset(travelDateInMillis);
         return( (int) offset / (3600000));

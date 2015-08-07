@@ -44,6 +44,10 @@ public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTim
         int total = hourOfDay * 3600 + minute * 60;
         textView.setTag(R.id.time_tags, total);
 
+        textView.setText(timeComponentsToString(hourOfDay, minute));
+    }
+
+    public static String timeComponentsToString(int hourOfDay, int minute) {
         String AMPM = " AM";
         if (hourOfDay == 0) {
             hourOfDay = 12; // since 12 AM is represented as 0
@@ -55,8 +59,8 @@ public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTim
 
         if (minute < 10) {
             String minuteString = "0" + Integer.toString(minute);
-            textView.setText(hourOfDay + ":" + minuteString + AMPM);
+            return hourOfDay + ":" + minuteString + AMPM;
         } else
-            textView.setText(hourOfDay + ":" + minute + AMPM);
+            return hourOfDay + ":" + minute + AMPM;
     }
 }

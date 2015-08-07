@@ -78,6 +78,46 @@ public class OriginTime extends Activity {
         });
     }
 
+    protected void onResume() {
+        super.onResume();
+        Button button;
+        if(!sleepTimeSet && schedule.originSleepTime != -1) {
+            button = (Button) findViewById(R.id.sleep_time);
+            button.setTag(R.id.time_tags, schedule.originSleepTime * 60);
+            sleepTimeSet = true;
+            int minutes = schedule.originSleepTime;
+
+            button.setText(TimeDialog.timeComponentsToString(minutes / 60,
+                    minutes%60));
+        }
+        if(!wakeTimeSet && schedule.originWakeTime != -1) {
+            button = (Button) findViewById(R.id.wake_time);
+            button.setTag(R.id.time_tags, schedule.originWakeTime * 60);
+            wakeTimeSet= true;
+            int minutes = schedule.originWakeTime;
+
+            button.setText(TimeDialog.timeComponentsToString(minutes / 60,
+                    minutes%60));
+        }
+        evaluateSubmitPotential();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        int sleepTime = getSleepTime();
+        int wakeTime = getWakeTime();
+
+        if (sleepTime != -1) {
+            schedule.originSleepTime = sleepTime/60;
+        }
+        if (wakeTime != -1) {
+            schedule.originWakeTime = wakeTime/60;
+        }
+        schedule.save();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -156,11 +196,19 @@ public class OriginTime extends Activity {
 
     private int getSleepTime() {
         Button sleepButton = (Button) findViewById(R.id.sleep_time);
-        return (int) sleepButton.getTag(R.id.time_tags);
+        Object intValue = sleepButton.getTag(R.id.time_tags);
+        if (intValue == null) {
+            return -1;
+        }
+        return (int) intValue;
     }
 
     private int getWakeTime() {
         Button wakeButton = (Button) findViewById(R.id.wake_time);
-        return (int) wakeButton.getTag(R.id.time_tags);
+        Object intValue = wakeButton.getTag(R.id.time_tags);
+        if (intValue == null) {
+            return -1;
+        }
+        return (int) intValue;
     }
 }

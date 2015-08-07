@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -28,6 +29,8 @@ import com.google.maps.PendingResult;
 import com.google.maps.TimeZoneApi;
 
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class InputLocationActivity extends Activity {
@@ -74,6 +77,41 @@ public class InputLocationActivity extends Activity {
             }
         });
 
+    }
+
+    protected void onResume() {
+        super.onResume();
+        List<Schedule> values = Schedule.find(Schedule.class, "active = ?", "1");
+        if (values.size() != 0) {
+            long scheduleId = values.get(0).getId();
+            schedule = Schedule.findById(Schedule.class, scheduleId);
+            Button button;
+            if(!originSet && schedule.originTimezone != null) {
+                originTimeZone = schedule.originTimezone;
+                originSet = true;
+                button = (Button) findViewById(R.id.origin);
+                button.setText(schedule.originTimezone);
+            }
+            if(!destinationSet && schedule.destinationTimezone != null) {
+                destinationSet = true;
+                destinationTimeZone = schedule.destinationTimezone;
+                button = (Button) findViewById(R.id.destination);
+                button.setText(schedule.destinationTimezone);
+            }
+            Calendar nullTime = Calendar.getInstance();
+            nullTime.setTimeInMillis(0);
+            if(!dateSet && nullTime.compareTo(schedule.travelDate) != 0) {
+                dateSet = true;
+                setDateButton(schedule.travelDate);
+            }
+            evaluateSubmitPotential();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        buildSchedule();
+        super.onBackPressed();
     }
 
     @Override
@@ -128,8 +166,6 @@ public class InputLocationActivity extends Activity {
         dialog.init(view);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         dialog.show(ft, "DatePicker");
-        /*dateSet = true;
-        evaluateSubmitPotential();*/
     }
 
     @Override
@@ -137,22 +173,13 @@ public class InputLocationActivity extends Activity {
         if (resultCode == RESULT_OK) {
             showLoading();
             if (requestCode == ORIGIN_PLACE_PICKER_REQUEST) {
-                originSet = true;
                 Place place = PlacePicker.getPlace(data, this);
                 placeToTimeZoneId(place, R.id.origin);
             } else if (requestCode == DESTINATION_PLACE_PICKER_REQUEST) {
-                destinationSet = true;
                 Place place = PlacePicker.getPlace(data, this);
                 placeToTimeZoneId(place, R.id.destination);
             }
         }
-    }
-
-    //For faster testing. change back to originDestination when done
-    public void DEVchangeOriginTimeZone(View view) {
-        originSet = true;
-        destinationSet = true;
-        changeButtonTimezone(view.getId(), "America/Los Angeles");
     }
 
     private void placeToTimeZoneId(Place place, final int field) {
@@ -188,9 +215,11 @@ public class InputLocationActivity extends Activity {
         Button button = (Button) findViewById(field);
         button.setText(timezone);
         if (field == R.id.origin) {
+            originSet = true;
             originTimeZone = timezone;
             evaluateSubmitPotential();
         } else if (field == R.id.destination) {
+            destinationSet = true;
             destinationTimeZone = timezone;
             evaluateSubmitPotential();
         }
@@ -243,21 +272,41 @@ public class InputLocationActivity extends Activity {
 
     private Calendar getTravelDate() {
         Button dateButton = (Button) findViewById(R.id.date);
-        return (Calendar) dateButton.getTag(R.id.date_tags);
+        Calendar travelDate = (Calendar) dateButton.getTag(R.id.date_tags);
+        if (travelDate == null) {
+            travelDate = Calendar.getInstance();
+            travelDate.setTimeInMillis(0);
+        }
+        return travelDate;
     }
 
     private long buildSchedule() {
-        if (schedule != null) {
-            schedule.delete();
+        if (schedule == null) {
+            schedule = new Schedule();
         }
-        schedule = new Schedule();
+
         schedule.originTimezone = originTimeZone;
         schedule.destinationTimezone = destinationTimeZone;
-        schedule.startDate = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+        Schedule.toBeginningOfTheDay(today);
+        schedule.startDate =  today;
         schedule.travelDate = getTravelDate();
         schedule.endDate = schedule.travelDate;
         schedule.save();
         return schedule.getId();
+    }
+
+    private void setDateButton(Calendar date) {
+        Calendar today = Calendar.getInstance();
+        Schedule.toBeginningOfTheDay(today);
+        if(!(date.compareTo(today) < 0)) {
+            String monthString = date.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+
+            String dateString = monthString + " " + date.get(Calendar.DATE) + ", " + date.get(Calendar.YEAR);
+            Button txtDate = (Button) findViewById(R.id.date);
+            txtDate.setTag(R.id.date_tags, date);
+            txtDate.setText(dateString);
+        }
     }
 
     private void hideLoading() {
