@@ -61,7 +61,6 @@
         The periodic curve approximates the daylight cycle of your destination, with the darker sections of the curve representing sundown periods.
     </string>
 
-
     <!--Input Summary screen -->
     <string name="summary_title">Summary</string>
 

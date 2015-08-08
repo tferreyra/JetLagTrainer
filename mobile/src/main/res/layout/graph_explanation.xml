@@ -3,7 +3,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@color/darkBlue">
+
+    android:background="@color/lightTeal">
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:background="@color/darkBlue">
 
     <TextView
         android:layout_width="match_parent"
@@ -172,5 +179,7 @@
             android:text="Got it!"
             android:onClick="calculateSchedule"/>
     </FrameLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
