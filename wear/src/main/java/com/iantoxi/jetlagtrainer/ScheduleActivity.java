@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 public class ScheduleActivity extends Activity  {
     private static HashMap<Integer, String> hashMap = new HashMap<Integer, String>();
+    private UpdateReceiver updateReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +20,7 @@ public class ScheduleActivity extends Activity  {
         intent.putExtra("message", "schedule");
         startService(intent);
 
-        UpdateReceiver updateReceiver = new UpdateReceiver();
+        updateReceiver = new UpdateReceiver();
         registerReceiver(updateReceiver, new IntentFilter("data"));
     }
 
@@ -28,6 +29,18 @@ public class ScheduleActivity extends Activity  {
         public void onReceive(Context context, Intent intent) {
             hashMap.put(Integer.parseInt(intent.getStringExtra("time")), intent.getStringExtra("event"));
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(updateReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(updateReceiver, new IntentFilter("data"));
     }
 
 }
