@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JetLagTrainer</string>
+    <string name="app_name">Sleep Shift</string>
 
     <!-- Main Screen-->
     <string name="main_sleep">Start a sleep shift.</string>
