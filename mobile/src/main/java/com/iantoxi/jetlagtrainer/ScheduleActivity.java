@@ -171,7 +171,7 @@ public class ScheduleActivity extends FragmentActivity {
             View popUpView = layoutInflater.inflate(R.layout.schedule_expiration_dialog, null);
             final PopupWindow popupWindow = new PopupWindow(popUpView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
             popupWindow.setOutsideTouchable(true);
-            popupWindow.setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
+            popupWindow.setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
             popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
 
             Button archive = (Button) popUpView.findViewById(R.id.archive);

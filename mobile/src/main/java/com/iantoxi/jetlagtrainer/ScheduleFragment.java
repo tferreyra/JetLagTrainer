@@ -81,7 +81,7 @@ public class ScheduleFragment extends Fragment {
                 View popUpView = layoutInflater.inflate(R.layout.graph_explanation, null);
                 final PopupWindow popupWindow = new PopupWindow(popUpView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
                 popupWindow.setOutsideTouchable(true);
-                popupWindow.setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
+                popupWindow.setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
                 popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
 
                 Button exp_done = (Button) popUpView.findViewById(R.id.gotEm);
