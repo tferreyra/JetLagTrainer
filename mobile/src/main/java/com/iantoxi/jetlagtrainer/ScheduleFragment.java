@@ -132,11 +132,12 @@ public class ScheduleFragment extends Fragment {
 
         // Plot 12pm to 12pm on destination time zone (700-2160 mins)
         int diff = schedule.zoneGap*60;  // (Destination - Current) time difference in minutes
+        Log.d("ZONE GAP:", String.valueOf(schedule.zoneGap));
         int index = 0;
         for (int t = 720; t <= 1920; t+=240) {
             TextView originTick = (TextView) view.findViewById(origin[index]);
             TextView destinationTick = (TextView) view.findViewById(destination[index]);
-            originTick.setText(labels.get(t+diff));  // destination = origin + diff
+            originTick.setText(labels.get(t-diff));  // destination = origin + diff
             destinationTick.setText(labels.get(t));
             index++;
         }
