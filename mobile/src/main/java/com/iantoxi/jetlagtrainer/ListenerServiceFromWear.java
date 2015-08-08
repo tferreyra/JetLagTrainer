@@ -1,14 +1,23 @@
 package com.iantoxi.jetlagtrainer;
 
+import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
+import com.google.android.gms.wearable.DataApi;
 import com.google.android.gms.wearable.MessageEvent;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.Wearable;
 import com.google.android.gms.wearable.WearableListenerService;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class ListenerServiceFromWear extends WearableListenerService {
     private String sleeping = "sleeping";
@@ -24,7 +33,6 @@ public class ListenerServiceFromWear extends WearableListenerService {
 
     @Override
     public void onMessageReceived(MessageEvent messageEvent) {
-
 
         List<Schedule> values = Schedule.find(Schedule.class, "active = ?", "1");
         long scheduleID = 0;
@@ -81,6 +89,19 @@ public class ListenerServiceFromWear extends WearableListenerService {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ListenerServiceFromWear.this);
                 notificationManager.notify(10, notificationBuilder.build());
             }
-        }
+        } /*else if (messageEvent.getPath().equals("schedule")) {
+            HashMap<Integer, Integer> agenda = new HashMap<>();
+            agenda = currentNight.getAgenda();
+            Iterator iterator = agenda.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry pair = (Map.Entry) iterator.next();
+                PutDataMapRequest putDataMapRequest = PutDataMapRequest.create("/count");
+                putDataMapRequest.getDataMap().putString("time", pair.getKey().toString());
+                putDataMapRequest.getDataMap().putString("event", pair.getValue().toString());
+                PutDataRequest putDataRequest = putDataMapRequest.asPutDataRequest();
+                PendingResult<DataApi.DataItemResult> pendingResult = Wearable.DataApi.putDataItem()
+
+            }
+        }*/
     }
 }

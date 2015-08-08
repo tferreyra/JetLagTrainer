@@ -17,6 +17,9 @@ public class ListenerServiceFromMobile extends WearableListenerService{
             Intent intent = new Intent(this, LightSensor.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+        } else {
+            String data = messageEvent.getPath();
+
         }
     }
 }
