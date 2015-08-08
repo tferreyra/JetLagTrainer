@@ -3,6 +3,7 @@ package com.iantoxi.jetlagtrainer;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.location.GpsStatus;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
@@ -89,19 +90,16 @@ public class ListenerServiceFromWear extends WearableListenerService {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ListenerServiceFromWear.this);
                 notificationManager.notify(10, notificationBuilder.build());
             }
-        } /*else if (messageEvent.getPath().equals("schedule")) {
-            HashMap<Integer, Integer> agenda = new HashMap<>();
-            agenda = currentNight.getAgenda();
+        } else if (messageEvent.getPath().equals("schedule")) {
+            HashMap<Integer, Integer> agenda = currentNight.getAgenda();
             Iterator iterator = agenda.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry) iterator.next();
-                PutDataMapRequest putDataMapRequest = PutDataMapRequest.create("/count");
-                putDataMapRequest.getDataMap().putString("time", pair.getKey().toString());
-                putDataMapRequest.getDataMap().putString("event", pair.getValue().toString());
-                PutDataRequest putDataRequest = putDataMapRequest.asPutDataRequest();
-                PendingResult<DataApi.DataItemResult> pendingResult = Wearable.DataApi.putDataItem()
-
+                Intent intent = new Intent(ListenerServiceFromWear.this, SendScheduleToWear.class);
+                intent.putExtra("time", pair.getKey().toString());
+                intent.putExtra("event", pair.getValue().toString());
+                startService(intent);
             }
-        }*/
+        }
     }
 }
