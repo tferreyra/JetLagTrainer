@@ -1,12 +1,18 @@
 package com.iantoxi.jetlagtrainer;
 
+import android.app.ActionBar;
+import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -62,8 +68,36 @@ public class ScheduleFragment extends Fragment {
         ListView agendaList = (ListView) rootView.findViewById(R.id.agenda);
         agendaList.setAdapter(adapter);
 
-
+        setGraphHelp(rootView);
         return rootView;
+    }
+
+    private void setGraphHelp(final View view) {
+        Button helpButton = (Button) view.findViewById(R.id.graph_more_info);
+        helpButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                LayoutInflater layoutInflater = (LayoutInflater) getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View popUpView = layoutInflater.inflate(R.layout.graph_explanation, null);
+                final PopupWindow popupWindow = new PopupWindow(popUpView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+                popupWindow.setOutsideTouchable(true);
+                popupWindow.setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
+                popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+
+                Button exp_done = (Button) popUpView.findViewById(R.id.gotEm);
+                exp_done.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
+                    }
+                });
+
+                View parent = view.findViewById(R.id.main_night);
+                popupWindow.showAtLocation(parent, Gravity.CENTER, 0, 0);
+
+                return true;
+            }
+        });
     }
 
     private void drawSleepScheduleGraph(View view) {
