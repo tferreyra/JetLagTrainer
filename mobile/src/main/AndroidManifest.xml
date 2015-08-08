@@ -55,6 +55,7 @@
             android:label="@string/title_activity_input_summary" >
         </activity>
 
+
         <receiver
             android:name=".NotificationReceiver"
             android:label="NotificationReceiver" >
@@ -72,7 +73,10 @@
             android:name=".SendServiceToWear"
             android:label="SendServiceToWear" >
         </service>
-
+        <service
+            android:name=".SendScheduleToWear"
+            android:label="SendScheduleToWear" >
+        </service>
 
         <meta-data
             android:name="DATABASE"
