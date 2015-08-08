@@ -102,9 +102,9 @@ public class ScheduleFragment extends Fragment {
 
     private void drawSleepScheduleGraph(View view) {
         SleepScheduleGraphView graph = (SleepScheduleGraphView) view.findViewById(R.id.sleepScheduleGraph);
-        graph.setSleepSchedule(night.sleepTime * 60, night.wakeTime * 60,
-                schedule.destinationWakeTime * 60, schedule.destinationSleepTime * 60,
-                schedule.zoneGap);
+        graph.setSleepSchedule(night.sleepTime, night.wakeTime,
+                               schedule.destinationSleepTime, schedule.destinationWakeTime,
+                               schedule.zoneGap);
     }
 
     private void drawAxesLabels(View view) {
@@ -136,7 +136,7 @@ public class ScheduleFragment extends Fragment {
         for (int t = 720; t <= 1920; t+=240) {
             TextView originTick = (TextView) view.findViewById(origin[index]);
             TextView destinationTick = (TextView) view.findViewById(destination[index]);
-            originTick.setText(labels.get(t+diff));  // destination = origin + diff
+            originTick.setText(labels.get(t-diff));  // destination = origin + diff
             destinationTick.setText(labels.get(t));
             index++;
         }
