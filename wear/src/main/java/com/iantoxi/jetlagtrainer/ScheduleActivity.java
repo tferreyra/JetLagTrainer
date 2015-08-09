@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -18,6 +19,8 @@ import java.util.HashMap;
 public class ScheduleActivity extends Activity  {
     private static HashMap<Integer, String> hashMap = new HashMap<Integer, String>();
     private UpdateReceiver updateReceiver;
+    private LinearLayout layout1, layout2, layout3, layout4;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,25 +30,22 @@ public class ScheduleActivity extends Activity  {
         intent.putExtra("message", "schedule");
         startService(intent);
 
+        layout1 = (LinearLayout) findViewById(R.id.layout1);
+        layout1.setVisibility(View.INVISIBLE);
+        layout2 = (LinearLayout) findViewById(R.id.layout2);
+        layout2.setVisibility(View.INVISIBLE);
+        layout3 = (LinearLayout) findViewById(R.id.layout3);
+        layout3.setVisibility(View.INVISIBLE);
+        layout4 = (LinearLayout) findViewById(R.id.layout4);
+        layout4.setVisibility(View.INVISIBLE);
+
         updateReceiver = new UpdateReceiver();
         registerReceiver(updateReceiver, new IntentFilter("data"));
-
-        if (!hashMap.isEmpty())
-            fillSchedule();
     }
 
     private void fillSchedule() {
         Object[] times = hashMap.keySet().toArray();
         Arrays.sort(times);
-
-        LinearLayout layout1 = (LinearLayout) findViewById(R.id.layout1);
-        layout1.setVisibility(View.INVISIBLE);
-        LinearLayout layout2 = (LinearLayout) findViewById(R.id.layout2);
-        layout2.setVisibility(View.INVISIBLE);
-        LinearLayout layout3 = (LinearLayout) findViewById(R.id.layout3);
-        layout3.setVisibility(View.INVISIBLE);
-        LinearLayout layout4 = (LinearLayout) findViewById(R.id.layout4);
-        layout4.setVisibility(View.INVISIBLE);
 
         if (times.length > 0) {
             layout1.setVisibility(View.VISIBLE);
@@ -82,6 +82,8 @@ public class ScheduleActivity extends Activity  {
         public void onReceive(Context context, Intent intent) {
             hashMap.put(intent.getIntExtra("time", 0), intent.getStringExtra("event"));
             fillSchedule();
+            progressBar = (ProgressBar) findViewById(R.id.loading);
+            progressBar.setVisibility(View.GONE);
         }
     }
 
