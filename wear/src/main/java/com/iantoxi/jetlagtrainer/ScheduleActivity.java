@@ -46,10 +46,6 @@ public class ScheduleActivity extends Activity  {
         LinearLayout layout4 = (LinearLayout) findViewById(R.id.layout4);
         layout4.setVisibility(View.INVISIBLE);
 
-        if (times.length == 0) {
-            layout4.setVisibility(View.VISIBLE);
-        }
-
         if (times.length > 0) {
             layout1.setVisibility(View.VISIBLE);
             TextView time = (TextView) findViewById(R.id.time1);
@@ -57,16 +53,37 @@ public class ScheduleActivity extends Activity  {
             time.setText(times[0].toString());
             event.setText(hashMap.get(times[0]));
         }
+        if (times.length > 1)  {
+            layout2.setVisibility(View.VISIBLE);
+            TextView time = (TextView) findViewById(R.id.time2);
+            TextView event = (TextView) findViewById(R.id.event2);
+            time.setText(times[1].toString());
+            event.setText(hashMap.get(times[1]));
+        }
+        if (times.length > 2)  {
+            layout3.setVisibility(View.VISIBLE);
+            TextView time = (TextView) findViewById(R.id.time3);
+            TextView event = (TextView) findViewById(R.id.event3);
+            time.setText(times[2].toString());
+            event.setText(hashMap.get(times[2]));
+        }
+        if (times.length > 3)  {
+            layout4.setVisibility(View.VISIBLE);
+            TextView time = (TextView) findViewById(R.id.time4);
+            TextView event = (TextView) findViewById(R.id.event4);
+            time.setText(times[3].toString());
+            event.setText(hashMap.get(times[3]));
+        }
     }
 
     private static class UpdateReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            hashMap.put(Integer.parseInt(intent.getStringExtra("time")), intent.getStringExtra("event"));
+            hashMap.put(intent.getIntExtra("time", 0), intent.getStringExtra("event"));
         }
     }
 
-    @Override
+/*    @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(updateReceiver);
@@ -76,6 +93,6 @@ public class ScheduleActivity extends Activity  {
     protected void onResume() {
         super.onResume();
         registerReceiver(updateReceiver, new IntentFilter("data"));
-    }
+    }*/
 
 }

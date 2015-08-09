@@ -115,4 +115,24 @@ public class Night extends SugarRecord<Night> {
         return agenda;
     }
 
+    public HashMap<Integer, String> getAgendaForWear() {
+        HashMap<Integer, String> agenda = new HashMap<Integer, String>();
+        agenda.put(sleepTime, "Go to sleep");
+        agenda.put(wakeTime, "Wake up");
+
+        if(melatoninStrategy && advancing) {
+            agenda.put(melatoninTime(), "Take melatonin");
+        }
+
+        if(lightStrategy) {
+            if (advancing) {
+                agenda.put(noLightRange()[0], "Decrease light exposure");
+            } else {
+                agenda.put(lightRange()[0], "Increase light exposure");
+            }
+        }
+
+        return agenda;
+    }
+
 }

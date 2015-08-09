@@ -21,7 +21,7 @@ public class SendScheduleToWear extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        String time = intent.getStringExtra("time");
+        Integer time = intent.getIntExtra("time", 0);
         String event = intent.getStringExtra("event");
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -44,7 +44,7 @@ public class SendScheduleToWear extends IntentService {
 
         final PutDataMapRequest putRequest = PutDataMapRequest.create("/data");
         final DataMap map = putRequest.getDataMap();
-        map.putString("time", time);
+        map.putInt("time", time);
         map.putString("event", event);
         Wearable.DataApi.putDataItem(mGoogleApiClient, putRequest.asPutDataRequest());
 

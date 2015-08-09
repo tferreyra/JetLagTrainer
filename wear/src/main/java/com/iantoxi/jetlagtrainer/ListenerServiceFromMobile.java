@@ -26,9 +26,6 @@ public class ListenerServiceFromMobile extends WearableListenerService{
             Intent intent = new Intent(this, LightSensor.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        } else {
-            String data = messageEvent.getPath();
-
         }
     }
 
@@ -42,7 +39,7 @@ public class ListenerServiceFromMobile extends WearableListenerService{
             final String path = uri != null ? uri.getPath() : null;
             if ("/data".equals(path)) {
                 final DataMap map = DataMapItem.fromDataItem(event.getDataItem()).getDataMap();
-                String time = map.getString("time");
+                Integer time = map.getInt("time");
                 String evnt = map.getString("event");
 
                 Intent intent = new Intent();
