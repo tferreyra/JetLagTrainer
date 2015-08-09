@@ -40,7 +40,7 @@ public class ListenerServiceFromMobile extends WearableListenerService{
         for (DataEvent event : events) {
             final Uri uri = event.getDataItem().getUri();
             final String path = uri != null ? uri.getPath() : null;
-            if ("data".equals(path)) {
+            if ("/data".equals(path)) {
                 final DataMap map = DataMapItem.fromDataItem(event.getDataItem()).getDataMap();
                 String time = map.getString("time");
                 String evnt = map.getString("event");

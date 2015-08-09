@@ -42,7 +42,7 @@ public class SendScheduleToWear extends IntentService {
                 .build();
         mGoogleApiClient.connect();
 
-        final PutDataMapRequest putRequest = PutDataMapRequest.create("data");
+        final PutDataMapRequest putRequest = PutDataMapRequest.create("/data");
         final DataMap map = putRequest.getDataMap();
         map.putString("time", time);
         map.putString("event", event);
