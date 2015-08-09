@@ -30,7 +30,8 @@ public class ScheduleActivity extends Activity  {
         updateReceiver = new UpdateReceiver();
         registerReceiver(updateReceiver, new IntentFilter("data"));
 
-        fillSchedule();
+        if (!hashMap.isEmpty())
+            fillSchedule();
     }
 
     private void fillSchedule() {
@@ -76,10 +77,11 @@ public class ScheduleActivity extends Activity  {
         }
     }
 
-    private static class UpdateReceiver extends BroadcastReceiver {
+    private class UpdateReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             hashMap.put(intent.getIntExtra("time", 0), intent.getStringExtra("event"));
+            fillSchedule();
         }
     }
 
@@ -87,7 +89,7 @@ public class ScheduleActivity extends Activity  {
         minutes %= 1440;
         String ampm = " AM";
         String colon = ":";
-        int hours = 0;
+        int hours;
 
         if (minutes >= 720) {
             ampm = " PM";
@@ -101,7 +103,6 @@ public class ScheduleActivity extends Activity  {
 
         if (minutes < 10)
             colon = ":0";
-
 
         return hours + colon + minutes + ampm;
     }
