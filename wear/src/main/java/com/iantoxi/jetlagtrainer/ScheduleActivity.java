@@ -50,28 +50,28 @@ public class ScheduleActivity extends Activity  {
             layout1.setVisibility(View.VISIBLE);
             TextView time = (TextView) findViewById(R.id.time1);
             TextView event = (TextView) findViewById(R.id.event1);
-            time.setText(times[0].toString());
+            time.setText(timeConversion((Integer) times[0]));
             event.setText(hashMap.get(times[0]));
         }
         if (times.length > 1)  {
             layout2.setVisibility(View.VISIBLE);
             TextView time = (TextView) findViewById(R.id.time2);
             TextView event = (TextView) findViewById(R.id.event2);
-            time.setText(times[1].toString());
+            time.setText(timeConversion((Integer) times[1]));
             event.setText(hashMap.get(times[1]));
         }
         if (times.length > 2)  {
             layout3.setVisibility(View.VISIBLE);
             TextView time = (TextView) findViewById(R.id.time3);
             TextView event = (TextView) findViewById(R.id.event3);
-            time.setText(times[2].toString());
+            time.setText(timeConversion((Integer) times[2]));
             event.setText(hashMap.get(times[2]));
         }
         if (times.length > 3)  {
             layout4.setVisibility(View.VISIBLE);
             TextView time = (TextView) findViewById(R.id.time4);
             TextView event = (TextView) findViewById(R.id.event4);
-            time.setText(times[3].toString());
+            time.setText(timeConversion((Integer) times[3]));
             event.setText(hashMap.get(times[3]));
         }
     }
@@ -83,16 +83,27 @@ public class ScheduleActivity extends Activity  {
         }
     }
 
-/*    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(updateReceiver);
-    }
+    private String timeConversion(Integer minutes) {
+        minutes %= 1440;
+        String ampm = " AM";
+        String colon = ":";
+        int hours = 0;
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(updateReceiver, new IntentFilter("data"));
-    }*/
+        if (minutes >= 720) {
+            ampm = " PM";
+            minutes %= 720;
+        }
+
+        hours = minutes/60;
+        if (hours == 0)
+            hours = 12;
+        minutes %= 60;
+
+        if (minutes < 10)
+            colon = ":0";
+
+
+        return hours + colon + minutes + ampm;
+    }
 
 }
