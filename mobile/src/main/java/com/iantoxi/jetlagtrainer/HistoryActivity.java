@@ -18,6 +18,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -29,11 +30,23 @@ public class HistoryActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.activity_history);
         setTransitions();
 
         HistoryAdapter adapter = new HistoryAdapter(this);
         setListAdapter(adapter);
+        noneMessage();
+
+    }
+
+    private void noneMessage() {
+        ListView lv = (ListView) findViewById(android.R.id.list);
+        TextView tv = (TextView) findViewById(R.id.textView3);
+        if (lv.getAdapter().getCount() == 0) {
+            lv.setVisibility(View.GONE);
+            tv.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setTransitions() {
@@ -48,9 +61,11 @@ public class HistoryActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         long scheduleId = (Long) v.getTag(R.id.schedule_tags);
-        Intent intent = new Intent(this, ScheduleActivity.class);
-        intent.putExtra("scheduleId", scheduleId);
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+//        Intent intent = new Intent(this, ScheduleActivity.class);
+//        intent.putExtra("scheduleId", scheduleId);
+        Intent intenttwo = new Intent(this, HistorySummaryActivity.class);
+        intenttwo.putExtra("scheduleId", scheduleId);
+        startActivity(intenttwo, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     @Override

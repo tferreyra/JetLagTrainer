@@ -70,6 +70,8 @@
     <!--History Screen-->
     <string name="title">Your History</string>
     <string name="empty">Your History is empty!</string>
+    <string name="old">Go to old schedule</string>
+    <string name="no_comment">No comments</string>
 
     <!-- Schedule Agenda Items -->
     <string name="sleep_start_time">Go to sleep</string>
@@ -79,5 +81,6 @@
     <string name = "light_off_time">Decrease light exposure</string>
 
     <string name="sleep_schedule_expired">Your sleep schedule is complete.</string>
+    <string name="title_activity_history_summary_activity">history_summary_activity</string>
 
 </resources>
