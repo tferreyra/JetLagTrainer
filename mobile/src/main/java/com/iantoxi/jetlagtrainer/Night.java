@@ -46,14 +46,14 @@ public class Night extends SugarRecord<Night> {
         this.previous = previous;
         this.next = next;
         this.advancing = advancing;
-        this.wakeTime = wakeTime + 24*60;
+        this.wakeTime = wakeTime;
 
         this.save();
     }
 
     public Night nextNight() {
         int newSleepTime = adjustTime(sleepTime);
-        int newWakeTime = adjustTime(wakeTime - 24*60);
+        int newWakeTime = adjustTime(wakeTime);
         Calendar newSleepStartDate = (Calendar) sleepStartDate.clone();
         newSleepStartDate.add(Calendar.DATE, 1);
         
@@ -109,6 +109,26 @@ public class Night extends SugarRecord<Night> {
                 agenda.put(noLightRange()[0], R.string.light_off_time);
             } else {
                 agenda.put(lightRange()[0], R.string.light_on_time);
+            }
+        }
+
+        return agenda;
+    }
+
+    public HashMap<Integer, String> getAgendaForWear() {
+        HashMap<Integer, String> agenda = new HashMap<Integer, String>();
+        agenda.put(sleepTime, "Go to sleep");
+        agenda.put(wakeTime, "Wake up");
+
+        if(melatoninStrategy && advancing) {
+            agenda.put(melatoninTime(), "Take melatonin");
+        }
+
+        if(lightStrategy) {
+            if (advancing) {
+                agenda.put(noLightRange()[0], "Decrease light exposure");
+            } else {
+                agenda.put(lightRange()[0], "Increase light exposure");
             }
         }
 

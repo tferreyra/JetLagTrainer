@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        List<Schedule> values = Schedule.find(Schedule.class, "active = ?", "1");
+        List<Schedule> values = Schedule.find(Schedule.class, "active = ? AND calculated = ?", "1", "1");
         if (values.size() != 0) {
             final long scheduleId = values.get(0).getId();
             TextView startText = (TextView) findViewById(R.id.startButton);

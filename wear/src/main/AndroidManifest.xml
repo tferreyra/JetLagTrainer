@@ -26,6 +26,10 @@
             android:name=".LightSensor"
             android:label="LightSensor" >
         </activity>
+        <activity
+            android:name=".ScheduleActivity"
+            android:label="ScheduleActivity" >
+        </activity>
 
         <service
             android:name=".SendServiceToMobile"

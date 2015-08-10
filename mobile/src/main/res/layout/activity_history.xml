@@ -3,34 +3,23 @@
     android:layout_height="match_parent"
     tools:context="com.iantoxi.jetlagtrainer.HistoryActivity">
 
+    <TextView
+        android:id="@+id/frameLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkPurple"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/title"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:padding="10dp" />
+
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@android:id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/frameLayout2" />
-
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@color/darkPurple"
-        android:id="@+id/frameLayout2">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/title"
-        android:id="@+id/textView2"
-        android:textSize="25sp"
-        android:textColor="@color/white"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/textView3"
-        android:layout_alignParentStart="true"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp" />
-    </FrameLayout>
 
     <TextView
         android:layout_width="wrap_content"

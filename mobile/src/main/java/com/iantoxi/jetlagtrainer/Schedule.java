@@ -21,12 +21,14 @@ public class Schedule extends SugarRecord<Schedule> {
     public Calendar travelDate;
     public Calendar endDate;
 
-    public int originSleepTime; //in minutes
-    public int originWakeTime; //in minutes
+    public int originSleepTime = -1; //in minutes
+    public int originWakeTime = -1; //in minutes
     //TODO: Implement logic to calculate schedules based on a destination sleep time.
     //TODO: Implement activity to query user for Destination sleep times.
-    public int destinationSleepTime;
-    public int destinationWakeTime;
+    public int destinationSleepTime = -1;
+    public int destinationWakeTime = -1;
+    public int targetSleepTime = -1;//relative to local timezone
+    public int targetWakeTime = -1;//relative to local timezone
 
     public boolean melatoninStrategy;
     public boolean lightStrategy;
@@ -49,6 +51,7 @@ public class Schedule extends SugarRecord<Schedule> {
 
     public Schedule() {
         //necessary for Sugar ORM
+        active = true;
     }
 
     public boolean isActive() {
@@ -65,7 +68,6 @@ public class Schedule extends SugarRecord<Schedule> {
     }
 
     public void calculateSchedule() {
-        active = true;
         calculated = true;
 
         zoneGap = calculateZoneGap();
@@ -75,10 +77,13 @@ public class Schedule extends SugarRecord<Schedule> {
             advancing = true;
         }
 
+        adjustment = Math.abs(zoneGap);
+
         destinationSleepTime = originSleepTime;
         destinationWakeTime = originWakeTime;
 
-        adjustment = Math.abs(zoneGap);
+        targetSleepTime= originSleepTime - zoneGap * 60;
+        targetWakeTime = originWakeTime - zoneGap * 60;
 
         shiftStartDate();
 
@@ -105,7 +110,12 @@ public class Schedule extends SugarRecord<Schedule> {
 
     //Calculates the number of hours in difference between two timezones on the date of travel.
     public int calculateZoneGap() {
-        long travelDateInMillis = travelDate.getTimeInMillis();
+        long travelDateInMillis;
+        if(travelDate == null) {
+            travelDateInMillis = Calendar.getInstance().getTimeInMillis();
+        } else {
+            travelDateInMillis = travelDate.getTimeInMillis();
+        }
         long offset = TimeZone.getTimeZone(destinationTimezone).getOffset(travelDateInMillis)
                 - TimeZone.getTimeZone(originTimezone).getOffset(travelDateInMillis);
         return( (int) offset / (3600000));
@@ -119,10 +129,15 @@ public class Schedule extends SugarRecord<Schedule> {
                                0, 0, advancing);
 
         currentNight = firstNight;
-        int toAdjust = adjustment;
-        while(toAdjust > 0) {
-            currentNight = currentNight.nextNight();
-            toAdjust -= 1;
+
+        if (advancing) {
+            while(currentNight.sleepTime > targetSleepTime) {
+                currentNight = currentNight.nextNight();
+            }
+        } else {
+            while(currentNight.sleepTime < targetWakeTime) {
+                currentNight = currentNight.nextNight();
+            }
         }
         endDate = currentNight.sleepStartDate;
         currentNight = firstNight;
@@ -137,8 +152,34 @@ public class Schedule extends SugarRecord<Schedule> {
         this.save();
     }
 
-    public void newSleepTime(int sleepTime, int wakeTime) {
-        //TODO: Implement logic to shift sleep times when users deviate from sleep schedule.
+    public void newSleepTime(int sleepTime) {
+        Night night = currentNight;
+        int sleepAmount = night.wakeTime - night.sleepTime;
+
+        long toDelete = night.next;
+        while (toDelete != 0) {
+            night = Night.findById(Night.class, toDelete);
+            toDelete = night.next;
+            night.delete();
+        }
+
+        currentNight.sleepTime = sleepTime;
+        currentNight.wakeTime = sleepTime + sleepAmount;
+
+        night = currentNight;
+
+        if (advancing) {
+            while(night.sleepTime > targetSleepTime) {
+                night = night.nextNight();
+            }
+        } else {
+            while(night.sleepTime < targetWakeTime) {
+                night = night.nextNight();
+            }
+        }
+
+        endDate = night.sleepStartDate;
+        this.save();
     }
 
     public static void toBeginningOfTheDay(Calendar calendar) {

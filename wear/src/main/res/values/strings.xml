@@ -5,8 +5,16 @@
 
     <string name="title_">Welcome to Sleep Shift!</string>
     <string name="description">The wear portion of this app will send you notifications
-                to help you stay on your sleep schedule. So
-                swipe away and continue on with your day! :D</string>
+                to help you stay on your sleep schedule. Tap on the icon to view your sleep
+                schedule or swipe away to continue.</string>
     <string name="light_control_description">You will now be notified if you are being exposed
                 to too much or too little light according to your sleep schedule.</string>
+
+    <!-- Schedule Agenda Items -->
+    <string name="sleep_start_time">Go to sleep</string>
+    <string name="sleep_end_time">Wake up</string>
+    <string name="melatonin_time">Take melatonin</string>
+    <string name="light_on_time">Increase light exposure</string>
+    <string name = "light_off_time">Decrease light exposure</string>
+
 </resources>

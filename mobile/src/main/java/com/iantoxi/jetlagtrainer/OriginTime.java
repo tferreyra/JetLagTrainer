@@ -38,10 +38,6 @@ public class OriginTime extends Activity {
         getWindow().setEnterTransition(slide);
         getWindow().setExitTransition(slide);
 
-        Intent intent = getIntent();
-        scheduleId = (long) intent.getExtras().get("scheduleId");
-        schedule = Schedule.findById(Schedule.class, scheduleId);
-
         Button sleepButton = (Button) findViewById(R.id.sleep_time);
         sleepButton.addTextChangedListener(new TextWatcher() {
             @Override
@@ -76,6 +72,49 @@ public class OriginTime extends Activity {
                 }
             }
         });
+    }
+
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        scheduleId = (long) intent.getExtras().get("scheduleId");
+        schedule = Schedule.findById(Schedule.class, scheduleId);
+        Button button;
+        if(!sleepTimeSet && schedule.originSleepTime != -1) {
+            button = (Button) findViewById(R.id.sleep_time);
+            button.setTag(R.id.time_tags, schedule.originSleepTime * 60);
+            sleepTimeSet = true;
+            int minutes = schedule.originSleepTime;
+
+            button.setText(TimeDialog.timeComponentsToString(minutes / 60,
+                    minutes%60));
+        }
+        if(!wakeTimeSet && schedule.originWakeTime != -1) {
+            button = (Button) findViewById(R.id.wake_time);
+            button.setTag(R.id.time_tags, schedule.originWakeTime * 60);
+            wakeTimeSet= true;
+            int minutes = schedule.originWakeTime;
+
+            button.setText(TimeDialog.timeComponentsToString(minutes / 60,
+                    minutes%60));
+        }
+        evaluateSubmitPotential();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        int sleepTime = getSleepTime();
+        int wakeTime = getWakeTime();
+
+        if (sleepTime != -1) {
+            schedule.originSleepTime = sleepTime/60;
+        }
+        if (wakeTime != -1) {
+            schedule.originWakeTime = wakeTime/60;
+        }
+        schedule.save();
     }
 
     @Override
@@ -130,9 +169,12 @@ public class OriginTime extends Activity {
 
             submit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-
-                    schedule.originSleepTime = getSleepTime()/60;
-                    schedule.originWakeTime = getWakeTime()/60;
+                    int sleepTime = getSleepTime()/60;
+                    if(sleepTime < 720) {
+                        sleepTime = sleepTime + 24*60;
+                    }
+                    schedule.originSleepTime = sleepTime;
+                    schedule.originWakeTime = getWakeTime()/60 + 24*60;
                     schedule.save();
 
                     Intent intent = new Intent(OriginTime.this, SleepStrategySelection.class);
@@ -156,11 +198,19 @@ public class OriginTime extends Activity {
 
     private int getSleepTime() {
         Button sleepButton = (Button) findViewById(R.id.sleep_time);
-        return (int) sleepButton.getTag(R.id.time_tags);
+        Object intValue = sleepButton.getTag(R.id.time_tags);
+        if (intValue == null) {
+            return -1;
+        }
+        return (int) intValue;
     }
 
     private int getWakeTime() {
         Button wakeButton = (Button) findViewById(R.id.wake_time);
-        return (int) wakeButton.getTag(R.id.time_tags);
+        Object intValue = wakeButton.getTag(R.id.time_tags);
+        if (intValue == null) {
+            return -1;
+        }
+        return (int) intValue;
     }
 }

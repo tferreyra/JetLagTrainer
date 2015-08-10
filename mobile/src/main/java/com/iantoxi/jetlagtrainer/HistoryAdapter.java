@@ -58,7 +58,15 @@ public class HistoryAdapter extends BaseAdapter {
 
         month.setText(night.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault()));
         date.setText(Integer.toString(night.get(Calendar.DATE)));
-        zoneGap.setText(Integer.toString(schedule.zoneGap));
+
+        TextView direction = (TextView) view.findViewById(R.id.direction);
+        if(schedule.zoneGap > 0) {
+            direction.setText("Advanced");
+        } else {
+            direction.setText("Delayed");
+        }
+        zoneGap.setText(Integer.toString(Math.abs(schedule.zoneGap)));
+
         destination.setText(schedule.destinationTimezone);
 
         view.setTag(R.id.schedule_tags, schedule.getId());

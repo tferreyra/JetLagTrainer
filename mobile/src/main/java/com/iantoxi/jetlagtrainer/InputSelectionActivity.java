@@ -16,21 +16,13 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.TimeZone;
 
 
 public class InputSelectionActivity extends Activity {
-
-    private Document doc;
-    private String searchQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
