@@ -2,6 +2,7 @@ package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,8 +48,6 @@ public class AgendaAdapter extends BaseAdapter {
         return position;
     }
 
-
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view=inflater.inflate(R.layout.agenda_list_item_layout, null,true);
@@ -60,62 +59,30 @@ public class AgendaAdapter extends BaseAdapter {
         Integer temp = (Integer) sortedTimes[position];
 
         boolean wake = false;
-        if (context.getString(stringId).equals("Wake up") || context.getString(stringId).equals("Take melatonin"))
+        if (context.getString(stringId).equals("Wake up") || context.getString(stringId).equals("Take melatonin")) {
             wake = true;
+        }
 
         String formattedTime = processTime(temp, wake);
 
         //TODO: format time into hours:minutes AM/PM format
-        time.setText(Integer.toString((Integer) sortedTimes[position]));
         time.setText(formattedTime);
         event.setText(context.getString(stringId));
 
         return view;
     }
 
-    private String processTime(Integer integer, boolean wake) {
-        int time;
-        boolean override = false;
-
-        if (integer == 0 && wake)
-            return "12:00 AM";
-
-        if (integer < 0)
-            time = 1440 + integer;
-        else if (wake) {
-            if (integer > 1440)
-                time = integer - 1440;
-            else {
-                if (integer > 720) {
-                    time = integer - 720;
-                    override = true;
-                } else {
-                    time = integer;
-                }
-            }
-            if (time < 0) {
-                time += 720;
-                override = true;
-            }
-        } else
-            time = integer;
-
-        int hours = time / 60;
+    private String processTime(Integer time, boolean wake) {
+        // Time range 0-2880 minutes. Set time within one day (0-1440 minutes).
+        time = time % 1440;
+        int hours = (time / 60) % 12;
         int minutes = time % 60;
-
-        String AMPM = " AM";
+        String AMPM = (time < 720) ? " AM" : " PM";
         if (hours == 0) {
-            hours = 12; // since 12 AM is represented as 0
-        } else if (hours >= 12) {
-            AMPM = " PM";
-            if (hours > 12)
-                hours -= 12;
-        } else if (override)
-            AMPM = " PM";
-
-        if (minutes < 10) {
-            return Integer.toString(hours) + ":0" + Integer.toString(minutes) + AMPM;
-        } else
-            return Integer.toString(hours) + ":" + Integer.toString(minutes) + AMPM;
+            hours = 12; // since 12 AM and 12 PM is represented as 0
+        }
+        String hrs = Integer.toString(hours);
+        String mins = (minutes < 10) ? "0" + Integer.toString(minutes) : Integer.toString(minutes);
+        return hrs + ":" + mins + AMPM;
     }
 }
