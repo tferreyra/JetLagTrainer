@@ -1,0 +1,217 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.iantoxi.jetlagtrainer.InputSummaryActivity"
+    android:paddingTop="20dp">
+
+    <ImageView
+        android:transitionName="@string/transition_main_input"
+        android:layout_width="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sleep_training"
+        android:id="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/input_summary_title"
+        android:layout_below="@id/imageView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="20sp"
+        style="@style/bodyText"
+        android:layout_marginLeft="20dp"
+        android:text="@string/summary_title"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_below="@id/input_summary_title"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2">
+        <LinearLayout
+            android:background="#15FFFFFF"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+            <TextView
+                android:background="@color/darkBlue"
+                android:layout_width="0dp"
+                android:layout_weight="40"
+                android:gravity="right"
+                android:textColor="#4fff"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginTop="1dp"
+                android:text="Origin"/>
+            <TextView
+                android:id="@+id/origin"
+                android:background="@color/darkBlue"
+                android:layout_width="0dp"
+                android:layout_weight="60"
+                android:gravity="left"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:padding="10dp"
+                android:text="America/Los Angeles"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#15FFFFFF"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="40"
+                android:gravity="right"
+                android:textColor="#4fff"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/darkBlue"
+                android:text="Destination"/>
+            <TextView
+                android:id="@+id/destination"
+                android:layout_width="0dp"
+                android:layout_weight="60"
+                android:gravity="left"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/darkBlue"
+                android:text="America/New York"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#15FFFFFF"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="40"
+                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="#4fff"
+                android:layout_marginBottom="1dp"
+                android:background="@color/darkBlue"
+                android:text="Travel Date"/>
+            <TextView
+                android:id="@+id/travel_date"
+                android:layout_width="0dp"
+                android:layout_weight="60"
+                android:gravity="left"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/darkBlue"
+                android:text="August 31, 2015"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#15FFFFFF"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="40"
+                android:textColor="#4fff"
+                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/darkBlue"
+                android:text="Melatonin?"/>
+            <TextView
+                android:id="@+id/melatonin"
+                android:layout_width="0dp"
+                android:layout_weight="60"
+                android:layout_marginTop="1dp"
+                android:gravity="left"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/darkBlue"
+                android:text="No"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#15FFFFFF"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            android:weightSum="100">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="40"
+                android:textColor="#4fff"
+                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/darkBlue"
+                android:text="Light Control?"/>
+            <TextView
+                android:id="@+id/light"
+                android:layout_width="0dp"
+                android:layout_weight="60"
+                android:gravity="left"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/darkBlue"
+                android:text="Yes"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/teal"
+        android:id="@+id/frameLayout3">
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:textSize="25sp"
+            android:padding="15dp"
+            android:text="@string/old"
+            android:onClick="goToSchedule"
+            />
+    </FrameLayout>
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar2"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_comment"
+        android:gravity="center"
+        android:id="@+id/comment"
+        android:layout_above="@+id/frameLayout3"
+        android:layout_below="@+id/ratingBar2"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>
