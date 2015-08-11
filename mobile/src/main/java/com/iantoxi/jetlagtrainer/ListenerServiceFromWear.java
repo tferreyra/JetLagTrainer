@@ -1,5 +1,7 @@
 package com.iantoxi.jetlagtrainer;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -50,7 +52,10 @@ public class ListenerServiceFromWear extends WearableListenerService {
         long currentTime = calendar.getTimeInMillis();
         boolean testing = false; // for testing purposes
 
-        //Intent intent = new Intent(this, ScheduledDis )
+        Intent intent = new Intent(this, SendServiceToWear.class);
+        intent.addFlags(Notification.FLAG_AUTO_CANCEL);
+        intent.putExtra("message", "schedule");
+        final PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
 
         if (messageEvent.getPath().equals(sleeping) && currentNight != null) {
             long sleepTime = currentNight.sleepTime * 60 * 1000; // in milliseconds
@@ -61,6 +66,7 @@ public class ListenerServiceFromWear extends WearableListenerService {
                         .setContentTitle(awakeTitle)
                         .setContentText(awakeText)
                         .setAutoCancel(true)
+                        .addAction(R.drawable.cast_ic_notification_0, "View Schedule", pendingIntent)
                         .extend(new NotificationCompat.WearableExtender().setBackground(BitmapFactory
                                 .decodeResource(ListenerServiceFromWear.this.getResources(), R.drawable.stay_awake_notification_img)));
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ListenerServiceFromWear.this);
@@ -74,6 +80,7 @@ public class ListenerServiceFromWear extends WearableListenerService {
                         .setContentTitle(lightTitle)
                         .setContentText(lightText)
                         .setAutoCancel(true)
+                        .addAction(R.drawable.cast_ic_notification_0, "View Schedule", pendingIntent)
                         .extend(new NotificationCompat.WearableExtender().setBackground(BitmapFactory
                                 .decodeResource(ListenerServiceFromWear.this.getResources(), R.drawable.too_bright_notification_img)));
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ListenerServiceFromWear.this);
@@ -87,6 +94,7 @@ public class ListenerServiceFromWear extends WearableListenerService {
                         .setContentTitle(darkTitle)
                         .setContentText(darkText)
                         .setAutoCancel(true)
+                        .addAction(R.drawable.cast_ic_notification_0, "View Schedule", pendingIntent)
                         .extend(new NotificationCompat.WearableExtender().setBackground(BitmapFactory
                                 .decodeResource(ListenerServiceFromWear.this.getResources(), R.drawable.too_dark_notification_img)));
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ListenerServiceFromWear.this);
@@ -97,10 +105,10 @@ public class ListenerServiceFromWear extends WearableListenerService {
             Iterator iterator = agenda.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry) iterator.next();
-                Intent intent = new Intent(ListenerServiceFromWear.this, SendScheduleToWear.class);
-                intent.putExtra("time", (Integer) pair.getKey());
-                intent.putExtra("event", pair.getValue().toString());
-                startService(intent);
+                Intent intent2 = new Intent(ListenerServiceFromWear.this, SendScheduleToWear.class);
+                intent2.putExtra("time", (Integer) pair.getKey());
+                intent2.putExtra("event", pair.getValue().toString());
+                startService(intent2);
             }
         }
     }

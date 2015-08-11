@@ -27,6 +27,11 @@ public class ListenerServiceFromMobile extends WearableListenerService{
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
+        else if (messageEvent.getPath().equals("schedule")) {
+            Intent intent = new Intent(this, ScheduleDisplay.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
 
     @Override

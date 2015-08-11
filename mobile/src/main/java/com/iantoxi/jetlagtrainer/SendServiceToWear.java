@@ -4,6 +4,7 @@ package com.iantoxi.jetlagtrainer;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationManagerCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -24,6 +25,12 @@ public class SendServiceToWear extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         messagePath = intent.getStringExtra("message");
+
+        if (messagePath.equals("schedule")) {
+            NotificationManagerCompat np = NotificationManagerCompat.from(getApplicationContext());
+            np.cancel(10);
+        }
+
 
         // Creates and builds GoogleApiClient.
         mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(
