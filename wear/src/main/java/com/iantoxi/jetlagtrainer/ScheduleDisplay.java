@@ -20,6 +20,7 @@ public class ScheduleDisplay extends Activity  {
     private static HashMap<Integer, String> hashMap = new HashMap<Integer, String>();
     private UpdateReceiver updateReceiver;
     private LinearLayout layout1, layout2, layout3, layout4;
+    private View line1, line2, line3;
     private ProgressBar progressBar;
     private ImageView nextArrow;
 
@@ -39,6 +40,13 @@ public class ScheduleDisplay extends Activity  {
         layout3.setVisibility(View.INVISIBLE);
         layout4 = (LinearLayout) findViewById(R.id.layout4);
         layout4.setVisibility(View.INVISIBLE);
+
+        line1 = (View) findViewById(R.id.line1);
+        line1.setVisibility(View.INVISIBLE);
+        line2 = (View) findViewById(R.id.line2);
+        line2.setVisibility(View.INVISIBLE);
+        line3 = (View) findViewById(R.id.line3);
+        line3.setVisibility(View.INVISIBLE);
 
         nextArrow = (ImageView) findViewById(R.id.next_arrow);
         nextArrow.setVisibility(View.INVISIBLE);
@@ -84,6 +92,7 @@ public class ScheduleDisplay extends Activity  {
             TextView event = (TextView) findViewById(R.id.event2);
             time.setText(timeConversion((Integer) times[1]));
             event.setText(hashMap.get(times[1]));
+            line2.setVisibility(View.VISIBLE);
         }
         if (times.length > 2)  {
             layout3.setVisibility(View.VISIBLE);
@@ -91,6 +100,7 @@ public class ScheduleDisplay extends Activity  {
             TextView event = (TextView) findViewById(R.id.event3);
             time.setText(timeConversion((Integer) times[2]));
             event.setText(hashMap.get(times[2]));
+            line2.setVisibility(View.VISIBLE);
         }
         if (times.length > 3)  {
             layout4.setVisibility(View.VISIBLE);
@@ -98,6 +108,7 @@ public class ScheduleDisplay extends Activity  {
             TextView event = (TextView) findViewById(R.id.event4);
             time.setText(timeConversion((Integer) times[3]));
             event.setText(hashMap.get(times[3]));
+            line3.setVisibility(View.VISIBLE);
         }
     }
 

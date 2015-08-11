@@ -38,6 +38,13 @@
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/line1"
+        android:layout_width="150dp"
+        android:layout_height="1dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/lineColor"/>
+
     <LinearLayout
         android:id="@+id/layout2"
         android:layout_width="fill_parent"
@@ -61,6 +68,13 @@
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/line2"
+        android:layout_width="150dp"
+        android:layout_height="1dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/lineColor"/>
+
     <LinearLayout
         android:id="@+id/layout3"
         android:layout_width="fill_parent"
@@ -83,6 +97,13 @@
             android:text="EVENT"/>
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/line3"
+        android:layout_width="150dp"
+        android:layout_height="1dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/lineColor"/>
 
     <LinearLayout
         android:id="@+id/layout4"
