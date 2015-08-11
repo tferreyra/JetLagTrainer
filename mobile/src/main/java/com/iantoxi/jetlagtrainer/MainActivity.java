@@ -11,7 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.orm.SugarDb;
@@ -35,6 +39,9 @@ public class MainActivity extends Activity {
         getWindow().setSharedElementEnterTransition(slide);
         getWindow().setSharedElementExitTransition(slide);
 
+        /*TextView textView = (TextView) findViewById(R.id.startButton);
+        Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
+        textView.startAnimation(pulse);*/
     }
 
     @Override
