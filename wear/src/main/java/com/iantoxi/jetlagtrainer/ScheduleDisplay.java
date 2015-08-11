@@ -5,8 +5,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,11 +21,12 @@ public class ScheduleDisplay extends Activity  {
     private UpdateReceiver updateReceiver;
     private LinearLayout layout1, layout2, layout3, layout4;
     private ProgressBar progressBar;
+    private ImageView nextArrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.schedule_activity);
+        setContentView(R.layout.schedule_display);
         Intent intent = new Intent(ScheduleDisplay.this, SendServiceToMobile.class);
         intent.putExtra("message", "schedule");
         startService(intent);
@@ -36,6 +39,17 @@ public class ScheduleDisplay extends Activity  {
         layout3.setVisibility(View.INVISIBLE);
         layout4 = (LinearLayout) findViewById(R.id.layout4);
         layout4.setVisibility(View.INVISIBLE);
+
+        nextArrow = (ImageView) findViewById(R.id.next_arrow);
+        nextArrow.setVisibility(View.INVISIBLE);
+        /*nextArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ScheduleDisplay.this, GraphDisplay.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });*/
 
         updateReceiver = new UpdateReceiver();
         registerReceiver(updateReceiver, new IntentFilter("data"));
@@ -94,6 +108,7 @@ public class ScheduleDisplay extends Activity  {
             fillSchedule();
             progressBar = (ProgressBar) findViewById(R.id.loading);
             progressBar.setVisibility(View.GONE);
+            nextArrow.setVisibility(View.VISIBLE);
         }
     }
 

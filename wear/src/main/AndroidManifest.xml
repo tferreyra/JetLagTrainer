@@ -30,6 +30,10 @@
             android:name=".ScheduleDisplay"
             android:label="ScheduleDisplay" >
         </activity>
+        <activity
+            android:name=".GraphDisplay"
+            android:label="GraphDisplay" >
+        </activity>
 
         <service
             android:name=".SendServiceToMobile"

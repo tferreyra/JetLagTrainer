@@ -3,5 +3,23 @@
 
     <color name = "darkPurple">#261C2B</color>
     <color name = "darkBlue">#292B39</color>
+    <color name = "darkTeal">#226468</color>
+
+    <style name="bodyText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="graph_times" parent="bodyText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">15dp</item>
+        <item name="android:textColor">#4FFF</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:layout_weight">10</item>
+        <item name="android:background">@drawable/border</item>
+    </style>
 
 </resources>
