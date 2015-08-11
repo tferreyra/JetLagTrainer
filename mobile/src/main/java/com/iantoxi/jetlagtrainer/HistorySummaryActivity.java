@@ -18,7 +18,7 @@ import java.util.Locale;
 public class HistorySummaryActivity extends Activity {
     private long scheduleId;
     private Schedule schedule;
-    private Evaluation eval;
+    static final int PICK_CONTACT_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class HistorySummaryActivity extends Activity {
         Intent intent = getIntent();
         scheduleId = (long) intent.getExtras().get("scheduleId");
         schedule = Schedule.findById(Schedule.class, scheduleId);
-        eval = Evaluation.findById(Evaluation.class, scheduleId);
+       // eval = Evaluation.findById(Evaluation.class, scheduleId);
 
         updateTextView(R.id.origin, schedule.originTimezone);
         updateTextView(R.id.destination, schedule.destinationTimezone);
@@ -37,12 +37,12 @@ public class HistorySummaryActivity extends Activity {
         updateTextView(R.id.melatonin, boolToYesNo(schedule.melatoninStrategy));
         updateTextView(R.id.light, boolToYesNo(schedule.lightStrategy));
 
-        if (eval != null) {
-            if (eval.response != null) {
-                updateTextView(R.id.comment, eval.response);
+        if (schedule != null) {
+            if (schedule.comments != null) {
+                updateTextView(R.id.comment, schedule.comments);
             }
             RatingBar rate = (RatingBar) findViewById(R.id.ratingBar2);
-            rate.setRating((float) eval.rating);
+            rate.setRating(schedule.rating);
         }
 
     }
@@ -93,6 +93,23 @@ public class HistorySummaryActivity extends Activity {
     public void goToSchedule(View view) {
         Intent intent = new Intent(this, ScheduleActivity.class);
         intent.putExtra("scheduleId", scheduleId);
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        startActivitygi(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        // Check which request we're responding to
+//        if (requestCode == PICK_CONTACT_REQUEST) {
+//            // Make sure the request was successful
+//            if (resultCode == RESULT_OK) {
+//                if (schedule != null) {
+//                    if (schedule.comments != null) {
+//                        updateTextView(R.id.comment, schedule.comments);
+//                    }
+//                    RatingBar rate = (RatingBar) findViewById(R.id.ratingBar2);
+//                    rate.setRating(schedule.rating);
+//                }
+//            }
+//        }
+//    }
 }
