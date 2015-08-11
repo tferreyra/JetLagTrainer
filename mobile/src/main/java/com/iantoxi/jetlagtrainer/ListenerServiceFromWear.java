@@ -50,7 +50,7 @@ public class ListenerServiceFromWear extends WearableListenerService {
         long currentTime = calendar.getTimeInMillis();
         boolean testing = false; // for testing purposes
 
-        Intent intent = new Intent(this, ScheduledDis )
+        //Intent intent = new Intent(this, ScheduledDis )
 
         if (messageEvent.getPath().equals(sleeping) && currentNight != null) {
             long sleepTime = currentNight.sleepTime * 60 * 1000; // in milliseconds
