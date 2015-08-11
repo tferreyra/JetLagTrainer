@@ -2,6 +2,7 @@ package com.iantoxi.jetlagtrainer;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.widget.Toast;
 
 import com.google.android.gms.common.data.Freezable;
 import com.google.android.gms.common.data.FreezableUtils;
@@ -26,11 +27,13 @@ public class ListenerServiceFromMobile extends WearableListenerService{
             Intent intent = new Intent(this, LightSensor.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        }
-        else if (messageEvent.getPath().equals("schedule")) {
+        } else if (messageEvent.getPath().equals("schedule")) {
             Intent intent = new Intent(this, ScheduleDisplay.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+        } else if (messageEvent.getPath().equals("no_schedule")) {
+            Toast.makeText(getApplicationContext(), "No active schedule to display",
+                    Toast.LENGTH_LONG).show();
         }
     }
 

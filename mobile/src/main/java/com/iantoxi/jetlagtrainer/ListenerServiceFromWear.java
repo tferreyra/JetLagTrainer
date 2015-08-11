@@ -101,14 +101,20 @@ public class ListenerServiceFromWear extends WearableListenerService {
                 notificationManager.notify(10, notificationBuilder.build());
             }
         } else if (messageEvent.getPath().equals("schedule")) {
-            HashMap<Integer, String> agenda = currentNight.getAgendaForWear();
-            Iterator iterator = agenda.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry pair = (Map.Entry) iterator.next();
-                Intent intent2 = new Intent(ListenerServiceFromWear.this, SendScheduleToWear.class);
-                intent2.putExtra("time", (Integer) pair.getKey());
-                intent2.putExtra("event", pair.getValue().toString());
+            if (currentNight == null) {
+                Intent intent2 = new Intent(ListenerServiceFromWear.this, SendServiceToWear.class);
+                intent2.putExtra("message", "no_schedule");
                 startService(intent2);
+            } else {
+                HashMap<Integer, String> agenda = currentNight.getAgendaForWear();
+                Iterator iterator = agenda.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry pair = (Map.Entry) iterator.next();
+                    Intent intent2 = new Intent(ListenerServiceFromWear.this, SendScheduleToWear.class);
+                    intent2.putExtra("time", (Integer) pair.getKey());
+                    intent2.putExtra("event", pair.getValue().toString());
+                    startService(intent2);
+                }
             }
         }
     }
