@@ -63,7 +63,7 @@ public class AgendaAdapter extends BaseAdapter {
         if (context.getString(stringId).equals("Wake up") || context.getString(stringId).equals("Take melatonin"))
             wake = true;
 
-        String formattedTime = processTime(temp, wake);
+        String formattedTime = processTime(temp);
 
         //TODO: format time into hours:minutes AM/PM format
         time.setText(Integer.toString((Integer) sortedTimes[position]));
@@ -73,7 +73,29 @@ public class AgendaAdapter extends BaseAdapter {
         return view;
     }
 
-    private String processTime(Integer integer, boolean wake) {
+    private String processTime(Integer minutes) {
+        minutes %= 1440;
+        String ampm = " AM";
+        String colon = ":";
+        int hours;
+
+        if (minutes >= 720) {
+            ampm = " PM";
+            minutes %= 720;
+        }
+
+        hours = minutes/60;
+        if (hours == 0)
+            hours = 12;
+        minutes %= 60;
+
+        if (minutes < 10)
+            colon = ":0";
+
+        return hours + colon + minutes + ampm;
+    }
+
+    /*private String processTime(Integer integer, boolean wake) {
         int time;
         boolean override = false;
 
@@ -117,5 +139,5 @@ public class AgendaAdapter extends BaseAdapter {
             return Integer.toString(hours) + ":0" + Integer.toString(minutes) + AMPM;
         } else
             return Integer.toString(hours) + ":" + Integer.toString(minutes) + AMPM;
-    }
+    }*/
 }

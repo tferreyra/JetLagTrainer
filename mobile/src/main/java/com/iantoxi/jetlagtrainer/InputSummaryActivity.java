@@ -98,22 +98,25 @@ public class InputSummaryActivity extends Activity {
         finish();
     }
 
-    private String timeConversion(Integer i) {
-        int hours = i / 60;
-        int minutes = (i % 60);
+    private String timeConversion(Integer minutes) {
+        minutes %= 1440;
+        String ampm = " AM";
+        String colon = ":";
+        int hours;
 
-        String AMPM = " AM";
-        if (hours == 0) {
-            hours = 12; // since 12 AM is represented as 0
-        } else if (hours >= 12) {
-            AMPM = " PM";
-            if (hours > 12)
-                hours -= 12;
+        if (minutes >= 720) {
+            ampm = " PM";
+            minutes %= 720;
         }
 
-        if (minutes < 10) {
-            return Integer.toString(hours) + ":0" + Integer.toString(minutes) + AMPM;
-        } else
-            return Integer.toString(hours) + ":" + Integer.toString(minutes) + AMPM;
+        hours = minutes/60;
+        if (hours == 0)
+            hours = 12;
+        minutes %= 60;
+
+        if (minutes < 10)
+            colon = ":0";
+
+        return hours + colon + minutes + ampm;
     }
 }
