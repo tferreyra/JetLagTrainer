@@ -1,6 +1,7 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -73,6 +74,10 @@ public class EvaluationActivity extends Activity {
         schedule.save();
 
         Toast.makeText(this, "Your evaluation has been saved.", Toast.LENGTH_LONG).show();
+//        private long scheduleId;
+//        Intent intent = new Intent(this, HistorySummaryActivity.class);
+//        intent.putExtra("scheduleId", scheduleId);
+//        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
 }
