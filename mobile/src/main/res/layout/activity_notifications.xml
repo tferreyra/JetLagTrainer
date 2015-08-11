@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Developer Testing Page"
+        android:textSize="25sp"
+        android:gravity="center_horizontal|center_vertical"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Tap text to trigger corresponding notification"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:id="@+id/sleep_notification"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Trigger Sleep Notification"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/melatonin_notification"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Trigger Melatonin Notification"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/too_much_light_notification"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Trigger Too Much Light Notification"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/not_enough_light_notification"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Trigger Too Little Light Notification"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/no_sleep_yet_notification"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Trigger Don't Go To Sleep Yet Notification"
+        android:layout_marginBottom="10dp"/>
+
+</LinearLayout>

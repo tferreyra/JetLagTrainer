@@ -31,6 +31,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                     .setContentTitle(sleepTitle)
                     .setContentText(sleepText)
                     .setAutoCancel(true)
+                    .setPriority(2)
                     .addAction(R.drawable.cast_ic_notification_0, "View Schedule", pendingIntent)
                     .extend(new NotificationCompat.WearableExtender()
                             .setBackground(BitmapFactory.decodeResource(context.getResources(), R.drawable.sleep_notification_img)));
@@ -42,6 +43,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                     .setContentTitle(melatoninTitle)
                     .setContentText(melatoninText)
                     .setAutoCancel(true)
+                    .setPriority(2)
                     .addAction(R.drawable.cast_ic_notification_0, "View Schedule", pendingIntent)
                     .extend(new NotificationCompat.WearableExtender()
                             .setBackground(BitmapFactory.decodeResource(context.getResources(), R.drawable.melatonin_notification_img)));

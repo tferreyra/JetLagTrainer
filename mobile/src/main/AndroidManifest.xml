@@ -54,6 +54,10 @@
             android:name=".InputSummaryActivity"
             android:label="@string/title_activity_input_summary" >
         </activity>
+        <activity
+            android:name=".NotificationActivity"
+            android:label="NotificationActivity" >
+        </activity>
 
         <receiver
             android:name=".NotificationReceiver"

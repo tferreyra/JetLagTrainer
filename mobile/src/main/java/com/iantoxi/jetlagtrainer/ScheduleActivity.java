@@ -1,7 +1,6 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.AlarmManager;
 import android.app.FragmentTransaction;
@@ -12,7 +11,6 @@ import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,15 +23,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -70,14 +65,24 @@ public class ScheduleActivity extends FragmentActivity {
 
         setScheduleBar();
 
-        //if (intent.getBooleanExtra("reminder", false) == true) {
+        if (intent.getBooleanExtra("reminder", false) == true) {
             setReminders();
-        //}
+        }
 
         setCancel();
 
         setChangeSleepTime();
 
+        ImageButton notifications = (ImageButton) findViewById(R.id.options_button);
+        notifications.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent i = new Intent (ScheduleActivity.this, NotificationActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                return true;
+            }
+        });
 
 
     }
@@ -302,12 +307,12 @@ public class ScheduleActivity extends FragmentActivity {
             alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeRemaining, sleepPendingIntent);
         }
 
-        //if (schedule.melatoninStrategy && sleepTime - (currentNight.melatoninTime() * 60 * 1000) > currentTime) {
+        if (schedule.melatoninStrategy && sleepTime - (currentNight.melatoninTime() * 60 * 1000) > currentTime) {
             Intent melatoninIntent = new Intent(this, NotificationReceiver.class);
             melatoninIntent.putExtra("id", "melatonin");
             PendingIntent melatoninPendingIntent = PendingIntent.getBroadcast(this, 2, melatoninIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, /*sleepTime - (currentNight.melatoninTime() * 60 * 1000) - currentTime*/ 0, melatoninPendingIntent);
-        //}
+            alarmManager.set(AlarmManager.RTC_WAKEUP, sleepTime - (currentNight.melatoninTime() * 60 * 1000) - currentTime, melatoninPendingIntent);
+        }
 
         Intent lightIntent = new Intent(this, SendServiceToWear.class);
         if (schedule.lightStrategy) {
