@@ -70,9 +70,9 @@ public class ScheduleActivity extends FragmentActivity {
 
         setScheduleBar();
 
-        if (intent.getBooleanExtra("reminder", false) == true) {
+        //if (intent.getBooleanExtra("reminder", false) == true) {
             setReminders();
-        }
+        //}
 
         setCancel();
 
@@ -302,12 +302,12 @@ public class ScheduleActivity extends FragmentActivity {
             alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeRemaining, sleepPendingIntent);
         }
 
-        if (schedule.melatoninStrategy && sleepTime - (currentNight.melatoninTime() * 60 * 1000) > currentTime) {
+        //if (schedule.melatoninStrategy && sleepTime - (currentNight.melatoninTime() * 60 * 1000) > currentTime) {
             Intent melatoninIntent = new Intent(this, NotificationReceiver.class);
             melatoninIntent.putExtra("id", "melatonin");
             PendingIntent melatoninPendingIntent = PendingIntent.getBroadcast(this, 2, melatoninIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, sleepTime - (currentNight.melatoninTime() * 60 * 1000) - currentTime, melatoninPendingIntent);
-        }
+            alarmManager.set(AlarmManager.RTC_WAKEUP, /*sleepTime - (currentNight.melatoninTime() * 60 * 1000) - currentTime*/ 0, melatoninPendingIntent);
+        //}
 
         Intent lightIntent = new Intent(this, SendServiceToWear.class);
         if (schedule.lightStrategy) {
