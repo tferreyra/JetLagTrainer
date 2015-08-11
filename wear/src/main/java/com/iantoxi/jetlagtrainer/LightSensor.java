@@ -2,6 +2,8 @@ package com.iantoxi.jetlagtrainer;
 
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;

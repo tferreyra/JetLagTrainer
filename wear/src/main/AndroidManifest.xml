@@ -27,8 +27,8 @@
             android:label="LightSensor" >
         </activity>
         <activity
-            android:name=".ScheduleActivity"
-            android:label="ScheduleActivity" >
+            android:name=".ScheduleDisplay"
+            android:label="ScheduleDisplay" >
         </activity>
 
         <service

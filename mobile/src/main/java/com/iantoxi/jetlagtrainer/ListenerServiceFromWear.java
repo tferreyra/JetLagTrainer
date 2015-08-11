@@ -50,6 +50,8 @@ public class ListenerServiceFromWear extends WearableListenerService {
         long currentTime = calendar.getTimeInMillis();
         boolean testing = false; // for testing purposes
 
+        Intent intent = new Intent(this, ScheduledDis )
+
         if (messageEvent.getPath().equals(sleeping) && currentNight != null) {
             long sleepTime = currentNight.sleepTime * 60 * 1000; // in milliseconds
             long leeway = 30 * 60 * 1000; // do not tell users to stay awake if less than half an hour to bedtime

@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
         icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ScheduleActivity.class);
+                Intent intent = new Intent(MainActivity.this, ScheduleDisplay.class);
                 startActivity(intent);
             }
         });

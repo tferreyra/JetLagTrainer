@@ -11,12 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class ScheduleActivity extends Activity  {
+public class ScheduleDisplay extends Activity  {
     private static HashMap<Integer, String> hashMap = new HashMap<Integer, String>();
     private UpdateReceiver updateReceiver;
     private LinearLayout layout1, layout2, layout3, layout4;
@@ -26,7 +24,7 @@ public class ScheduleActivity extends Activity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_activity);
-        Intent intent = new Intent(ScheduleActivity.this, SendServiceToMobile.class);
+        Intent intent = new Intent(ScheduleDisplay.this, SendServiceToMobile.class);
         intent.putExtra("message", "schedule");
         startService(intent);
 
@@ -41,6 +39,18 @@ public class ScheduleActivity extends Activity  {
 
         updateReceiver = new UpdateReceiver();
         registerReceiver(updateReceiver, new IntentFilter("data"));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        registerReceiver(updateReceiver, new IntentFilter("data"));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        unregisterReceiver(updateReceiver);
     }
 
     private void fillSchedule() {
