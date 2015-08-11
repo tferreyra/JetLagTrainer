@@ -135,7 +135,7 @@ public class Schedule extends SugarRecord<Schedule> {
                 currentNight = currentNight.nextNight();
             }
         } else {
-            while(currentNight.sleepTime < targetWakeTime) {
+            while(currentNight.sleepTime < targetSleepTime) {
                 currentNight = currentNight.nextNight();
             }
         }
@@ -173,7 +173,7 @@ public class Schedule extends SugarRecord<Schedule> {
                 night = night.nextNight();
             }
         } else {
-            while(night.sleepTime < targetWakeTime) {
+            while(night.sleepTime < targetSleepTime) {
                 night = night.nextNight();
             }
         }
