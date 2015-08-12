@@ -100,25 +100,12 @@ public class MainActivity extends Activity {
                     Intent intent = new Intent(MainActivity.this, SendServiceToMobile.class);
                     intent.putExtra("message", "sleeping");
                     startService(intent);
+                    isNotificationTaskRunning = false;
                 }
             };
             timer.schedule(notificationTask, delay);
             startTime = System.currentTimeMillis();
             isNotificationTaskRunning = true;
-
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (isNotificationTaskRunning) {
-                        wasNotificationTriggered = true;
-                        isNotificationTaskRunning = false;
-                    } else {
-                        wasNotificationTriggered = false;
-                    }
-                }
-            }, delay);
-
 
         } else if ((!acceleration || !heartRate) && isNotificationTaskRunning) {
             notificationTask.cancel();
@@ -126,7 +113,6 @@ public class MainActivity extends Activity {
             isNotificationTaskRunning = false;
         }
     }
-
 
     private boolean hasTimePassed() {
         long interval = 1000 * 60 * 11; //interval of ten minutes between notifications
