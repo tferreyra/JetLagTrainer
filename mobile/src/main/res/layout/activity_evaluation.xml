@@ -63,7 +63,7 @@
             android:textSize="25sp"
             android:padding="15dp"
             android:onClick="saveEvaluation"
-            android:text="Save"/>
+            android:text="Save" />
     </FrameLayout>
 
     <TextView

@@ -18,7 +18,6 @@ import java.util.Locale;
 public class HistorySummaryActivity extends Activity {
     private long scheduleId;
     private Schedule schedule;
-   // static final int PICK_CONTACT_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +35,13 @@ public class HistorySummaryActivity extends Activity {
         updateTextView(R.id.melatonin, boolToYesNo(schedule.melatoninStrategy));
         updateTextView(R.id.light, boolToYesNo(schedule.lightStrategy));
 
+        if (schedule != null) {
+            if (schedule.comments != null) {
+                updateTextView(R.id.comment, schedule.comments);
+            }
+            RatingBar rate = (RatingBar) findViewById(R.id.ratingBar2);
+            rate.setRating(schedule.rating);
+        }
     }
 
     private void updateTextView(int id, String text) {
@@ -80,35 +86,17 @@ public class HistorySummaryActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-    
+
     public void goToSchedule(View view) {
         Intent intent = new Intent(this, ScheduleActivity.class);
         intent.putExtra("scheduleId", scheduleId);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        // Check which request we're responding to
-//        if (requestCode == PICK_CONTACT_REQUEST) {
-//            // Make sure the request was successful
-//            if (resultCode == RESULT_OK) {
-//                scheduleId = (long) data.getExtras().get("scheduleId");
-//                schedule = Schedule.findById(Schedule.class, scheduleId);
-//                if (schedule != null) {
-//                    if (schedule.comments != null) {
-//                        updateTextView(R.id.comment, schedule.comments);
-//                    }
-//                    RatingBar rate = (RatingBar) findViewById(R.id.ratingBar2);
-//                    rate.setRating(schedule.rating);
-//                }
-//            }
-//        }
-//    }
-
     @Override
     public void onResume() {
         super.onResume();
+        schedule = Schedule.findById(Schedule.class, scheduleId);
         if (schedule != null) {
             if (schedule.comments != null) {
                 updateTextView(R.id.comment, schedule.comments);
