@@ -195,7 +195,7 @@ public class ScheduleActivity extends FragmentActivity {
     }
 
     private void evaluateExpiration() {
-        if (true/*Calendar.getInstance().compareTo(schedule.endDate) > 0*/) {
+        if (Calendar.getInstance().compareTo(schedule.endDate) > 0) {
             LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
             View popUpView = layoutInflater.inflate(R.layout.schedule_expiration_dialog, null);
             final PopupWindow popupWindow = new PopupWindow(popUpView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
