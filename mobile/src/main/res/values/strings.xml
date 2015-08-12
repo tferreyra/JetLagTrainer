@@ -70,7 +70,7 @@
     <!--History Screen-->
     <string name="title">Your History</string>
     <string name="empty">Your History is empty!</string>
-    <string name="old">Go to old schedule</string>
+    <string name="old">View old schedule</string>
     <string name="no_comment">No comments</string>
 
     <!-- Schedule Agenda Items -->

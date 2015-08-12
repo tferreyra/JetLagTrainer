@@ -139,7 +139,10 @@ public class HistorySummaryActivity extends Activity {
     @Override
     public void onBackPressed() {
         saveInfo();
-        super.onBackPressed();
+        //super.onBackPressed();
+        Intent intent = new Intent(HistorySummaryActivity.this, HistoryActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
 
     }
 

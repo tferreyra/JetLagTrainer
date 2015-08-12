@@ -203,15 +203,8 @@ public class ScheduleActivity extends FragmentActivity {
             popupWindow.setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
             popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
 
-            Button archive = (Button) popUpView.findViewById(R.id.archive);
             Button evaluate = (Button) popUpView.findViewById(R.id.evaluate);
-            archive.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cancelSchedule(v, true);
-                    popupWindow.dismiss();
-                }
-            });
+
             evaluate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -230,6 +223,7 @@ public class ScheduleActivity extends FragmentActivity {
         //Intent intent = new Intent(this, EvaluationActivity.class);
         Intent intent = new Intent(this, HistorySummaryActivity.class);
         intent.putExtra("scheduleId", scheduleId);
+        //intent.putExtra("")
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
