@@ -187,7 +187,7 @@ public class ScheduleActivity extends FragmentActivity {
             cancel.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    cancelSchedule(v);
+                    cancelSchedule(v, true);
                     return true;
                 }
             });
@@ -195,7 +195,7 @@ public class ScheduleActivity extends FragmentActivity {
     }
 
     private void evaluateExpiration() {
-        if (/*Calendar.getInstance().compareTo(schedule.endDate) > 0*/ true) {
+        if (Calendar.getInstance().compareTo(schedule.endDate) > 0) {
             LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
             View popUpView = layoutInflater.inflate(R.layout.schedule_expiration_dialog, null);
             final PopupWindow popupWindow = new PopupWindow(popUpView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
@@ -208,15 +208,15 @@ public class ScheduleActivity extends FragmentActivity {
             archive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    cancelSchedule(v);
+                    cancelSchedule(v, true);
                     popupWindow.dismiss();
                 }
             });
             evaluate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    cancelSchedule(v, false);
                     launchEvaluation();
-                    cancelSchedule(v);
                     popupWindow.dismiss();
                 }
             });
@@ -366,9 +366,10 @@ public class ScheduleActivity extends FragmentActivity {
         return size;
     }
 
-    public void cancelSchedule(View view) {
+    public void cancelSchedule(View view, boolean b) {
         schedule.cancelSchedule();
-        onBackPressed();
+        if (b)
+            onBackPressed();
     }
 
     public void setNewSleepTime(View view) {
