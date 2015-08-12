@@ -65,7 +65,7 @@ public class ScheduleActivity extends FragmentActivity {
 
         setScheduleBar();
 
-        if (intent.getBooleanExtra("reminder", false) == true) {
+        if (intent.getBooleanExtra("reminder", false)) {
             setReminders();
         }
 

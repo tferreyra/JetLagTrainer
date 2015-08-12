@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 public class EvaluationActivity extends Activity {
     private Schedule schedule;
+    private long scheduleId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class EvaluationActivity extends Activity {
         setContentView(R.layout.activity_evaluation);
 
         Intent getIntent = getIntent();
-        long scheduleId = (long) getIntent.getExtras().get("scheduleId");
+        scheduleId = (long) getIntent.getExtras().get("scheduleId");
         schedule = Schedule.findById(Schedule.class, scheduleId);
         TextView origin = (TextView) findViewById(R.id.origin);
         origin.setText(schedule.originTimezone);
@@ -75,6 +77,20 @@ public class EvaluationActivity extends Activity {
 
         Toast.makeText(this, "Your evaluation has been saved.", Toast.LENGTH_LONG).show();
 
+        //super.onBackPressed();
+        Intent intent = new Intent(this, HistorySummaryActivity.class);
+        intent.putExtra("scheduleId", scheduleId);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 5000);
+
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
 }
