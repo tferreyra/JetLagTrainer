@@ -77,6 +77,9 @@ public class EvaluationActivity extends Activity {
 
         Toast.makeText(this, "Your evaluation has been saved.", Toast.LENGTH_LONG).show();
 
+        // Code below redirects users back to history summary after saving. I think this is most logical
+        // but if we don't want to do this comment out the code below.
+
         //super.onBackPressed();
         Intent intent = new Intent(this, HistorySummaryActivity.class);
         intent.putExtra("scheduleId", scheduleId);

@@ -119,8 +119,7 @@ public class ScheduleActivity extends FragmentActivity {
     private void setChangeSleepTime() {
         Button changeSleepTime = (Button) findViewById(R.id.change_sleep_time);
         changeSleepTime.setTag(R.id.time_tags, schedule.currentNight.sleepTime);
-        changeSleepTime.setText(TimeDialog.timeComponentsToString(schedule.currentNight.sleepTime / 60,
-                schedule.currentNight.sleepTime % 60));
+        changeSleepTime.setText(timeConversion(schedule.currentNight.sleepTime));
 
         changeSleepTime.addTextChangedListener(new TextWatcher() {
             @Override
@@ -147,6 +146,28 @@ public class ScheduleActivity extends FragmentActivity {
                 }
             }
         });
+    }
+
+    private String timeConversion(Integer minutes) {
+        minutes %= 1440;
+        String ampm = " AM";
+        String colon = ":";
+        int hours;
+
+        if (minutes >= 720) {
+            ampm = " PM";
+            minutes %= 720;
+        }
+
+        hours = minutes/60;
+        if (hours == 0)
+            hours = 12;
+        minutes %= 60;
+
+        if (minutes < 10)
+            colon = ":0";
+
+        return hours + colon + minutes + ampm;
     }
 
     private int getNewSleepTime() {
