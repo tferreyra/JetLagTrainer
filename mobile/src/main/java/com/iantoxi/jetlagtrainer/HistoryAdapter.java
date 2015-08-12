@@ -39,6 +39,7 @@ public class HistoryAdapter extends BaseAdapter {
         return position;
     }
 
+
     @Override
     public long getItemId(int position) {
         return position;
