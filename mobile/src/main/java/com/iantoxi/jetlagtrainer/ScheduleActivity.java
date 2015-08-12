@@ -195,7 +195,7 @@ public class ScheduleActivity extends FragmentActivity {
     }
 
     private void evaluateExpiration() {
-        if(Calendar.getInstance().compareTo(schedule.endDate) > 0) {
+        if (/*Calendar.getInstance().compareTo(schedule.endDate) > 0*/ true) {
             LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
             View popUpView = layoutInflater.inflate(R.layout.schedule_expiration_dialog, null);
             final PopupWindow popupWindow = new PopupWindow(popUpView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
@@ -215,8 +215,8 @@ public class ScheduleActivity extends FragmentActivity {
             evaluate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    cancelSchedule(v);
                     launchEvaluation();
+                    cancelSchedule(v);
                     popupWindow.dismiss();
                 }
             });
