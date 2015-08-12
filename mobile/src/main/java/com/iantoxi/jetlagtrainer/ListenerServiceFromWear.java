@@ -63,11 +63,11 @@ public class ListenerServiceFromWear extends WearableListenerService {
             long leeway = 30 * 60 * 1000; // do not tell users to stay awake if less than half an hour to bedtime
             if (testing || sleepTime - leeway > currentTime) {
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(ListenerServiceFromWear.this)
-                        .setSmallIcon(R.drawable.cast_ic_notification_0)
+                        .setSmallIcon(R.drawable.calendar_icon)
                         .setContentTitle(awakeTitle)
                         .setContentText(awakeText)
                         .setAutoCancel(true)
-                        .addAction(R.drawable.cast_ic_notification_0, "View Schedule", pendingIntent)
+                        .addAction(R.drawable.calendar_icon, "View Schedule", pendingIntent)
                         .extend(new NotificationCompat.WearableExtender().setBackground(BitmapFactory
                                 .decodeResource(ListenerServiceFromWear.this.getResources(), R.drawable.stay_awake_notification_img)));
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ListenerServiceFromWear.this);
@@ -77,11 +77,11 @@ public class ListenerServiceFromWear extends WearableListenerService {
             int[] noLightRange = currentNight.noLightRange();
             if (testing || noLightRange[0] * 60 * 1000 <= currentTime && currentTime <= noLightRange[1] * 60 * 1000) {
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(ListenerServiceFromWear.this)
-                        .setSmallIcon(R.drawable.cast_ic_notification_0)
+                        .setSmallIcon(R.drawable.calendar_icon)
                         .setContentTitle(lightTitle)
                         .setContentText(lightText)
                         .setAutoCancel(true)
-                        .addAction(R.drawable.cast_ic_notification_0, "View Schedule", pendingIntent)
+                        .addAction(R.drawable.calendar_icon, "View Schedule", pendingIntent)
                         .extend(new NotificationCompat.WearableExtender().setBackground(BitmapFactory
                                 .decodeResource(ListenerServiceFromWear.this.getResources(), R.drawable.too_bright_notification_img)));
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ListenerServiceFromWear.this);
@@ -91,11 +91,11 @@ public class ListenerServiceFromWear extends WearableListenerService {
             int[] lightRange = currentNight.lightRange();
             if (testing || lightRange[0] * 60 * 1000 <= currentTime && currentTime <= lightRange[1] * 60 * 1000) {
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(ListenerServiceFromWear.this)
-                        .setSmallIcon(R.drawable.cast_ic_notification_0)
+                        .setSmallIcon(R.drawable.calendar_icon)
                         .setContentTitle(darkTitle)
                         .setContentText(darkText)
                         .setAutoCancel(true)
-                        .addAction(R.drawable.cast_ic_notification_0, "View Schedule", pendingIntent)
+                        .addAction(R.drawable.calendar_icon, "View Schedule", pendingIntent)
                         .extend(new NotificationCompat.WearableExtender().setBackground(BitmapFactory
                                 .decodeResource(ListenerServiceFromWear.this.getResources(), R.drawable.too_dark_notification_img)));
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ListenerServiceFromWear.this);

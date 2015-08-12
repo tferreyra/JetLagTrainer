@@ -34,19 +34,12 @@ public class LightSensor extends Activity {
        Logic here is that if there is significant change in brightness (from light to dark or vice versa)
        wear will notify watch to check whether user is supposed to be getting light or staying in the dark
        https://en.wikipedia.org/wiki/Lux */
-    private int lightnessThrehold = 10000, darknessThreshold = 10, taskDelay = 10;
+    private int lightnessThrehold = 7000, darknessThreshold = 10, taskDelay = 10;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.light_listener_notifier);
         timer = new Timer();
-        /*final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
-        stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
-            @Override
-            public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = (TextView) stub.findViewById(R.id.text);
-            }
-        });*/
 
         // Uncomment below to turn center logo into button for testing.
 /*        ImageView button = (ImageView) findViewById(R.id.logo);

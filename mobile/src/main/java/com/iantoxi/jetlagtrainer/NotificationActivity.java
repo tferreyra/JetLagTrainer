@@ -58,12 +58,12 @@ public class NotificationActivity extends Activity {
             @Override
             public void onClick(View v) {
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(NotificationActivity.this)
-                        .setSmallIcon(R.drawable.cast_ic_notification_0)
+                        .setSmallIcon(R.drawable.calendar_icon)
                         .setContentTitle(lightTitle)
                         .setContentText(lightText)
                         .setPriority(2)
                         .setAutoCancel(true)
-                        .addAction(R.drawable.cast_ic_notification_0, "View Schedule", pendingIntent)
+                        .addAction(R.drawable.calendar_icon, "View Schedule", pendingIntent)
                         .extend(new NotificationCompat.WearableExtender().setBackground(BitmapFactory
                                 .decodeResource(NotificationActivity.this.getResources(), R.drawable.too_bright_notification_img)));
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(NotificationActivity.this);
@@ -75,12 +75,12 @@ public class NotificationActivity extends Activity {
             @Override
             public void onClick(View v) {
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(NotificationActivity.this)
-                        .setSmallIcon(R.drawable.cast_ic_notification_0)
+                        .setSmallIcon(R.drawable.calendar_icon)
                         .setContentTitle(darkTitle)
                         .setContentText(darkText)
                         .setAutoCancel(true)
                         .setPriority(2)
-                        .addAction(R.drawable.cast_ic_notification_0, "View Schedule", pendingIntent)
+                        .addAction(R.drawable.calendar_icon, "View Schedule", pendingIntent)
                         .extend(new NotificationCompat.WearableExtender().setBackground(BitmapFactory
                                 .decodeResource(NotificationActivity.this.getResources(), R.drawable.too_dark_notification_img)));
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(NotificationActivity.this);
@@ -92,12 +92,12 @@ public class NotificationActivity extends Activity {
             @Override
             public void onClick(View v) {
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(NotificationActivity.this)
-                        .setSmallIcon(R.drawable.cast_ic_notification_0)
+                        .setSmallIcon(R.drawable.calendar_icon)
                         .setContentTitle(awakeTitle)
                         .setContentText(awakeText)
                         .setAutoCancel(true)
                         .setPriority(2)
-                        .addAction(R.drawable.cast_ic_notification_0, "View Schedule", pendingIntent)
+                        .addAction(R.drawable.calendar_icon, "View Schedule", pendingIntent)
                         .extend(new NotificationCompat.WearableExtender().setBackground(BitmapFactory
                                 .decodeResource(NotificationActivity.this.getResources(), R.drawable.stay_awake_notification_img)));
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(NotificationActivity.this);

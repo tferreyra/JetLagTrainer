@@ -22,7 +22,6 @@ public class ScheduleDisplay extends Activity  {
     private LinearLayout layout1, layout2, layout3, layout4;
     private View line1, line2, line3;
     private ProgressBar progressBar;
-    private ImageView nextArrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +47,6 @@ public class ScheduleDisplay extends Activity  {
         line3 = (View) findViewById(R.id.line3);
         line3.setVisibility(View.INVISIBLE);
 
-        nextArrow = (ImageView) findViewById(R.id.next_arrow);
-        nextArrow.setVisibility(View.INVISIBLE);
         /*nextArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +117,6 @@ public class ScheduleDisplay extends Activity  {
             fillSchedule();
             progressBar = (ProgressBar) findViewById(R.id.loading);
             progressBar.setVisibility(View.GONE);
-            nextArrow.setVisibility(View.VISIBLE);
         }
     }
 

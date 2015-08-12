@@ -27,24 +27,24 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         if ("sleep".equals(selection)) {
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.drawable.cast_ic_notification_0)
+                    .setSmallIcon(R.drawable.calendar_icon)
                     .setContentTitle(sleepTitle)
                     .setContentText(sleepText)
                     .setAutoCancel(true)
                     .setPriority(2)
-                    .addAction(R.drawable.cast_ic_notification_0, "View Schedule", pendingIntent)
+                    .addAction(R.drawable.calendar_icon, "View Schedule", pendingIntent)
                     .extend(new NotificationCompat.WearableExtender()
                             .setBackground(BitmapFactory.decodeResource(context.getResources(), R.drawable.sleep_notification_img)));
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             notificationManager.notify(10, notificationBuilder.build());
         } else if ("melatonin".equals(selection)) {
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.drawable.cast_ic_notification_0)
+                    .setSmallIcon(R.drawable.calendar_icon)
                     .setContentTitle(melatoninTitle)
                     .setContentText(melatoninText)
                     .setAutoCancel(true)
                     .setPriority(2)
-                    .addAction(R.drawable.cast_ic_notification_0, "View Schedule", pendingIntent)
+                    .addAction(R.drawable.calendar_icon, "View Schedule", pendingIntent)
                     .extend(new NotificationCompat.WearableExtender()
                             .setBackground(BitmapFactory.decodeResource(context.getResources(), R.drawable.melatonin_notification_img)));
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);

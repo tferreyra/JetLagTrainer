@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
         sensorManager.registerListener(sensorListener2, accelerationSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
 
-        ImageView icon = (ImageView) findViewById(R.id.logo);
+        ImageView icon = (ImageView) findViewById(R.id.next_arrow);
         icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
