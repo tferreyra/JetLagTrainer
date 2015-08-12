@@ -340,14 +340,19 @@ public class ScheduleActivity extends FragmentActivity {
     }
 
     public void launchScheduleBarOptions(View view) {
+        Intent intent = getIntent();
+        float value = 0.43f;
+        if (intent.getStringExtra("placeholder").equals("shorter"))
+            value = 0.2f;
+
         LinearLayout scheduleBar = (LinearLayout) findViewById(R.id.schedule_bar);
         ImageButton optionsButton = (ImageButton) findViewById(R.id.options_button);
         int height = getSize().y;
         if(dialogVisible) {
-            scheduleBar.animate().translationYBy(height* 0.43f).start();
+            scheduleBar.animate().translationYBy(height* value/*0.43f*/).start();
             optionsButton.setImageDrawable(getDrawable(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha));
         } else {
-            scheduleBar.animate().translationYBy(height * -0.43f).start();
+            scheduleBar.animate().translationYBy(height * -1 * value/*0.43f*/).start();
             optionsButton.setImageDrawable(getDrawable(R.drawable.abc_ic_clear_mtrl_alpha));
         }
         dialogVisible = !dialogVisible;

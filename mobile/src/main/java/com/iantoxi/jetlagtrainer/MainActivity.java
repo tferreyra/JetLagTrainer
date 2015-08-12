@@ -117,6 +117,7 @@ public class MainActivity extends Activity {
     public void launchExistingSchedule(long scheduleId) {
         Intent intent = new Intent(this, ScheduleActivity.class);
         intent.putExtra("scheduleId", scheduleId);
+        intent.putExtra("placeholder", "normal");
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 

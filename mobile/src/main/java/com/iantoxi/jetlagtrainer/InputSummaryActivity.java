@@ -92,6 +92,7 @@ public class InputSummaryActivity extends Activity {
         schedule.save();
         Intent intent = new Intent(this, ScheduleActivity.class);
         intent.putExtra("scheduleId", scheduleId);
+        intent.putExtra("placeholder", "normal");
         intent.putExtra("finished", true);
         intent.putExtra("reminder", true);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());

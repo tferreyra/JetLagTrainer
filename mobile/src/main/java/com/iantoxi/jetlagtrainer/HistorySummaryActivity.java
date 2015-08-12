@@ -118,6 +118,7 @@ public class HistorySummaryActivity extends Activity {
         saveInfo();
         Intent intent = new Intent(this, ScheduleActivity.class);
         intent.putExtra("scheduleId", scheduleId);
+        intent.putExtra("placeholder", "shorter");
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
