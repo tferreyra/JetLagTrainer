@@ -20,45 +20,52 @@ public class MainActivity extends Activity {
 
     private TextView mTextView;
     private SensorManager sensorManager;
-    private Sensor heartRateSensor;
+    private Sensor heartRateSensor, accelerationSensor;
     private Timer timer;
-    private TimerTask heartRateTask;
-    private boolean isHeartRateTaskRunning;
-    private int heartRateThreshold = 55, taskDelay = 30000;
+    private TimerTask notificationTask;
+    private boolean isNotificationTaskRunning = false;
+    private int heartRateThreshold = 55, delay = 60000;
+
+    private boolean heartRate = false, acceleration = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.round_activity_main);
-        /*final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
-        stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
-            @Override
-            public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = (TextView) stub.findViewById(R.id.text);
-            }
-        });*/
 
         SensorEventListener sensorListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
                 if (event.sensor.getType() == Sensor.TYPE_HEART_RATE) {
-                    int heartRate = (int) event.values[0];
-                    if (heartRate < heartRateThreshold) { // threshold may not/probably isn't accurate, can figure out what it should be later
-                        heartRateTask = new TimerTask() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(MainActivity.this, SendServiceToMobile.class);
-                                intent.putExtra("message", "sleeping");
-                                startService(intent);
-                                isHeartRateTaskRunning = false;
-                            }
-                        };
-                        timer.schedule(heartRateTask, taskDelay);
-                        isHeartRateTaskRunning = true;
-                    } else if (heartRate > heartRateThreshold && isHeartRateTaskRunning) {
-                        heartRateTask.cancel();
-                        isHeartRateTaskRunning = false;
+                    int currentHeartRate = (int) event.values[0];
+                    if (currentHeartRate <= heartRateThreshold) { // threshold may not/probably isn't accurate, can figure out what it should be later
+                        heartRate = true;
+                        triggerNotification();
+                    } else {
+                        heartRate = false;
+                        if (isNotificationTaskRunning)
+                            triggerNotification();
                     }
+                }
+            }
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            }
+        };
+
+        SensorEventListener sensorListener2 = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                float x = event.values[0];
+                float y = event.values[1];
+                float z = event.values[2];
+                if (x == 0.5 && y == 0.5 && z == 0.5) {
+                    acceleration = true;
+                    triggerNotification();
+                } else {
+                    acceleration = false;
+                    if (isNotificationTaskRunning)
+                        triggerNotification();
                 }
             }
             @Override
@@ -69,6 +76,8 @@ public class MainActivity extends Activity {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         heartRateSensor = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
         sensorManager.registerListener(sensorListener, heartRateSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        accelerationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorManager.registerListener(sensorListener2, accelerationSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
 
         ImageView icon = (ImageView) findViewById(R.id.logo);
@@ -79,6 +88,24 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void triggerNotification() {
+        if (acceleration && heartRate && !isNotificationTaskRunning) {
+            notificationTask = new TimerTask() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(MainActivity.this, SendServiceToMobile.class);
+                    intent.putExtra("message", "sleeping");
+                    startService(intent);
+                }
+            };
+            timer.schedule(notificationTask, delay);
+            isNotificationTaskRunning = true;
+        } else if ((!acceleration || !heartRate) && isNotificationTaskRunning) {
+            notificationTask.cancel();
+            isNotificationTaskRunning = false;
+        }
     }
 
 }
