@@ -45,8 +45,9 @@ public class ListenerServiceFromWear extends WearableListenerService {
         Schedule schedule = null;
         if (scheduleID != 0)
             schedule = Schedule.findById(Schedule.class, scheduleID);
-        Night currentNight;
-        currentNight = schedule.currentNight;
+        Night currentNight = null;
+        if (schedule != null)
+            currentNight = schedule.currentNight;
 
         Calendar calendar = Calendar.getInstance();
         long currentTime = calendar.getTimeInMillis();

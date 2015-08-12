@@ -92,7 +92,7 @@ public class ScheduleDisplay extends Activity  {
             TextView event = (TextView) findViewById(R.id.event2);
             time.setText(timeConversion((Integer) times[1]));
             event.setText(hashMap.get(times[1]));
-            line2.setVisibility(View.VISIBLE);
+            line1.setVisibility(View.VISIBLE);
         }
         if (times.length > 2)  {
             layout3.setVisibility(View.VISIBLE);
