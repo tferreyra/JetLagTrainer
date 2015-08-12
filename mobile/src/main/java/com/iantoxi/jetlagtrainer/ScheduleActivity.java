@@ -195,11 +195,11 @@ public class ScheduleActivity extends FragmentActivity {
     }
 
     private void evaluateExpiration() {
-        if (Calendar.getInstance().compareTo(schedule.endDate) > 0) {
+        if (true/*Calendar.getInstance().compareTo(schedule.endDate) > 0*/) {
             LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
             View popUpView = layoutInflater.inflate(R.layout.schedule_expiration_dialog, null);
             final PopupWindow popupWindow = new PopupWindow(popUpView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-            popupWindow.setOutsideTouchable(true);
+            //popupWindow.setOutsideTouchable(true);
             popupWindow.setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
             popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
 
