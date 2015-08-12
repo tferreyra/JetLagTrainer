@@ -202,15 +202,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/ratingBar2"
         android:layout_below="@+id/linearLayout2"
-        android:layout_centerHorizontal="true"
-        android:isIndicator="true"/>
+        android:layout_centerHorizontal="true" />
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_comment"
+        android:hint="@string/no_comment"
         android:gravity="center"
         android:id="@+id/comment"
+        android:background="@android:color/transparent"
         android:layout_above="@+id/frameLayout3"
         android:layout_below="@+id/ratingBar2"
         android:layout_alignParentEnd="true"

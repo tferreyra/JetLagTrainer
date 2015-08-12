@@ -5,9 +5,11 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -18,6 +20,8 @@ import java.util.Locale;
 public class HistorySummaryActivity extends Activity {
     private long scheduleId;
     private Schedule schedule;
+    private EditText comments;
+    private RatingBar rate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,29 @@ public class HistorySummaryActivity extends Activity {
             RatingBar rate = (RatingBar) findViewById(R.id.ratingBar2);
             rate.setRating(schedule.rating);
         }
+
+        comments = (EditText) findViewById(R.id.comment);
+        comments.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+        });
     }
 
     private void updateTextView(int id, String text) {
@@ -88,6 +115,7 @@ public class HistorySummaryActivity extends Activity {
     }
 
     public void goToSchedule(View view) {
+        saveInfo();
         Intent intent = new Intent(this, ScheduleActivity.class);
         intent.putExtra("scheduleId", scheduleId);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
@@ -99,10 +127,25 @@ public class HistorySummaryActivity extends Activity {
         schedule = Schedule.findById(Schedule.class, scheduleId);
         if (schedule != null) {
             if (schedule.comments != null) {
-                updateTextView(R.id.comment, schedule.comments);
+                //updateTextView(R.id.comment, schedule.comments);
+
+                comments.setText(schedule.comments);
             }
-            RatingBar rate = (RatingBar) findViewById(R.id.ratingBar2);
+            rate = (RatingBar) findViewById(R.id.ratingBar2);
             rate.setRating(schedule.rating);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        saveInfo();
+        super.onBackPressed();
+
+    }
+
+    private void saveInfo() {
+        schedule.comments = comments.getText().toString();
+        schedule.rating = rate.getRating();
+        schedule.save();
     }
 }

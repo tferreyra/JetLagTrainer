@@ -81,7 +81,7 @@ public class EvaluationActivity extends Activity {
         // but if we don't want to do this comment out the code below.
 
         //super.onBackPressed();
-        Intent intent = new Intent(this, HistorySummaryActivity.class);
+/*        Intent intent = new Intent(this, HistorySummaryActivity.class);
         intent.putExtra("scheduleId", scheduleId);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -93,7 +93,7 @@ public class EvaluationActivity extends Activity {
             }
         }, 5000);
 
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());*/
     }
 
 }

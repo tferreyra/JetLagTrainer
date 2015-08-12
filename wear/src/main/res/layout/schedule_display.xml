@@ -40,7 +40,7 @@
 
     <View
         android:id="@+id/line1"
-        android:layout_width="150dp"
+        android:layout_width="@dimen/line_length"
         android:layout_height="1dp"
         android:layout_gravity="center_horizontal"
         android:background="@color/lineColor"/>
@@ -70,7 +70,7 @@
 
     <View
         android:id="@+id/line2"
-        android:layout_width="150dp"
+        android:layout_width="@dimen/line_length"
         android:layout_height="1dp"
         android:layout_gravity="center_horizontal"
         android:background="@color/lineColor"/>
@@ -100,7 +100,7 @@
 
     <View
         android:id="@+id/line3"
-        android:layout_width="150dp"
+        android:layout_width="@dimen/line_length"
         android:layout_height="1dp"
         android:layout_gravity="center_horizontal"
         android:background="@color/lineColor"/>

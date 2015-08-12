@@ -4,5 +4,6 @@
     <dimen name="display_width">85dp</dimen>
     <dimen name="display_width_2">100dp</dimen>
     <dimen name="right_margin">10dp</dimen>
+    <dimen name="line_length">165dp</dimen>
 
 </resources>
