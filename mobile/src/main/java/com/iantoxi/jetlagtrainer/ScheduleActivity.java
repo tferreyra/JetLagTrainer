@@ -94,14 +94,16 @@ public class ScheduleActivity extends FragmentActivity {
         if (!schedule.isActive()) {
             Button cancelSchedule = (Button) findViewById(R.id.cancel_schedule);
             View cancelBackground = findViewById(R.id.cancel_background);
-            cancelBackground.setBackgroundColor(getResources().getColor(R.color.teal));
+            cancelSchedule.setVisibility(View.INVISIBLE);
+            cancelBackground.setVisibility(View.INVISIBLE);
+           /* cancelBackground.setBackgroundColor(getResources().getColor(R.color.teal));
             cancelSchedule.setText("Evaluation");
             cancelSchedule.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     launchEvaluation();
                 }
-            });
+            });*/
 
             View changeSleepTime = findViewById(R.id.change_sleep_time_wrapper);
             changeSleepTime.setVisibility(View.INVISIBLE);
@@ -225,7 +227,8 @@ public class ScheduleActivity extends FragmentActivity {
     }
 
     private void launchEvaluation() {
-        Intent intent = new Intent(this, EvaluationActivity.class);
+        //Intent intent = new Intent(this, EvaluationActivity.class);
+        Intent intent = new Intent(this, HistorySummaryActivity.class);
         intent.putExtra("scheduleId", scheduleId);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
