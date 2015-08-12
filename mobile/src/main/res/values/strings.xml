@@ -54,7 +54,7 @@
     <string name="light_control_explanation">Whether our bodies\' natural circadian rhythms align with the
         environment are determined by several factors, with one of the most important ones being light. Bright light exposure
         can cause a \'phase shift\', an advance or delay in circadian rhythms. Thus, by carefully controlling our exposure to light,
-        we can use phase shifting to match our circadian rhythms to our destination\'s time zone, preventing jet lag.</string>
+        we can use phase shifting to help adjust our circadian rhythms to match our destination\'s time zone, preventing jet lag.</string>
     <string name = "sine_curve_explanation">
         The top horizontal axis represents time in your set origin, while the bottom horizontal axis represents time in your destination.
         Your target sleep period is outlined in yellow, while your sleep period for the night is outlined in blue.

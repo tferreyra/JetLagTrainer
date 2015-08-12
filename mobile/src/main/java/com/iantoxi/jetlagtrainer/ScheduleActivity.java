@@ -321,15 +321,6 @@ public class ScheduleActivity extends FragmentActivity {
         }
     }
 
-    private String getSleepTime(int seconds) {
-        int hours = seconds / 3600;
-        seconds %= 3600;
-        int minutes = seconds / 60;
-        seconds %= 60;
-        return Integer.toString(hours) + ":" + Integer.toString(minutes) + ":" + Integer.toString(seconds);
-
-    }
-
     public void launchScheduleBarOptions(View view) {
         LinearLayout scheduleBar = (LinearLayout) findViewById(R.id.schedule_bar);
         ImageButton optionsButton = (ImageButton) findViewById(R.id.options_button);

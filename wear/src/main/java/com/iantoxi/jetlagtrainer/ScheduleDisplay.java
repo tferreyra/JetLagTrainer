@@ -73,6 +73,7 @@ public class ScheduleDisplay extends Activity  {
     public void onStop() {
         super.onStop();
         unregisterReceiver(updateReceiver);
+        hashMap.clear();
     }
 
     private void fillSchedule() {
