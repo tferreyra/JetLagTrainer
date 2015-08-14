@@ -1,10 +1,8 @@
 package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,12 +11,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
-
-/**
- * Created by tatianaferreyra on 8/3/15.
- */
+/** Class that shows how our old evaluation screen was previously structured, but no longer used
+ *  since reaching this screen was deemed too inefficient for the user, since the evaluation and
+ *  sleep schedule information could both be combined into one screen. */
 public class EvaluationActivity extends Activity {
     private Schedule schedule;
     private long scheduleId;
@@ -77,10 +72,11 @@ public class EvaluationActivity extends Activity {
 
         Toast.makeText(this, "Your evaluation has been saved.", Toast.LENGTH_LONG).show();
 
-        // Code below redirects users back to history summary after saving. I think this is most logical
-        // but if we don't want to do this comment out the code below.
+        // Code below redirects users back to history summary screen upon saving. Using this method to
+        // redirect users was debated upon since while it allowed users to return to main screen faster
+        // by eliminating the need to manually back up all the way, it introduced a non-standard function
+        // for what saving typically does and could potentially mess up user's mental model of the app's structure.
 
-        //super.onBackPressed();
 /*        Intent intent = new Intent(this, HistorySummaryActivity.class);
         intent.putExtra("scheduleId", scheduleId);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

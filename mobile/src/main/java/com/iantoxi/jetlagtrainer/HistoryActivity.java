@@ -1,28 +1,19 @@
 package com.iantoxi.jetlagtrainer;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.ListActivity;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.List;
-
-
+/** Class that displays a user's history of completed or canceled sleep schedules. */
 public class HistoryActivity extends ListActivity {
     SQLiteDatabase db;
 
@@ -37,7 +28,6 @@ public class HistoryActivity extends ListActivity {
         HistoryAdapter adapter = new HistoryAdapter(this);
         setListAdapter(adapter);
         noneMessage();
-
     }
 
     private void noneMessage() {
@@ -61,11 +51,9 @@ public class HistoryActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         long scheduleId = (Long) v.getTag(R.id.schedule_tags);
-//        Intent intent = new Intent(this, ScheduleActivity.class);
-//        intent.putExtra("scheduleId", scheduleId);
-        Intent intenttwo = new Intent(this, HistorySummaryActivity.class);
-        intenttwo.putExtra("scheduleId", scheduleId);
-        startActivity(intenttwo, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        Intent intent = new Intent(this, HistorySummaryActivity.class);
+        intent.putExtra("scheduleId", scheduleId);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     @Override
@@ -96,6 +84,5 @@ public class HistoryActivity extends ListActivity {
         Intent intent = new Intent(HistoryActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-
     }
 }

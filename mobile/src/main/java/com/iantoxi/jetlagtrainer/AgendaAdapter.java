@@ -2,7 +2,6 @@ package com.iantoxi.jetlagtrainer;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,8 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
-/**
- * Created by linxi on 7/28/15.
- */
-
+/** Adapter for sleep schedule agendas displayed on the sleep schedule screen. */
 public class AgendaAdapter extends BaseAdapter {
     HashMap<Integer, Integer> tasks;
     Object[] sortedTimes;
@@ -50,7 +44,7 @@ public class AgendaAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view=inflater.inflate(R.layout.agenda_list_item_layout, null,true);
+        View view = inflater.inflate(R.layout.agenda_list_item_layout, null,true);
         TextView time = (TextView) view.findViewById(R.id.time);
         TextView event = (TextView) view.findViewById(R.id.event);
 
@@ -58,20 +52,15 @@ public class AgendaAdapter extends BaseAdapter {
 
         Integer temp = (Integer) sortedTimes[position];
 
-        boolean wake = false;
-        if (context.getString(stringId).equals("Wake up") || context.getString(stringId).equals("Take melatonin")) {
-            wake = true;
-        }
-
         String formattedTime = processTime(temp);
 
-        //TODO: format time into hours:minutes AM/PM format
         time.setText(formattedTime);
         event.setText(context.getString(stringId));
 
         return view;
     }
 
+    /** Converts time from being 0 - 2880 min format to human readable AM PM format. */
     private String processTime(Integer minutes) {
         minutes %= 1440;
         String ampm = " AM";

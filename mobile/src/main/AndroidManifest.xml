@@ -58,6 +58,10 @@
             android:name=".NotificationActivity"
             android:label="NotificationActivity" >
         </activity>
+        <activity
+            android:name=".HistorySummaryActivity"
+            android:label="@string/title_activity_history_summary_activity" >
+        </activity>
 
         <receiver
             android:name=".NotificationReceiver"
@@ -96,10 +100,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_geo_api_key" />
 
-        <activity
-            android:name=".HistorySummaryActivity"
-            android:label="@string/title_activity_history_summary_activity" >
-        </activity>
     </application>
 
 </manifest>

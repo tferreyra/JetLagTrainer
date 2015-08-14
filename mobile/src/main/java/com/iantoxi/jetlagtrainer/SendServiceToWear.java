@@ -1,6 +1,5 @@
 package com.iantoxi.jetlagtrainer;
 
-
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +11,8 @@ import com.google.android.gms.wearable.CapabilityApi;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.Wearable;
 
+/** Service that sends messages to the wear device, used primarily to active ambient light sensor
+ *  if the light control sleep strategy is selected. */
 public class SendServiceToWear extends IntentService {
 
     private GoogleApiClient mGoogleApiClient;
@@ -30,7 +31,6 @@ public class SendServiceToWear extends IntentService {
             NotificationManagerCompat np = NotificationManagerCompat.from(getApplicationContext());
             np.cancel(10);
         }
-
 
         // Creates and builds GoogleApiClient.
         mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(

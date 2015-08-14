@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +18,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-/**
- * Created by josef on 8/2/15.
- *
- * Slide Views tutorial
- * http://codetheory.in/android-swipe-views-with-tabs/
- */
+/** Fragment for the visual representation of the current day's sleep schedule. */
 public class ScheduleFragment extends Fragment {
     private Night night;
     private Schedule schedule;
@@ -35,12 +29,10 @@ public class ScheduleFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout resource that'll be returned
+        // Inflate the layout resource that will be returned.
         View rootView = inflater.inflate(R.layout.night_layout, container, false);
 
-        // Get the arguments that was supplied when
-        // the fragment was instantiated in the
-        // CustomPagerAdapter
+        // Get the arguments that was supplied when the fragment was instantiated in the SchedulePagerAdapter.
         Bundle args = getArguments();
         schedule = Schedule.findById(Schedule.class , args.getLong("scheduleId"));
         night = Night.findById(Night.class, args.getLong("nightId"));
@@ -48,11 +40,11 @@ public class ScheduleFragment extends Fragment {
         drawSleepScheduleGraph(rootView);
         drawAxesLabels(rootView);
 
-        //Set top banner to "Night [X]"
+        //Set top banner to "Night [X]".
         TextView index = (TextView) rootView.findViewById(R.id.night_index);
         index.setText("Night " + (night.nightIndex + 1));
 
-        //Set calendar dates
+        //Set calendar dates.
         TextView dates = (TextView) rootView.findViewById(R.id.dates);
         Calendar today = night.sleepStartDate;
         Calendar tomorrow = (Calendar) today.clone();
@@ -130,8 +122,8 @@ public class ScheduleFragment extends Fragment {
                     R.id.destination04, R.id.destination05, R.id.destination06};
         }
 
-        // Plot 12pm to 12pm on destination time zone (700-2160 mins)
-        int diff = schedule.zoneGap*60;  // (Destination - Current) time difference in minutes
+        // Plot 12pm to 12pm on destination time zone (700-2160 minutes).
+        int diff = schedule.zoneGap*60;  // (Destination - Current) time difference in minutes.
         int index = 0;
         for (int t = 720; t <= 1920; t+=240) {
             TextView originTick = (TextView) view.findViewById(origin[index]);

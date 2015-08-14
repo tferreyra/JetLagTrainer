@@ -11,13 +11,11 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
-/**
- * Created by linxi on 7/28/15.
- */
-
+/** Adapter for sleep schedule history screen that shows all completed/canceled sleep schedules
+ *  as a scrollable list. */
 public class HistoryAdapter extends BaseAdapter {
+
     private List<Schedule> schedules;
     Context context;
     private static LayoutInflater inflater=null;

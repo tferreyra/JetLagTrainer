@@ -3,7 +3,6 @@ package com.iantoxi.jetlagtrainer;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -16,7 +15,10 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Locale;
 
-
+/** Class that shows all the information about a previously active sleep schedule. Evaluation was
+ *  combined with this screen to be evaluations more accessible to the user, so the feedback text
+ *  box and rating were changed to be editable, and evaluation is automatically saved upon exiting
+ *  this screen. */
 public class HistorySummaryActivity extends Activity {
     private long scheduleId;
     private Schedule schedule;
@@ -48,25 +50,23 @@ public class HistorySummaryActivity extends Activity {
         }
 
         comments = (EditText) findViewById(R.id.comment);
+        // Prevents user from bringing up the cut/copy/paste dialogs since that completely messes
+        // up how the screen is displayed.
         comments.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 return false;
             }
-
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
                 return false;
             }
-
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 return false;
             }
-
             @Override
             public void onDestroyActionMode(ActionMode mode) {
-
             }
         });
     }
@@ -128,8 +128,6 @@ public class HistorySummaryActivity extends Activity {
         schedule = Schedule.findById(Schedule.class, scheduleId);
         if (schedule != null) {
             if (schedule.comments != null) {
-                //updateTextView(R.id.comment, schedule.comments);
-
                 comments.setText(schedule.comments);
             }
             rate = (RatingBar) findViewById(R.id.ratingBar2);

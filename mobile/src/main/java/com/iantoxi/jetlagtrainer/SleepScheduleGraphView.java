@@ -4,31 +4,27 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
-import java.util.HashMap;
-
-/**
- * Created by Josef Nunez on 7/29/15.
- *
- * View that draws Sleep Schedule.
- */
+/** View that draws Sleep Schedule. */
 public class SleepScheduleGraphView extends View {
+
     // Initial and Terminal minutes on graph (graph begins at 12pm and ends at 12pm on next day).
     private final int INITIAL_TIME = 720;
     private final int TERMINAL_TIME = 2160;
+
     // Paint object to use throughout drawing process.
     private Paint paint;
+
     // Current Bedtime and Wake Time.
     private int bedTime;
     private int wakeTime;
+
     // Target Bedtime and Wake Time.
     private int targetBedTime;
     private int targetWakeTime;
+
     // Time Zone Difference in minutes.
     private int timeDiff;
 
@@ -50,11 +46,6 @@ public class SleepScheduleGraphView extends View {
     private void setPaintAttributes(Paint p, int color, Paint.Style style) {
         p.setColor(color);
         p.setStyle(style);
-    }
-
-    private void setPaintAttributes(Paint p, int color, Paint.Style style, float strokeWidth) {
-        setPaintAttributes(p, color, style);
-        p.setStrokeWidth(strokeWidth);
     }
 
     private void drawRect(Canvas c, int left, int top, int right, int bottom, Paint p) {

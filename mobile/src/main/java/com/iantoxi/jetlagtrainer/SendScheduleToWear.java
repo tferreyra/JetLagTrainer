@@ -1,6 +1,5 @@
 package com.iantoxi.jetlagtrainer;
 
-
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +10,7 @@ import com.google.android.gms.wearable.DataMap;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.Wearable;
 
+/** Service used to send sleep schedule information to wear device using DataMap. */
 public class SendScheduleToWear extends IntentService {
 
     private GoogleApiClient mGoogleApiClient;

@@ -11,19 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.orm.SugarDb;
-import com.orm.SugarRecord;
 
 import java.util.List;
 
-
+/** Main activity for the app, shows the home screen. */
 public class MainActivity extends Activity {
 
     @Override
@@ -31,17 +24,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
         Slide slide = new Slide();
         slide.excludeTarget(android.R.id.statusBarBackground, true);
         slide.excludeTarget(android.R.id.navigationBarBackground, true);
+
         getWindow().setEnterTransition(slide);
         getWindow().setExitTransition(slide);
         getWindow().setSharedElementEnterTransition(slide);
         getWindow().setSharedElementExitTransition(slide);
-
-        /*TextView textView = (TextView) findViewById(R.id.startButton);
-        Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
-        textView.startAnimation(pulse);*/
     }
 
     @Override
@@ -52,6 +43,7 @@ public class MainActivity extends Activity {
             final long scheduleId = values.get(0).getId();
             TextView startText = (TextView) findViewById(R.id.startButton);
             startText.setText(getString(R.string.existing_sleep));
+
             final Button button = (Button) findViewById(R.id.button);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -61,6 +53,7 @@ public class MainActivity extends Activity {
         } else {
             TextView startText = (TextView) findViewById(R.id.startButton);
             startText.setText(getString(R.string.main_sleep));
+
             final Button button = (Button) findViewById(R.id.button);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -103,15 +96,12 @@ public class MainActivity extends Activity {
                         graphic,   // The view which starts the transition
                         transitionName    // The transitionName of the view we’re transitioning to
                 );
-
         ActivityCompat.startActivity(this, intent, options.toBundle());
     }
 
     public void launchHistory(View view) {
         Intent intent = new Intent(this, HistoryActivity.class);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        /*Intent intent = new Intent(this, SleepStrategySelection.class);
-        startActivity(intent);*/
     }
 
     public void launchExistingSchedule(long scheduleId) {

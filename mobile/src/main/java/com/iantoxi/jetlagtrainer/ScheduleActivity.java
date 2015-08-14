@@ -33,6 +33,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Locale;
 
+/** Class for the main schedule interface that displays sleep schedule agenda and graph. */
 public class ScheduleActivity extends FragmentActivity {
     private long scheduleId;
     private Schedule schedule;
@@ -41,8 +42,6 @@ public class ScheduleActivity extends FragmentActivity {
     private boolean dialogVisible = false;
     private Animation slideUp;
     private Animation slideDown;
-
-    //TODO need to create a dialog launched from ImageButton to allow users to adjust schedule parameters
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +82,6 @@ public class ScheduleActivity extends FragmentActivity {
                 return true;
             }
         });
-
-
     }
 
     @Override
@@ -96,14 +93,6 @@ public class ScheduleActivity extends FragmentActivity {
             View cancelBackground = findViewById(R.id.cancel_background);
             cancelSchedule.setVisibility(View.INVISIBLE);
             cancelBackground.setVisibility(View.INVISIBLE);
-           /* cancelBackground.setBackgroundColor(getResources().getColor(R.color.teal));
-            cancelSchedule.setText("Evaluation");
-            cancelSchedule.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    launchEvaluation();
-                }
-            });*/
 
             View changeSleepTime = findViewById(R.id.change_sleep_time_wrapper);
             changeSleepTime.setVisibility(View.INVISIBLE);
@@ -142,6 +131,7 @@ public class ScheduleActivity extends FragmentActivity {
                     schedule.newSleepTime(newSleepTime);
                     Intent intent = new Intent(ScheduleActivity.this, ScheduleActivity.class);
                     intent.putExtra("scheduleId", scheduleId);
+                    intent.putExtra("placeholder", "normal");
                     intent.putExtra("finished", true);
                     startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(ScheduleActivity.this).toBundle());
                     finish();
@@ -199,7 +189,6 @@ public class ScheduleActivity extends FragmentActivity {
             LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
             View popUpView = layoutInflater.inflate(R.layout.schedule_expiration_dialog, null);
             final PopupWindow popupWindow = new PopupWindow(popUpView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-            //popupWindow.setOutsideTouchable(true);
             popupWindow.setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
             popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
 
@@ -220,10 +209,8 @@ public class ScheduleActivity extends FragmentActivity {
     }
 
     private void launchEvaluation() {
-        //Intent intent = new Intent(this, EvaluationActivity.class);
         Intent intent = new Intent(this, HistorySummaryActivity.class);
         intent.putExtra("scheduleId", scheduleId);
-        //intent.putExtra("")
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
@@ -342,7 +329,7 @@ public class ScheduleActivity extends FragmentActivity {
     public void launchScheduleBarOptions(View view) {
         Intent intent = getIntent();
         float value = 0.43f;
-        if (intent.getStringExtra("placeholder").equals("shorter"))
+          if (intent.getStringExtra("placeholder").equals("shorter"))
             value = 0.2f;
 
         LinearLayout scheduleBar = (LinearLayout) findViewById(R.id.schedule_bar);
@@ -376,8 +363,6 @@ public class ScheduleActivity extends FragmentActivity {
         dialog.init(view);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         dialog.show(ft, "TimePicker");
-        /*sleepTimeSet = true;
-        evaluateSubmitPotential();*/
     }
 
 }

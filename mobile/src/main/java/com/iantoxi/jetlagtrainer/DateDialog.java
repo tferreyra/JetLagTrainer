@@ -14,10 +14,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-/**
- * Created by tatianaferreyra on 7/24/15.
- * Tutorial followed: https://www.youtube.com/watch?v=eVsqDBvgd70
- */
+/** Class that allows user to pick the date of their intended arrival via DatePickerDialog. */
 public class DateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     TextView txtDate;
@@ -58,7 +55,6 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
         String monthString = date.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 
         String dateString = monthString + " " + day + ", " + year;
-        //String date = (month+1)+"-"+day+"-"+year;
         txtDate.setTag(R.id.date_tags, date);
         txtDate.setText(dateString);
     }

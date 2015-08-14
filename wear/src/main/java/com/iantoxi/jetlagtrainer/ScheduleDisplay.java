@@ -47,14 +47,6 @@ public class ScheduleDisplay extends Activity  {
         line3 = (View) findViewById(R.id.line3);
         line3.setVisibility(View.INVISIBLE);
 
-        /*nextArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ScheduleDisplay.this, GraphDisplay.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });*/
 
         updateReceiver = new UpdateReceiver();
         registerReceiver(updateReceiver, new IntentFilter("data"));

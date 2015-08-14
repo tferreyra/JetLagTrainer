@@ -13,12 +13,12 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Locale;
 
-
+/** Class that displays all the information that the user has inputted so that they can verify
+ *  everything is correct before calculating their sleep schedule. */
 public class InputSummaryActivity extends Activity {
 
     private long scheduleId;
     private Schedule schedule;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +99,7 @@ public class InputSummaryActivity extends Activity {
         finish();
     }
 
+    /** Converts time from being 0 - 2880 min format to human readable AM PM format. */
     private String timeConversion(Integer minutes) {
         minutes %= 1440;
         String ampm = " AM";

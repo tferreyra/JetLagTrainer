@@ -6,10 +6,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
+/** Class receives broadcasted message if it is time to sleep or time to take melatonin and triggers
+ *  the appropriate notifications. */
 public class NotificationReceiver extends BroadcastReceiver {
     private String sleepTitle = "It's time to sleep...";
     private String sleepText = "Good night!";
@@ -20,6 +21,7 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String selection = intent.getStringExtra("id");
 
+        // Adds action to notifications allowing user to view sleep schedule from wear device.
         Intent intent2 = new Intent(context, SendServiceToWear.class);
         intent2.addFlags(Notification.FLAG_AUTO_CANCEL);
         intent2.putExtra("message", "schedule");

@@ -15,17 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 
-/**
- * Created by tatianaferreyra on 7/29/15.
- */
+/** Class that represents the screen in which user inputs destination and date information. */
 public class OriginTime extends Activity {
     private Schedule schedule;
     private long scheduleId;
     private boolean sleepTimeSet = false;
     private boolean wakeTimeSet = false;
-    private int sleepTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +39,6 @@ public class OriginTime extends Activity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
@@ -144,8 +139,6 @@ public class OriginTime extends Activity {
         dialog.init(view);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         dialog.show(ft, "DatePicker");
-        /*sleepTimeSet = true;
-        evaluateSubmitPotential();*/
     }
 
     public void setWakeTime(View view) {
@@ -153,10 +146,9 @@ public class OriginTime extends Activity {
         dialog.init(view);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         dialog.show(ft, "DatePicker");
-        /*wakeTimeSet = true;
-        evaluateSubmitPotential();*/
     }
 
+    // Only allows user to proceed to next screen once all information has been filled out.
     private void evaluateSubmitPotential() {
         if (sleepTimeSet && wakeTimeSet) {
             Button submit = (Button) findViewById(R.id.submit);

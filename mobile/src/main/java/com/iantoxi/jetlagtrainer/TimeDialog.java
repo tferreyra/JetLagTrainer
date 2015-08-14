@@ -9,10 +9,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-/**
- * Created by linxi on 7/31/15.
- */
+/** Class that allows user to input time information via TimePickerDialog. */
 public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+
     private TextView textView;
     Activity main;
 
@@ -24,16 +23,15 @@ public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTim
         main = getActivity();
     }
 
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        //Default time to 12PM
+        // Default time to 12PM.
         TimePickerDialog dialog = new TimePickerDialog(getActivity(), this, 12, 0, false);
         if (textView.getId() == R.id.sleep_time) {
-            //Default time to 10PM
+            // Default time to 10PM.
             dialog = new TimePickerDialog(getActivity(), this, 22, 0, false);
         } else if (textView.getId() == R.id.wake_time) {
-            //Default time to 8AM
+            // Default time to 8AM.
             dialog = new TimePickerDialog(getActivity(), this, 8, 0, false);
         } else {
             Integer total = (Integer) textView.getTag(R.id.time_tags);
@@ -44,6 +42,7 @@ public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTim
 
         return dialog;
     }
+
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         int total = hourOfDay * 3600 + minute * 60;
@@ -52,10 +51,11 @@ public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTim
         textView.setText(timeComponentsToString(hourOfDay, minute));
     }
 
+    // Converts time information returned by TimePicker to human readable AM PM format.
     public static String timeComponentsToString(int hourOfDay, int minute) {
         String AMPM = " AM";
         if (hourOfDay == 0) {
-            hourOfDay = 12; // since 12 AM is represented as 0
+            hourOfDay = 12; // Since 12 AM is represented as 0 by the TimePicker.
         } else if (hourOfDay >= 12) {
             AMPM = " PM";
             if (hourOfDay > 12)

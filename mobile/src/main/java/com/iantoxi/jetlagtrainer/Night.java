@@ -5,9 +5,7 @@ import com.orm.SugarRecord;
 import java.util.Calendar;
 import java.util.HashMap;
 
-/**
- * Created by linxi on 7/28/15.
- */
+/** Class that contains all sleep schedule agenda information for one day in the user's sleep schedule. */
 public class Night extends SugarRecord<Night> {
     public long parent; //SugarORM id
     public int nightIndex; //index in schedule
@@ -18,7 +16,6 @@ public class Night extends SugarRecord<Night> {
     public  boolean lightStrategy;
     public long previous; //SugarORM id
     public long next; //SugarORM id
-
 
     private boolean advancing;
 
@@ -68,7 +65,7 @@ public class Night extends SugarRecord<Night> {
 
     private int adjustTime(int time) {
         if(advancing) {
-            return time - 60; // sleep earlier by one hour
+            return time - 60; // Sleep earlier by one hour.
         } else {
             return time + 60;
         }
@@ -111,7 +108,6 @@ public class Night extends SugarRecord<Night> {
                 agenda.put(lightRange()[0], R.string.light_on_time);
             }
         }
-
         return agenda;
     }
 
@@ -134,5 +130,4 @@ public class Night extends SugarRecord<Night> {
 
         return agenda;
     }
-
 }

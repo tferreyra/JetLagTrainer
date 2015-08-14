@@ -6,7 +6,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.data.Freezable;
 import com.google.android.gms.common.data.FreezableUtils;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
@@ -17,6 +16,7 @@ import com.google.android.gms.wearable.WearableListenerService;
 
 import java.util.List;
 
+/** Service that listens for messages or schedule information from mobile. */
 public class ListenerServiceFromMobile extends WearableListenerService{
 
     public void onCreate() {
@@ -55,7 +55,7 @@ public class ListenerServiceFromMobile extends WearableListenerService{
                 final DataMap map = DataMapItem.fromDataItem(event.getDataItem()).getDataMap();
                 Integer time = map.getInt("time");
                 String evnt = map.getString("event");
-
+                // Broadcasts schedule information data as it is received.
                 Intent intent = new Intent();
                 intent.setAction("data");
                 intent.putExtra("time", time);

@@ -16,9 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -33,7 +31,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+/** Activity that allows users to input their origin and destination location using Google place picker. */
 public class InputLocationActivity extends Activity {
+
     private static int ORIGIN_PLACE_PICKER_REQUEST = 1;
     private static int DESTINATION_PLACE_PICKER_REQUEST = 2;
     public String originTimeZone;
@@ -76,7 +76,6 @@ public class InputLocationActivity extends Activity {
                 }
             }
         });
-
     }
 
     protected void onResume() {
@@ -229,7 +228,7 @@ public class InputLocationActivity extends Activity {
         if (originSet && destinationSet && dateSet) {
             final long scheduleId = buildSchedule();
 
-            //check to make sure timezones are different
+            // Check to make sure timezones are different.
             if (schedule.calculateZoneGap() == 0) {
                 Toast.makeText(this, "Seems there is a 0 hour difference between your current and destination time zone.", Toast.LENGTH_LONG).show();
                 destinationSet = false;

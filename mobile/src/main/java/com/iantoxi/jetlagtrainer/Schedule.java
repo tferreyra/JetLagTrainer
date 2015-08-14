@@ -1,17 +1,11 @@
 package com.iantoxi.jetlagtrainer;
 
-import android.util.Log;
-
 import com.orm.SugarRecord;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.TimeZone;
 
-/**
- * Created by linxi on 7/27/15.
- */
+/** Class that contains all information for a sleep schedule. */
 public class Schedule extends SugarRecord<Schedule> {
     //Origin and Destination TimeZones in Olsen ID format.
     public String originTimezone;
@@ -23,8 +17,7 @@ public class Schedule extends SugarRecord<Schedule> {
 
     public int originSleepTime = -1; //in minutes
     public int originWakeTime = -1; //in minutes
-    //TODO: Implement logic to calculate schedules based on a destination sleep time.
-    //TODO: Implement activity to query user for Destination sleep times.
+
     public int destinationSleepTime = -1;
     public int destinationWakeTime = -1;
     public int targetSleepTime = -1;//relative to local timezone
@@ -91,7 +84,7 @@ public class Schedule extends SugarRecord<Schedule> {
         this.save();
     }
 
-    //Assuming that users will shift one hour a day, delays start of sleep schedule adjustment
+    // Assuming that users will shift one hour a day, delays start of sleep schedule adjustment
     // until users adjust one hour per day to new schedule.
     // For example, if flying from West Coast to East Coast in 5 days, only need 3 hours of
     // adjustment, so will delay startDate by 2 days.

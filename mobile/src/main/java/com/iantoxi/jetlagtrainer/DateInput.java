@@ -3,8 +3,6 @@ package com.iantoxi.jetlagtrainer;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,10 +10,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 
-/**
- * Created by tatianaferreyra on 7/25/15.
- */
-public class DateInput extends Activity{
+/** Class that launches the date picker once user presses the date text box. */
+public class DateInput extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +47,6 @@ public class DateInput extends Activity{
         return super.onOptionsItemSelected(item);
     }
 
-
     public void onStart() {
         super.onStart();
         EditText txtDate = (EditText) findViewById(R.id.txtdeparturedate);
@@ -66,7 +61,6 @@ public class DateInput extends Activity{
                 }
             }
         });
-
     }
 
 }

@@ -1,6 +1,5 @@
 package com.iantoxi.jetlagtrainer;
 
-
 import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -12,8 +11,8 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.view.View;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
+/** Class strictly for the purposes of testing and demoing notifications, since it is impossible
+ *  to have notifications launch by meeting the appropriate conditions during demonstrations. */
 public class NotificationActivity extends Activity {
 
     private String awakeTitle = "It's not time to sleep yet...", awakeText = "Stay Awake!";

@@ -2,7 +2,6 @@ package com.iantoxi.jetlagtrainer;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,8 +16,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.Toast;
 
+/** Screen that allows users to select optional sleep strategies. */
 public class SleepStrategySelection extends Activity {
     private long scheduleId;
     private Schedule schedule;
@@ -63,6 +62,7 @@ public class SleepStrategySelection extends Activity {
             }
         });
 
+        // Creates pop up upon long click that displays additional information for melatonin sleep strategy.
         melatoninView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -87,7 +87,7 @@ public class SleepStrategySelection extends Activity {
                 return true;
             }
         });
-
+        // Creates pop up upon long click that displays additional information for light control sleep strategy.
         lightView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

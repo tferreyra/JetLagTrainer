@@ -2,18 +2,20 @@ package com.iantoxi.jetlagtrainer;
 
 import com.orm.SugarRecord;
 
-/**
- * Created by Josef Nunez on 8/3/15.
- */
+/** Class that outlines the structure of user evaluations for sleep schedules. */
 public class Evaluation extends SugarRecord<Evaluation> {
+
     // Origin and Destination TimeZones in Olsen ID format.
     public String originTimezone;
     public String destinationTimezone;
-    // Were melatonin or light strategies used
+
+    // Whether melatonin and/or light control sleep strategies were used.
     public boolean melatoninStrategy;
     public boolean lightStrategy;
-    // User text response.
+
+    // User text commentary about the sleep schedule.
     public String response;
+
     // Number of stars given.
     public double rating;
 

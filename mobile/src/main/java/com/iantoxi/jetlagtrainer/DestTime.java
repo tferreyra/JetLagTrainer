@@ -10,9 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 
-/**
- * Created by tatianaferreyra on 7/29/15.
- */
+/** Class that launches the time picker once user presses the text boxes to input sleep schedule times. */
 public class DestTime extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +62,6 @@ public class DestTime extends Activity {
                 }
             }
         });
-
     }
 
 }
